@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "184693975660",
+    "firebase_url": "https://wemath-c070f.firebaseio.com",
+    "project_id": "wemath-c070f",
+    "storage_bucket": "wemath-c070f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:184693975660:android:3f20b104f6a81fdd150649",
+        "android_client_info": {
+          "package_name": "com.welearn.wemath"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "184693975660-fm36i11rv6clpeh1m53m6mc4oa5e27rf.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.welearn.wemath",
+            "certificate_hash": "f458b6a2fb49ab6df0f16271107bd695252267dd"
+          }
+        },
+        {
+          "client_id": "184693975660-m43ir0gmrpse2t83jtv0i0pl635rmr3v.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCuESI9ILWVRnX6A8CZQP6o9Bk-rF2rUQM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "184693975660-m43ir0gmrpse2t83jtv0i0pl635rmr3v.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
