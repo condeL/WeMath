@@ -1,3 +1,16 @@
 <resources>
-    <string name="app_name">WeMath</string>
+    <string name="app_name" translatable="false">WeMath</string>
+    <string name="title_activity_lesson_question">LessonQuestionActivity</string>
+
+
+    <string name="next_button">Next</string>
+    <string name="correct_toast">Correct</string>
+    <string name="incorrect_toast">False</string>
+
+    <string name="question1">15+15=51</string>
+    <string name="answer1_1">True</string>
+    <string name="answer1_2">False</string>
+    <string name="answer1_3">Maybe</string>
+    <string name="answer1_4">Nah</string>
+
 </resources>
