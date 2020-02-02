@@ -22,8 +22,8 @@ public class LessonQuestionActivity extends AppCompatActivity {
     private RadioGroup mRadioGroup;
     private Button mNextButton;
     private TextView mQuestionTextView;
-
     private LessonQuestion mLessonQuestion;
+    private Button[] mAnswers;
 
 
     @Override
@@ -34,11 +34,11 @@ public class LessonQuestionActivity extends AppCompatActivity {
          mLessonQuestion = new LessonQuestion(
                 getResources().getString(R.string.question1),
                 new ArrayList<Pair<String, Boolean>>(Arrays.asList(
-                        new Pair<String, Boolean>(getResources().getString(R.string.answer1_1), false),
-                        new Pair<String, Boolean>(getResources().getString(R.string.answer1_2), true),
-                        new Pair<String, Boolean>(getResources().getString(R.string.answer1_3), false),
-                        new Pair<String, Boolean>(getResources().getString(R.string.answer1_4), true))),
-                true);
+                        new Pair<>(getResources().getString(R.string.answer1_1), false),
+                        new Pair<>(getResources().getString(R.string.answer1_2), true),
+                        new Pair<>(getResources().getString(R.string.answer1_3), false),
+                        new Pair<>(getResources().getString(R.string.answer1_4), true))),
+                false);
 
         mQuestionTextView = findViewById(R.id.question_text_view);
         mQuestionTextView.setText(mLessonQuestion.getProblem());
@@ -48,7 +48,30 @@ public class LessonQuestionActivity extends AppCompatActivity {
         mAnswerChoice3 = new RadioButton(this);*/
 
         mRadioGroup = findViewById(R.id.radio_group);
-        for(int i = 0; i<mLessonQuestion.getAnswers().size();i++){
+
+        if(!mLessonQuestion.isMultipleChoice()) {
+            mAnswers = new RadioButton[mLessonQuestion.getAnswersSize()];
+            for(int i = 0; i<mLessonQuestion.getAnswersSize();i++){
+                mAnswers[i] = (RadioButton)mRadioGroup.getChildAt(i);
+                mAnswers[i].setText(mLessonQuestion.getAnswerText(i));
+                mAnswers[i].setVisibility(View.VISIBLE);
+            }
+
+        }
+        else{
+            mAnswers = new CheckBox[mLessonQuestion.getAnswersSize()];
+            for(int i = 0; i<mLessonQuestion.getAnswersSize();i++){
+               // mAnswers[i] = new CheckBox(this);
+                mAnswers[i] = (CheckBox)mRadioGroup.getChildAt(i+4);
+                mAnswers[i].setText(mLessonQuestion.getAnswerText(i));
+                mAnswers[i].setVisibility(View.VISIBLE);
+
+            }
+        }
+
+
+
+        /*for(int i = 0; i<mLessonQuestion.getAnswers().size();i++){
             if(!mLessonQuestion.isMultipleChoice()) {
                 mRadioGroup.addView(new RadioButton(this), i);
                 ((RadioButton) mRadioGroup.getChildAt(i)).setText(mLessonQuestion.getAnswers().get(i).first);
@@ -57,7 +80,7 @@ public class LessonQuestionActivity extends AppCompatActivity {
                 mRadioGroup.addView(new CheckBox(this), i);
                 ((CheckBox) mRadioGroup.getChildAt(i)).setText(mLessonQuestion.getAnswers().get(i).first);
             }
-        }
+        }*/
 
 
         /*private RadioButton mAnswerChoice1;
@@ -104,10 +127,13 @@ public class LessonQuestionActivity extends AppCompatActivity {
         mNextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 int answer;
                 if(!mLessonQuestion.isMultipleChoice()) {
-                    answer = mRadioGroup.getCheckedRadioButtonId();
-                    checkAnswer(answer - 1);
+                    int selectedID = mRadioGroup.getCheckedRadioButtonId();
+                    RadioButton radioButton = mRadioGroup.findViewById(selectedID);
+                    answer = mRadioGroup.indexOfChild(radioButton);
+                    checkAnswer(answer);
                 } else{
                     checkAnswer(0);
                 }
@@ -124,16 +150,16 @@ public class LessonQuestionActivity extends AppCompatActivity {
         int messageResId = 0;
 
         if(!mLessonQuestion.isMultipleChoice()) {
-            if (mLessonQuestion.getAnswers().get(answerNumber).second.booleanValue() == true) {
+            if (mLessonQuestion.getAnswerValue(answerNumber)) {
                 messageResId = R.string.correct_toast;
             } else {
                 messageResId = R.string.incorrect_toast;
             }
         } else{
             int score = 0;
-            for(int i = 0; i<mLessonQuestion.getAnswers().size();i++){
-                if(((CheckBox)mRadioGroup.getChildAt(i)).isChecked()){
-                    if (mLessonQuestion.getAnswers().get(i).second.booleanValue() == true){
+            for(int i = 0; i<mLessonQuestion.getAnswersSize();i++){
+                if(((CheckBox)mAnswers[i]).isChecked()){
+                    if (mLessonQuestion.getAnswerValue(i)){
                         score++;
                     }
                     else{
@@ -142,7 +168,7 @@ public class LessonQuestionActivity extends AppCompatActivity {
                     }
                 }
             }
-            if(score == mLessonQuestion.getNbAnswers()){
+            if(score == mLessonQuestion.getNbCorrectAnswers()){
                 messageResId = R.string.correct_toast;
             } else {
                 messageResId = R.string.incorrect_toast;
