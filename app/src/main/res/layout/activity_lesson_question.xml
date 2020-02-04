@@ -111,7 +111,7 @@
                         android:background="@mipmap/cards"
                         android:visibility="gone"
                         tools:text="RadioButton"
-                        tools:visibility="visible" />
+                        tools:visibility="gone" />
 
                     <CheckBox
                         android:id="@+id/answer2_checkbox"
@@ -120,7 +120,7 @@
                         android:background="@mipmap/cards"
                         android:visibility="gone"
                         tools:text="RadioButton"
-                        tools:visibility="visible" />
+                        tools:visibility="gone" />
 
                     <CheckBox
                         android:id="@+id/answer3_checkbox"
@@ -129,7 +129,7 @@
                         android:background="@mipmap/cards"
                         android:visibility="gone"
                         tools:text="RadioButton"
-                        tools:visibility="visible" />
+                        tools:visibility="gone" />
 
                     <CheckBox
                         android:id="@+id/answer4_checkbox"
@@ -138,7 +138,7 @@
                         android:background="@mipmap/cards"
                         android:visibility="gone"
                         tools:text="RadioButton"
-                        tools:visibility="visible" />
+                        tools:visibility="gone" />
 
                     <com.google.android.material.card.MaterialCardView
                         android:id="@+id/answer2_card"

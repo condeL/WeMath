@@ -38,7 +38,7 @@ public class LessonQuestionActivity extends AppCompatActivity {
                         new Pair<>(getResources().getString(R.string.answer1_2), true),
                         new Pair<>(getResources().getString(R.string.answer1_3), false),
                         new Pair<>(getResources().getString(R.string.answer1_4), true))),
-                false);
+                true);
 
         mQuestionTextView = findViewById(R.id.question_text_view);
         mQuestionTextView.setText(mLessonQuestion.getProblem());
