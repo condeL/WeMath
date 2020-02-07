@@ -19,18 +19,22 @@ import java.util.Arrays;
 
 public class LessonQuestionActivity extends AppCompatActivity {
 
+    //the LessonQuestion object
+    private LessonQuestion mLessonQuestion;
+
+    //references to the various widgets on the activity
     private RadioGroup mRadioGroup;
     private Button mNextButton;
     private TextView mQuestionTextView;
-    private LessonQuestion mLessonQuestion;
-    private Button[] mAnswers;
+    private Button[] mAnswers; //generic button to hold the radio or checkboxes
 
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) { //called the activity is created
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_lesson_question);
+        setContentView(R.layout.activity_lesson_question); //deflating the activity
 
+        //instantiating the LessonQuestion object
          mLessonQuestion = new LessonQuestion(
                 getResources().getString(R.string.question1),
                 new ArrayList<Pair<String, Boolean>>(Arrays.asList(
@@ -40,15 +44,13 @@ public class LessonQuestionActivity extends AppCompatActivity {
                         new Pair<>(getResources().getString(R.string.answer1_4), true))),
                 true);
 
-        mQuestionTextView = findViewById(R.id.question_text_view);
-        mQuestionTextView.setText(mLessonQuestion.getProblem());
+        mQuestionTextView = findViewById(R.id.question_text_view); //link the reference to the actual widget item
+        mQuestionTextView.setText(mLessonQuestion.getProblem()); //set the text to the problem
 
-        /*mAnswerChoice1 = new RadioButton(this);
-        mAnswerChoice2 = new RadioButton(this);
-        mAnswerChoice3 = new RadioButton(this);*/
+        mRadioGroup = findViewById(R.id.radio_group); //link the reference to the radiogroup widget
 
-        mRadioGroup = findViewById(R.id.radio_group);
 
+        //setting up the answer choices
         if(!mLessonQuestion.isMultipleChoice()) {
             mAnswers = new RadioButton[mLessonQuestion.getAnswersSize()];
             for(int i = 0; i<mLessonQuestion.getAnswersSize();i++){
@@ -123,6 +125,7 @@ public class LessonQuestionActivity extends AppCompatActivity {
             }
         });*/
 
+        //setting up the behaviour of the Next button
         mNextButton = findViewById(R.id.next_button);
         mNextButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -144,7 +147,7 @@ public class LessonQuestionActivity extends AppCompatActivity {
     }
 
 
-
+    //method to compute the choice of the user
     private void checkAnswer(int answerNumber){
 
         int messageResId = 0;
@@ -174,6 +177,7 @@ public class LessonQuestionActivity extends AppCompatActivity {
                 messageResId = R.string.incorrect_toast;
             }
         }
+        //little message indicating if it's correct or not
         Toast.makeText(this, messageResId, Toast.LENGTH_SHORT).show();
 
     }
