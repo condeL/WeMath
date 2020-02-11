@@ -1,4 +1,4 @@
-package com.welearn.wemath;
+package com.welearn.wemath.lessons;
 
 import android.media.Image;
 

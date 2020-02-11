@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="year1">
+        <item>Stats</item>
+        <item>Trigo</item>
+        <item>Geometry</item>
+        <item>Algebra</item>
+    </string-array>
+
+    <string-array name="numbersyear1">
+        <item>5 Lessons</item>
+        <item>6 Lessons</item>
+        <item>7 Lessons</item>
+        <item>8 Lessons</item>
+    </string-array>
+
+    <string-array name="percentagesyear1">
+        <item>55% Completed</item>
+        <item>65% Completed</item>
+        <item>75% Completed</item>
+        <item>85% Completed</item>
+    </string-array>
+
+    <string-array name="year2">
+        <item>English</item>
+        <item>Math</item>
+        <item>Lang</item>
+        <item>Test</item>
+    </string-array>
+
+    <string-array name="numbersyear2">
+        <item>9 Lessons</item>
+        <item>10 Lessons</item>
+        <item>11 Lessons</item>
+        <item>12 Lessons</item>
+    </string-array>
+
+    <string-array name="percentagesyear2">
+        <item>15% Completed</item>
+        <item>25% Completed</item>
+        <item>35% Completed</item>
+        <item>45% Completed</item>
+    </string-array>
+
+    <string-array name="year3">
+        <item>Sports</item>
+        <item>Poker</item>
+        <item>Football</item>
+        <item>Miasma</item>
+    </string-array>
+
+    <string-array name="numbersyear3">
+        <item>13 Lessons</item>
+        <item>14 Lessons</item>
+        <item>15 Lessons</item>
+        <item>16 Lessons</item>
+    </string-array>
+
+    <string-array name="percentagesyear3">
+        <item>58% Completed</item>
+        <item>68% Completed</item>
+        <item>78% Completed</item>
+        <item>88% Completed</item>
+    </string-array>
+</resources>

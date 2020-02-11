@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@id/navigation_home">
+
+    <fragment
+        android:id="@+id/navigation_lesson_section"
+        android:name="com.welearn.wemath.LessonSectionFragment"
+        android:label="fragment_lesson_section"
+        tools:layout="@layout/fragment_lesson_section" >
+        <action
+            android:id="@+id/action_navigation_lesson_section_to_lessonYearFragment"
+            app:destination="@id/lessonYearFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/navigation_home"
+        android:name="com.welearn.wemath.HomeScreenFragment"
+        android:label="fragment_home_screen"
+        tools:layout="@layout/fragment_home_screen" />
+    <fragment
+        android:id="@+id/navigation_quiz_main"
+        android:name="com.welearn.wemath.QuizMainFragment"
+        android:label="fragment_quiz_main"
+        tools:layout="@layout/fragment_quiz_main" />
+    <fragment
+        android:id="@+id/lessonYearFragment"
+        android:name="com.welearn.wemath.lessons.LessonYearFragment"
+        android:label="lesson_year_fragment"
+        tools:layout="@layout/lesson_year_fragment" >
+        <action
+            android:id="@+id/action_lessonYearFragment_to_lessonTopicFragment"
+            app:destination="@id/lessonTopicFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/lessonTopicFragment"
+        android:name="com.welearn.wemath.lessons.LessonTopicFragment"
+        android:label="lesson_topic_fragment"
+        tools:layout="@layout/lesson_topic_fragment" >
+        <action
+            android:id="@+id/action_lessonTopicFragment_to_lessonSelectionFragment"
+            app:destination="@id/lessonSelectionFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/lessonSelectionFragment"
+        android:name="com.welearn.wemath.lessons.LessonSelectionFragment"
+        android:label="lesson_selection_fragment"
+        tools:layout="@layout/lesson_selection_fragment" >
+        <action
+            android:id="@+id/action_lessonSelectionFragment_to_lessonActivity"
+            app:destination="@id/lessonActivity" />
+    </fragment>
+    <activity
+        android:id="@+id/lessonActivity"
+        android:name="com.welearn.wemath.lessons.LessonActivity"
+        android:label="activity_lesson"
+        tools:layout="@layout/activity_lesson" />
+
+</navigation>

@@ -12,5 +12,11 @@
     <string name="answer1_2">False</string>
     <string name="answer1_3">Maybe</string>
     <string name="answer1_4">Nah</string>
+    <string name="navigation_home">Home</string>
+    <string name="navigation_lesson">Lessons</string>
+    <string name="navigation_quiz">Quizzes</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

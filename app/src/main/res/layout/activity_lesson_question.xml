@@ -4,7 +4,6 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/linearLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center">
@@ -16,7 +15,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical" >
+            android:orientation="vertical">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -24,7 +23,7 @@
                 android:layout_marginBottom="25dp">
 
                 <com.google.android.material.card.MaterialCardView
-                    android:id="@+id/textView_card"
+                    android:id="@+id/questionTextView_card"
                     android:layout_width="325dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="64dp"
@@ -44,7 +43,7 @@
                 </com.google.android.material.card.MaterialCardView>
 
                 <Button
-                    android:id="@+id/next_button"
+                    android:id="@+id/next_lesson_button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="50dp"
@@ -54,10 +53,10 @@
                     android:text="@string/next_button"
                     android:textColor="#FFFFFF"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/radio_group" />
+                    app:layout_constraintTop_toBottomOf="@+id/answers_radio_group" />
 
                 <RadioGroup
-                    android:id="@+id/radio_group"
+                    android:id="@+id/answers_radio_group"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
@@ -65,13 +64,13 @@
                     android:layout_marginEnd="8dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="@id/textView_card">
+                    app:layout_constraintTop_toTopOf="@id/questionTextView_card">
 
                     <RadioButton
                         android:id="@+id/answer1_radio"
                         android:layout_width="300dp"
                         android:layout_height="40dp"
-                        android:background="@mipmap/cards"
+                        android:background="@drawable/cards_elements_surface_outlinedhover"
                         android:checked="false"
                         android:visibility="gone"
                         tools:text="RadioButton"
@@ -81,7 +80,7 @@
                         android:id="@+id/answer2_radio"
                         android:layout_width="300dp"
                         android:layout_height="40dp"
-                        android:background="@mipmap/cards"
+                        android:background="@drawable/cards_elements_surface_outlinedhover"
                         android:visibility="gone"
                         tools:text="RadioButton"
                         tools:visibility="visible" />
@@ -90,7 +89,7 @@
                         android:id="@+id/answer3_radio"
                         android:layout_width="300dp"
                         android:layout_height="40dp"
-                        android:background="@mipmap/cards"
+                        android:background="@drawable/cards_elements_surface_outlinedhover"
                         android:visibility="gone"
                         tools:text="RadioButton"
                         tools:visibility="visible" />
@@ -99,7 +98,7 @@
                         android:id="@+id/answer4_radio"
                         android:layout_width="300dp"
                         android:layout_height="40dp"
-                        android:background="@mipmap/cards"
+                        android:background="@drawable/cards_elements_surface_outlinedhover"
                         android:visibility="gone"
                         tools:text="RadioButton"
                         tools:visibility="visible" />
@@ -108,7 +107,7 @@
                         android:id="@+id/answer1_checkbox"
                         android:layout_width="300dp"
                         android:layout_height="40dp"
-                        android:background="@mipmap/cards"
+                        android:background="@drawable/cards_elements_surface_outlinedhover"
                         android:visibility="gone"
                         tools:text="RadioButton"
                         tools:visibility="gone" />
@@ -117,7 +116,7 @@
                         android:id="@+id/answer2_checkbox"
                         android:layout_width="300dp"
                         android:layout_height="40dp"
-                        android:background="@mipmap/cards"
+                        android:background="@drawable/cards_elements_surface_outlinedhover"
                         android:visibility="gone"
                         tools:text="RadioButton"
                         tools:visibility="gone" />
@@ -126,7 +125,7 @@
                         android:id="@+id/answer3_checkbox"
                         android:layout_width="300dp"
                         android:layout_height="40dp"
-                        android:background="@mipmap/cards"
+                        android:background="@drawable/cards_elements_surface_outlinedhover"
                         android:visibility="gone"
                         tools:text="RadioButton"
                         tools:visibility="gone" />
@@ -135,43 +134,10 @@
                         android:id="@+id/answer4_checkbox"
                         android:layout_width="300dp"
                         android:layout_height="40dp"
-                        android:background="@mipmap/cards"
+                        android:background="@drawable/cards_elements_surface_outlinedhover"
                         android:visibility="gone"
                         tools:text="RadioButton"
                         tools:visibility="gone" />
-
-                    <com.google.android.material.card.MaterialCardView
-                        android:id="@+id/answer2_card"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/textView_card">
-
-                    </com.google.android.material.card.MaterialCardView>
-
-                    <com.google.android.material.card.MaterialCardView
-                        android:id="@+id/answer3_card"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/textView_card">
-
-                    </com.google.android.material.card.MaterialCardView>
-
-                    <com.google.android.material.card.MaterialCardView
-                        android:id="@+id/answer4_card"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/textView_card">
-
-                    </com.google.android.material.card.MaterialCardView>
 
                 </RadioGroup>
             </androidx.constraintlayout.widget.ConstraintLayout>

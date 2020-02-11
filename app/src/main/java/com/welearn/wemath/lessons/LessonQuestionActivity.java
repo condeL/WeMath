@@ -1,5 +1,7 @@
-package com.welearn.wemath;
+package com.welearn.wemath.lessons;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Pair;
 import android.view.View;
@@ -12,6 +14,8 @@ import android.widget.Toast;
 
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.welearn.wemath.R;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -28,6 +32,12 @@ public class LessonQuestionActivity extends AppCompatActivity {
     private TextView mQuestionTextView;
     private Button[] mAnswers; //generic button to hold the radio or checkboxes
 
+    //public static Intent newIntent(Context packageContext, boolean answerIsTrue){
+    public static Intent newIntent(Context packageContext){
+        Intent intent = new Intent(packageContext, LessonQuestionActivity.class);
+        //intent.putExtra(EXTRA_ANSWER_IS_TRUE, answerIsTrue);
+        return intent;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) { //called the activity is created
@@ -47,7 +57,7 @@ public class LessonQuestionActivity extends AppCompatActivity {
         mQuestionTextView = findViewById(R.id.question_text_view); //link the reference to the actual widget item
         mQuestionTextView.setText(mLessonQuestion.getProblem()); //set the text to the problem
 
-        mRadioGroup = findViewById(R.id.radio_group); //link the reference to the radiogroup widget
+        mRadioGroup = findViewById(R.id.answers_radio_group); //link the reference to the radiogroup widget
 
 
         //setting up the answer choices
@@ -126,7 +136,7 @@ public class LessonQuestionActivity extends AppCompatActivity {
         });*/
 
         //setting up the behaviour of the Next button
-        mNextButton = findViewById(R.id.next_button);
+        mNextButton = findViewById(R.id.next_lesson_button);
         mNextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

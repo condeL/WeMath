@@ -12,7 +12,7 @@ public abstract class Question {
     private boolean mMultipleChoice;
     private int mNbCorrectAnswers;
 
-    Question(String problem, ArrayList<Pair<String, Boolean>> answers, boolean multipleChoice){
+    public Question(String problem, ArrayList<Pair<String, Boolean>> answers, boolean multipleChoice){
 
         int nbCorrectAnswers = 0;
         mProblem = problem;
