@@ -70,9 +70,9 @@ public class LessonSelectionFragment extends Fragment {
 
         public ContentAdapter(Context context){
             Resources resources = context.getResources();
-            mNames = resources.getStringArray(R.array.year1);
-            mNumbers = resources.getStringArray(R.array.numbersyear1);
-            mPercentages = resources.getStringArray(R.array.percentagesyear1);
+            mNames = resources.getStringArray(R.array.lessons_shs1);
+            mNumbers = resources.getStringArray(R.array.lessons_shs1);
+            mPercentages = resources.getStringArray(R.array.lessons_shs1);
         }
 
         @Override

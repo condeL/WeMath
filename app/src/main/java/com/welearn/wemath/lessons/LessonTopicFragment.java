@@ -1,5 +1,6 @@
 package com.welearn.wemath.lessons;
 
+import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProviders;
 
 import android.content.Context;
@@ -25,6 +26,7 @@ import com.welearn.wemath.R;
 public class LessonTopicFragment extends Fragment {
 
     private LessonTopicViewModel mViewModel;
+    private String mYear, mSection;
 
 
 
@@ -36,9 +38,12 @@ public class LessonTopicFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.lesson_topic_fragment, container, false);
+        mYear = LessonTopicFragmentArgs.fromBundle(getArguments()).getYear();
+        mSection = LessonTopicFragmentArgs.fromBundle(getArguments()).getSection();
+        //mViewModel = new LessonTopicViewModel(mYear, mSection);
 
         RecyclerView view = v.findViewById(R.id.topic_list);
-        ContentAdapter adapter = new ContentAdapter(view.getContext());
+        ContentAdapter adapter = new ContentAdapter(view.getContext(), mYear, mSection);
         view.setAdapter(adapter);
         view.setHasFixedSize(true);
         view.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -48,7 +53,8 @@ public class LessonTopicFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        mViewModel = ViewModelProviders.of(this).get(LessonTopicViewModel.class);
+        //mViewModel = ViewModelProviders.of(this).get(LessonTopicViewModel.class);
+        mViewModel = new LessonTopicViewModel(mYear, mSection);
         // TODO: Use the ViewModel
     }
 
@@ -81,11 +87,19 @@ public class LessonTopicFragment extends Fragment {
         private final String[] mNames, mNumbers, mPercentages;
         //private final ProgressBar[] mProgressBars;
 
-        public ContentAdapter(Context context){
+        public ContentAdapter(Context context, String year, String section){
             Resources resources = context.getResources();
-            mNames = resources.getStringArray(R.array.year1);
-            mNumbers = resources.getStringArray(R.array.numbersyear1);
-            mPercentages = resources.getStringArray(R.array.percentagesyear1);
+            //String year = viewModel.getYear();
+            //String section = viewModel.getSection();
+
+            String choice = "topics_" + section + year;
+            int id = resources.getIdentifier(choice,"array",context.getPackageName());
+            /*mNames = resources.getStringArray(R.array.topics_shs1);
+            mNumbers = resources.getStringArray(R.array.topics_shs1);
+            mPercentages = resources.getStringArray(R.array.topics_shs2);*/
+            mNames = resources.getStringArray(id);
+            mNumbers = resources.getStringArray(id);
+            mPercentages = resources.getStringArray(id);
         }
 
         @Override
@@ -97,7 +111,8 @@ public class LessonTopicFragment extends Fragment {
         public void onBindViewHolder(ViewHolder holder, int position) {
             holder.title.setText(mNames[position % mNames.length]);
             holder.number.setText(mNumbers[position % mNumbers.length]);
-            holder.percentage.setText(mPercentages[position % mPercentages.length]);
+            //holder.percentage.setText(mPercentages[position % mPercentages.length]);
+            holder.percentage.setText("50%");
         }
 
         @Override

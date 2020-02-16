@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="topics_shs1">
+        <item>Sets and Operations on sets</item>
+        <item>Real numbers system</item>
+        <item>Algebraic expressions</item>
+        <item>Surds</item>
+        <item>Number bases</item>
+        <item>Relations and functions</item>
+        <item>Plane Geometry</item>
+        <item>Linear equations and inequalities</item>
+        <item>Bearing and Vectors in a plane</item>
+        <item>Statistics 1</item>
+        <item>Rigid motion 1</item>
+        <item>Ratio and rates</item>
+        <item>Percentages</item>
+    </string-array>
+
+    <string-array name="lessons_shs1">
+        <item>Placeholder 1</item>
+        <item>Placeholder 2</item>
+        <item>Placeholder 3</item>
+    </string-array>
+
+    <string-array name="topics_shs2">
+        <item>Modular arithmetic</item>
+        <item>Indices and logarithms</item>
+        <item>Simultaneous linear equations</item>
+        <item>Percentages 2</item>
+        <item>Variation</item>
+        <item>Statistics 2</item>
+        <item>Quadratic functions</item>
+        <item>Mensuration 1</item>
+        <item>Plane geometry 2</item>
+        <item>Trigonometry 1</item>
+        <item>Sequences and Series</item>
+        <item>Rigid motion 2 and Enlargement</item>
+    </string-array>
+
+    <string-array name="lessons_shs2">
+        <item>Placeholder 1</item>
+        <item>Placeholder 2</item>
+        <item>Placeholder 3</item>
+    </string-array>
+
+    <string-array name="topics_shs3">
+        <item>Constructions</item>
+        <item>Mensuration 2</item>
+        <item>Logical reasoning</item>
+        <item>Trigonometry 2</item>
+    </string-array>
+
+    <string-array name="lessons_shs3">
+        <item>Placeholder 1</item>
+        <item>Placeholder 2</item>
+        <item>Placeholder 3</item>
+    </string-array>
+
+</resources>

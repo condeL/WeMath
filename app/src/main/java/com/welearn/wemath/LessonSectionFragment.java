@@ -4,6 +4,8 @@ package com.welearn.wemath;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavAction;
+import androidx.navigation.NavDirections;
 import androidx.navigation.Navigation;
 
 import android.view.LayoutInflater;
@@ -33,10 +35,25 @@ public class LessonSectionFragment extends Fragment {
         mJHS = root.findViewById(R.id.jhs_button);
         mSHS = root.findViewById(R.id.shs_button);
 
-        mJHS.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_navigation_lesson_section_to_lessonYearFragment, null));
+        //mJHS.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_navigation_lesson_section_to_lessonYearFragment, null));
+        //mJHS.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_navigation_lesson_section_to_lessonYearFragment,null ));
+        mJHS.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v){
+                String section = "jhs";
+                NavDirections action = LessonSectionFragmentDirections.actionNavigationLessonSectionToLessonYearFragment(section);
+                Navigation.findNavController(v).navigate(action);
 
-        mSHS.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_navigation_lesson_section_to_lessonYearFragment, null));
+            }
+        });
+        //mSHS.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_navigation_lesson_section_to_lessonYearFragment, null));
+        mSHS.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v){
+                String section = "shs";
+                NavDirections action = LessonSectionFragmentDirections.actionNavigationLessonSectionToLessonYearFragment(section);
+                Navigation.findNavController(v).navigate(action);
 
+            }
+        });
         return root;
     }
 

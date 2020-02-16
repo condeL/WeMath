@@ -81,60 +81,6 @@ public class LessonQuestionActivity extends AppCompatActivity {
             }
         }
 
-
-
-        /*for(int i = 0; i<mLessonQuestion.getAnswers().size();i++){
-            if(!mLessonQuestion.isMultipleChoice()) {
-                mRadioGroup.addView(new RadioButton(this), i);
-                ((RadioButton) mRadioGroup.getChildAt(i)).setText(mLessonQuestion.getAnswers().get(i).first);
-            }
-            else{
-                mRadioGroup.addView(new CheckBox(this), i);
-                ((CheckBox) mRadioGroup.getChildAt(i)).setText(mLessonQuestion.getAnswers().get(i).first);
-            }
-        }*/
-
-
-        /*private RadioButton mAnswerChoice1;
-        private RadioButton mAnswerChoice2;
-        private RadioButton mAnswerChoice3;
-
-        mRadioGroup.addView(mAnswerChoice1);
-        mRadioGroup.addView(mAnswerChoice2);
-        mRadioGroup.addView(mAnswerChoice3);*/
-
-        /*mAnswerChoice1 = findViewById(R.id.answer_choice1_button);
-        mAnswerChoice1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v){
-                checkAnswer(0);
-            }
-        });
-
-        mAnswerChoice2 = findViewById(R.id.answer_choice2_button);
-        mAnswerChoice2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                checkAnswer(1);
-            }
-        });
-
-        mNextButton = findViewById(R.id.next_button);
-        mNextButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
-
-        mAnswerChoice3 = findViewById(R.id.answer_choice3_button);
-        mAnswerChoice3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                checkAnswer(2);
-            }
-        });*/
-
         //setting up the behaviour of the Next button
         mNextButton = findViewById(R.id.next_lesson_button);
         mNextButton.setOnClickListener(new View.OnClickListener() {

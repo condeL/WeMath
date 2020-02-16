@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="topics_jhs1">
+        <item>[JHS]Sets and Operations on sets</item>
+        <item>[JHS]Real numbers system</item>
+        <item>[JHS]Algebraic expressions</item>
+        <item>[JHS]Surds</item>
+        <item>[JHS]Number bases</item>
+        <item>[JHS]Relations and functions</item>
+        <item>[JHS]Plane Geometry</item>
+        <item>[JHS]Linear equations and inequalities</item>
+        <item>Bearing and Vectors in a plane</item>
+        <item>Statistics 1</item>
+        <item>Rigid motion 1</item>
+        <item>Ratio and rates</item>
+        <item>Percentages</item>
+    </string-array>
+
+    <string-array name="lessons_jhs1">
+        <item>[JHS]Placeholder 1</item>
+        <item>[JHS]Placeholder 2</item>
+        <item>[JHS]Placeholder 3</item>
+    </string-array>
+
+    <string-array name="topics_jhs2">
+        <item>[JHS]Modular arithmetic</item>
+        <item>[JHS]Indices and logarithms</item>
+        <item>[JHS]Simultaneous linear equations</item>
+        <item>[JHS]Percentages 2</item>
+        <item>Variation</item>
+        <item>Statistics 2</item>
+        <item>Quadratic functions</item>
+        <item>Mensuration 1</item>
+        <item>Plane geometry 2</item>
+        <item>Trigonometry 1</item>
+        <item>Sequences and Series</item>
+        <item>Rigid motion 2 and Enlargement</item>
+    </string-array>
+
+    <string-array name="lessons_jhs2">
+        <item>[JHS]Placeholder 1</item>
+        <item>[JHS]Placeholder 2</item>
+        <item>[JHS]Placeholder 3</item>
+    </string-array>
+
+    <string-array name="topics_jhs3">
+        <item>[JHS]Constructions</item>
+        <item>[JHS]Mensuration 2</item>
+        <item>[JHS]Logical reasoning</item>
+        <item>[JHS]Trigonometry 2</item>
+    </string-array>
+
+    <string-array name="lessons_jhs3">
+        <item>[JHS]Placeholder 1</item>
+        <item>[JHS]Placeholder 2</item>
+        <item>[JHS]Placeholder 3</item>
+    </string-array>
+
+</resources>

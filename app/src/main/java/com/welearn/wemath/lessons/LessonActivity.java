@@ -27,6 +27,7 @@ public class LessonActivity extends AppCompatActivity {
         mTitle= findViewById(R.id.lesson_title);
         mContent = findViewById(R.id.lesson_content);
         mImage = findViewById(R.id.lesson_image);
+
         mNextButton = findViewById(R.id.next_question_button);
         mNextButton.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){

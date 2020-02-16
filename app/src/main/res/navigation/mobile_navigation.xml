@@ -32,6 +32,8 @@
         <action
             android:id="@+id/action_lessonYearFragment_to_lessonTopicFragment"
             app:destination="@id/lessonTopicFragment" />
+        <argument android:name="section"
+            app:argType="string" />
     </fragment>
     <fragment
         android:id="@+id/lessonTopicFragment"
@@ -41,6 +43,12 @@
         <action
             android:id="@+id/action_lessonTopicFragment_to_lessonSelectionFragment"
             app:destination="@id/lessonSelectionFragment" />
+        <argument
+            android:name="year"
+            app:argType="string" />
+        <argument
+            android:name="section"
+            app:argType="string" />
     </fragment>
     <fragment
         android:id="@+id/lessonSelectionFragment"
