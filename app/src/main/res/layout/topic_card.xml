@@ -20,7 +20,7 @@
                 android:id="@+id/topic_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="27dp"
+                android:layout_marginStart="10dp"
                 android:layout_marginTop="3dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -43,25 +43,25 @@
                 style="?android:attr/progressBarStyleHorizontal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="75dp"
-                android:layout_marginTop="3dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginEnd="16dp"
                 android:indeterminate="false"
                 android:progress="75"
-                app:layout_constraintStart_toEndOf="@+id/topic_name"
+                app:layout_constraintEnd_toStartOf="@id/topic_rightarrow"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/topic_completed"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="59dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="7dp"
-                android:textSize="12sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/topic_lessons_number"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="3dp"
+                android:layout_marginEnd="16dp"
+                android:textSize="8sp"
+                app:layout_constraintEnd_toStartOf="@id/topic_progressBar"
+                app:layout_constraintStart_toEndOf="@id/topic_progressBar"
                 app:layout_constraintTop_toBottomOf="@+id/topic_progressBar"
-                tools:text="% completed" />
+                tools:text="50 %" />
 
             <ImageView
                 android:id="@+id/topic_rightarrow"
