@@ -9,24 +9,23 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".lessons.LessonActivity">
-
-        </activity>
+        <activity android:name=".quizzes.QuizQuestionActivity"></activity>
+        <activity android:name=".lessons.LessonActivity"></activity>
         <activity
             android:name=".lessons.LessonQuestionActivity"
             android:label="@string/title_activity_lesson_question">
 
-            <!-- android:theme="@style/AppTheme.NoActionBar"> Your comment
+            <!--
+            android:theme="@style/AppTheme.NoActionBar"> Your comment
 
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter> -->
+            </intent-filter>
+            -->
         </activity>
         <activity android:name=".MainActivity">
-
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

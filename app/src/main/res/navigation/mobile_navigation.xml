@@ -23,7 +23,11 @@
         android:id="@+id/navigation_quiz_main"
         android:name="com.welearn.wemath.QuizMainFragment"
         android:label="fragment_quiz_main"
-        tools:layout="@layout/fragment_quiz_main" />
+        tools:layout="@layout/fragment_quiz_main" >
+        <action
+            android:id="@+id/action_navigation_quiz_main_to_quizTakingMenuFragment"
+            app:destination="@id/quizTakingMenuFragment" />
+    </fragment>
     <fragment
         android:id="@+id/lessonYearFragment"
         android:name="com.welearn.wemath.lessons.LessonYearFragment"
@@ -64,5 +68,40 @@
         android:name="com.welearn.wemath.lessons.LessonActivity"
         android:label="activity_lesson"
         tools:layout="@layout/activity_lesson" />
+    <fragment
+        android:id="@+id/adminQuizSelection"
+        android:name="com.welearn.wemath.quizzes.AdminQuizSelectionFragment"
+        android:label="fragment_admin_quiz_selection"
+        tools:layout="@layout/fragment_admin_quiz_selection" >
+        <action
+            android:id="@+id/action_adminQuizSelection_to_quizQuestionActivity"
+            app:destination="@id/quizQuestionActivity" />
+    </fragment>
+    <activity
+        android:id="@+id/quizQuestionActivity"
+        android:name="com.welearn.wemath.quizzes.QuizQuestionActivity"
+        android:label="activity_quiz_question"
+        tools:layout="@layout/activity_quiz_question" />
+    <fragment
+        android:id="@+id/quizTakingMenuFragment"
+        android:name="com.welearn.wemath.quizzes.QuizTakingMenuFragment"
+        android:label="fragment_quiz_taking_menu"
+        tools:layout="@layout/fragment_quiz_taking_menu" >
+        <action
+            android:id="@+id/action_quizTakingMenuFragment_to_adminQuizSelection"
+            app:destination="@id/adminQuizSelection" />
+        <action
+            android:id="@+id/action_quizTakingMenuFragment_to_userQuizSelection"
+            app:destination="@id/userQuizSelection" />
+    </fragment>
+    <fragment
+        android:id="@+id/userQuizSelection"
+        android:name="com.welearn.wemath.quizzes.UserQuizSelectionFragment"
+        android:label="fragment_user_quiz_selection"
+        tools:layout="@layout/fragment_user_quiz_selection" >
+        <action
+            android:id="@+id/action_userQuizSelection_to_quizQuestionActivity"
+            app:destination="@id/quizQuestionActivity" />
+    </fragment>
 
 </navigation>

@@ -1,6 +1,6 @@
 package com.welearn.wemath.lessons;
 
-import android.media.Image;
+/*Custom class for the lessons*/
 
 public class Lesson {
     private String mTitle;

@@ -36,16 +36,21 @@ public class LessonSectionFragment extends Fragment {
         mSHS = root.findViewById(R.id.shs_button);
 
         //mJHS.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_navigation_lesson_section_to_lessonYearFragment, null));
-        //mJHS.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_navigation_lesson_section_to_lessonYearFragment,null ));
+
+        /*Setting the behaviours of the buttons*/
+
         mJHS.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
+                //parameter to be passed to the year selection fragment
                 String section = "jhs";
+
+                //setting up the navigation action with the parameter to be passed
                 NavDirections action = LessonSectionFragmentDirections.actionNavigationLessonSectionToLessonYearFragment(section);
                 Navigation.findNavController(v).navigate(action);
 
             }
         });
-        //mSHS.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_navigation_lesson_section_to_lessonYearFragment, null));
+
         mSHS.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
                 String section = "shs";
@@ -54,6 +59,8 @@ public class LessonSectionFragment extends Fragment {
 
             }
         });
+
+
         return root;
     }
 

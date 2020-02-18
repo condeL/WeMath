@@ -34,6 +34,7 @@ public class LessonSelectionFragment extends Fragment {
                              @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.lesson_selection_fragment, container, false);
 
+        //get a reference to the recycler view and give it to the custom adapter
         RecyclerView view = v.findViewById(R.id.lesson_list);
         ContentAdapter adapter = new ContentAdapter(view.getContext());
         view.setAdapter(adapter);
@@ -42,6 +43,7 @@ public class LessonSelectionFragment extends Fragment {
         return v;
     }
 
+    //useless for now
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
@@ -49,6 +51,7 @@ public class LessonSelectionFragment extends Fragment {
         // TODO: Use the ViewModel
     }
 
+    //View holder that will hold references to all the views in the RecyclerView
     public static class ViewHolder extends RecyclerView.ViewHolder{
         public TextView title, number, percentage;
         public ProgressBar progressBar;
@@ -63,12 +66,14 @@ public class LessonSelectionFragment extends Fragment {
         }
     }
 
+    //the content adapter where the views are binded together
     public static class ContentAdapter extends RecyclerView.Adapter<ViewHolder>{
 
         private final String[] mNames, mNumbers, mPercentages;
         //private final ProgressBar[] mProgressBars;
 
         public ContentAdapter(Context context){
+            //get the resource elements to put into the views
             Resources resources = context.getResources();
             mNames = resources.getStringArray(R.array.lessons_shs1);
             mNumbers = resources.getStringArray(R.array.lessons_shs1);
@@ -80,6 +85,7 @@ public class LessonSelectionFragment extends Fragment {
             return new ViewHolder(LayoutInflater.from(parent.getContext()), parent);
         }
 
+        //put the resource elements in the views using the ViewHolder
         @Override
         public void onBindViewHolder(ViewHolder holder, int position) {
             holder.title.setText(mNames[position % mNames.length]);

@@ -4,6 +4,8 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+/*ignore for now*/
+
 public class LessonTopicViewModel extends ViewModel {
 
     private String mYear;

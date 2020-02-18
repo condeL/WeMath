@@ -10,6 +10,8 @@ import android.os.Bundle;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+/* The main menu activity that hosts all the navigation fragments*/
+
 public class MainActivity extends AppCompatActivity {
 
     @Override

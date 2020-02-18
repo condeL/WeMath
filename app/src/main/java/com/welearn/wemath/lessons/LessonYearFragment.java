@@ -36,17 +36,21 @@ public class LessonYearFragment extends Fragment {
         mYear2 = root.findViewById(R.id.year2_button);
         mYear3 = root.findViewById(R.id.year3_button);
 
-        //mYear1.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_lessonYearFragment_to_lessonTopicFragment, null));
+        /*Setting the behaviours of the buttons*/
+
         mYear1.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
+                //parameters to be passed to the topics fragment
                 String year = "1";
                 String section = LessonYearFragmentArgs.fromBundle(getArguments()).getSection();
+
+                //set up the navigation action with the parameters
                 NavDirections action = LessonYearFragmentDirections.actionLessonYearFragmentToLessonTopicFragment(year, section);
                 Navigation.findNavController(v).navigate(action);
 
             }
         });
-        //mYear2.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_lessonYearFragment_to_lessonTopicFragment, null));
+
         mYear2.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
                 String year = "2";
@@ -56,7 +60,7 @@ public class LessonYearFragment extends Fragment {
 
             }
         });
-        //mYear3.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_lessonYearFragment_to_lessonTopicFragment, null));
+
         mYear3.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
                 String year = "3";
@@ -69,6 +73,7 @@ public class LessonYearFragment extends Fragment {
         return root;
     }
 
+    //not used yet
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);

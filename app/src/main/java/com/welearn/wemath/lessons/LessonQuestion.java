@@ -1,5 +1,7 @@
 package com.welearn.wemath.lessons;
 
+/*Custom class for the Lesson questions extending the basic Question interface*/
+
 import android.util.Pair;
 
 import com.welearn.wemath.Question;
