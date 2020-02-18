@@ -1,5 +1,6 @@
 package com.welearn.wemath.lessons;
 
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProviders;
 
@@ -46,6 +47,8 @@ public class LessonTopicFragment extends Fragment {
         mSection = LessonTopicFragmentArgs.fromBundle(getArguments()).getSection();
         //mViewModel = new LessonTopicViewModel(mYear, mSection);
 
+        //set the title of the actionbar
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle(mSection.toUpperCase() + " Year " + mYear);
         //get a reference to the recycler view and give it to the custom adapter
         RecyclerView view = v.findViewById(R.id.topic_list);
         ContentAdapter adapter = new ContentAdapter(view.getContext(), mYear, mSection);

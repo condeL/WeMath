@@ -1,5 +1,6 @@
 package com.welearn.wemath.lessons;
 
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProviders;
 
 import android.os.Bundle;
@@ -31,6 +32,11 @@ public class LessonYearFragment extends Fragment {
                              @Nullable Bundle savedInstanceState) {
         View root =  inflater.inflate(R.layout.lesson_year_fragment, container, false);
 
+        //retrieve the section from the bundle
+        final String section = LessonYearFragmentArgs.fromBundle(getArguments()).getSection();
+
+        //set the actionbar title
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle(section.toUpperCase());
 
         mYear1 = root.findViewById(R.id.year1_button);
         mYear2 = root.findViewById(R.id.year2_button);
@@ -42,7 +48,6 @@ public class LessonYearFragment extends Fragment {
             public void onClick(View v){
                 //parameters to be passed to the topics fragment
                 String year = "1";
-                String section = LessonYearFragmentArgs.fromBundle(getArguments()).getSection();
 
                 //set up the navigation action with the parameters
                 NavDirections action = LessonYearFragmentDirections.actionLessonYearFragmentToLessonTopicFragment(year, section);
@@ -54,7 +59,7 @@ public class LessonYearFragment extends Fragment {
         mYear2.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
                 String year = "2";
-                String section = LessonYearFragmentArgs.fromBundle(getArguments()).getSection();
+                //String section = LessonYearFragmentArgs.fromBundle(getArguments()).getSection();
                 NavDirections action = LessonYearFragmentDirections.actionLessonYearFragmentToLessonTopicFragment(year, section);
                 Navigation.findNavController(v).navigate(action);
 
@@ -64,7 +69,7 @@ public class LessonYearFragment extends Fragment {
         mYear3.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
                 String year = "3";
-                String section = LessonYearFragmentArgs.fromBundle(getArguments()).getSection();
+                //String section = LessonYearFragmentArgs.fromBundle(getArguments()).getSection();
                 NavDirections action = LessonYearFragmentDirections.actionLessonYearFragmentToLessonTopicFragment(year, section);
                 Navigation.findNavController(v).navigate(action);
 
