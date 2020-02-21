@@ -22,7 +22,7 @@
                 android:layout_height="match_parent">
 
                 <androidx.cardview.widget.CardView
-                    android:id="@+id/quiz_main_cardView1"
+                    android:id="@+id/quiz_main_header_card"
                     android:layout_width="370dp"
                     android:layout_height="65dp"
                     android:layout_marginStart="20dp"
@@ -33,7 +33,7 @@
                     app:layout_constraintTop_toTopOf="parent">
 
                     <TextView
-                        android:id="@+id/quiz_main_textView1"
+                        android:id="@+id/quiz_main_title"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:paddingTop="20dp"
@@ -46,35 +46,37 @@
                 </androidx.cardview.widget.CardView>
 
                 <androidx.cardview.widget.CardView
-                    android:id="@+id/quiz_main_cardView2"
+                    android:id="@+id/quiz_ansering_card"
                     android:layout_width="175dp"
                     android:layout_height="180dp"
                     android:layout_marginStart="50dp"
                     android:layout_marginTop="150dp"
                     android:layout_marginEnd="50dp"
                     android:padding="150dp"
-                    app:layout_constraintEnd_toStartOf="@+id/quiz_main_cardView3"
+                    app:layout_constraintEnd_toStartOf="@+id/quiz_creation_card"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="@id/quiz_main_cardView1">
+                    app:layout_constraintTop_toTopOf="@id/quiz_main_header_card">
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent">
 
                         <ImageButton
-                            android:id="@+id/quiz_main_imageButton1"
+                            android:id="@+id/quiz_answering_image"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_height="0dp"
                             android:layout_marginStart="24dp"
                             android:layout_marginTop="10dp"
                             android:layout_marginEnd="24dp"
+                            android:layout_marginBottom="30dp"
+                            android:background="@drawable/desk_chair"
+                            app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            tools:src="@tools:sample/avatars" />
+                            app:layout_constraintTop_toTopOf="parent" />
 
                         <TextView
-                            android:id="@+id/quiz_main_textView2"
+                            android:id="@+id/quiz_answering_text"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="50dp"
@@ -85,40 +87,42 @@
                             android:textStyle="bold"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="@id/quiz_main_imageButton1" />
+                            app:layout_constraintTop_toTopOf="@id/quiz_answering_image" />
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
                 </androidx.cardview.widget.CardView>
 
                 <androidx.cardview.widget.CardView
-                    android:id="@+id/quiz_main_cardView3"
+                    android:id="@+id/quiz_creation_card"
                     android:layout_width="175dp"
                     android:layout_height="180dp"
                     android:layout_marginStart="190dp"
                     android:layout_marginTop="150dp"
                     android:layout_marginEnd="15dp"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="@id/quiz_main_cardView2"
-                    app:layout_constraintTop_toTopOf="@id/quiz_main_cardView1">
+                    app:layout_constraintStart_toStartOf="@id/quiz_ansering_card"
+                    app:layout_constraintTop_toTopOf="@id/quiz_main_header_card">
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent">
 
                         <ImageButton
-                            android:id="@+id/quiz_main_imageButton2"
+                            android:id="@+id/quiz_creation_image"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_height="0dp"
                             android:layout_marginStart="24dp"
                             android:layout_marginTop="10dp"
                             android:layout_marginEnd="24dp"
+                            android:layout_marginBottom="30dp"
+                            android:background="@drawable/pencil"
+                            app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            tools:src="@tools:sample/avatars" />
+                            app:layout_constraintTop_toTopOf="parent" />
 
                         <TextView
-                            android:id="@+id/quiz_main_textView3"
+                            android:id="@+id/quiz_creation_text"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="50dp"
@@ -129,7 +133,7 @@
                             android:textStyle="bold"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="@id/quiz_main_imageButton2" />
+                            app:layout_constraintTop_toTopOf="@id/quiz_creation_image" />
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
                 </androidx.cardview.widget.CardView>
