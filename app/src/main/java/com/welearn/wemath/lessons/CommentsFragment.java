@@ -42,7 +42,7 @@ public class CommentsFragment extends Fragment {
         View root = inflater.inflate(R.layout.fragment_comments, container, false);
 
         RecyclerView view = root.findViewById(R.id.comments_view);
-        ContentAdapter adapter = new ContentAdapter(view.getContext());
+        ContentAdapterComments adapter = new ContentAdapterComments(view.getContext());
         view.setAdapter(adapter);
         view.setHasFixedSize(true);
         view.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -58,34 +58,39 @@ public class CommentsFragment extends Fragment {
         // TODO: Use the ViewModel
     }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder{
-        public TextView username, content, date;
+    public static class ViewHolderComments extends RecyclerView.ViewHolder{
+        public TextView usernameC, contentC, dateC;
+        public RecyclerView repliesRecycler;
 
-        public ViewHolder(LayoutInflater inflater, ViewGroup parent) {
+        public ViewHolderComments(LayoutInflater inflater, ViewGroup parent) {
             super(inflater.inflate(R.layout.comment_card,parent, false));
-            username = itemView.findViewById(R.id.comment_card_username);
-            content = itemView.findViewById(R.id.comment_card_content);
-            date = itemView.findViewById(R.id.comment_card_date);
+            usernameC = itemView.findViewById(R.id.comment_card_username);
+            contentC = itemView.findViewById(R.id.comment_card_content);
+            dateC = itemView.findViewById(R.id.comment_card_date);
+            repliesRecycler = itemView.findViewById(R.id.replies_view);
+
 
             //itemView.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_lessonTopicFragment_to_lessonSelectionFragment, null));
         }
     }
 
-    //the content adapter where the views are binded together
-    public static class ContentAdapter extends RecyclerView.Adapter<ViewHolder>{
+    //the contentR adapter where the views are binded together
+    public static class ContentAdapterComments extends RecyclerView.Adapter<ViewHolderComments>{
 
-        private final ArrayList<String> mUsernames, mContents, mDates;
+        private final ArrayList<String> mUsernamesC, mContentsC, mDatesC;
+        Context mContextC;
         //private final ProgressBar[] mProgressBars;
 
         //pass it the year and section to represent the choice of the user
-        public ContentAdapter(Context context){
+        public ContentAdapterComments(Context context){
             Resources resources = context.getResources();
             //String year = viewModel.getYear();
             //String section = viewModel.getSection();
 
-            mUsernames = new ArrayList<>();
-            mContents = new ArrayList<>();
-            mDates = new ArrayList<>();
+            mUsernamesC = new ArrayList<>();
+            mContentsC = new ArrayList<>();
+            mDatesC = new ArrayList<>();
+            mContextC = context;
 
             try {
                 // get JSONObject from JSON file
@@ -97,9 +102,9 @@ public class CommentsFragment extends Fragment {
                     // create a JSONObject for fetching single user data
                     JSONObject comment = userArray.getJSONObject(i);
                     // fetch email and name and store it in arraylist
-                    mUsernames.add(comment.getString("user"));
-                    mContents.add(comment.getString("content"));
-                    mDates.add(comment.getString("date"));
+                    mUsernamesC.add(comment.getString("user"));
+                    mContentsC.add(comment.getString("content"));
+                    mDatesC.add(comment.getString("date"));
 
                 }
             } catch (JSONException e) {
@@ -125,22 +130,132 @@ public class CommentsFragment extends Fragment {
         }
 
         @Override
-        public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            return new ViewHolder(LayoutInflater.from(parent.getContext()), parent);
+        public ViewHolderComments onCreateViewHolder(ViewGroup parent, int viewType) {
+            return new ViewHolderComments(LayoutInflater.from(parent.getContext()), parent);
         }
 
         //put the resource elements in the views using the ViewHolder
         @Override
-        public void onBindViewHolder(ViewHolder holder, int position) {
-            holder.username.setText(mUsernames.get(position % mUsernames.size()));
-            holder.content.setText(mContents.get(position % mContents.size()));
+        public void onBindViewHolder(ViewHolderComments holder, int position) {
+            holder.usernameC.setText(mUsernamesC.get(position % mUsernamesC.size()));
+            holder.contentC.setText(mContentsC.get(position % mContentsC.size()));
             //holder.percentage.setText(mPercentages[position % mPercentages.length]);
-            holder.date.setText(mDates.get(position % mDates.size()));
+            holder.dateC.setText(mDatesC.get(position % mDatesC.size()));
+
+
+            ContentAdapterReplies adapterR = new ContentAdapterReplies(mContextC);
+            holder.repliesRecycler.setAdapter(adapterR);
+            holder.repliesRecycler.setHasFixedSize(true);
+            //LinearLayoutManager linearLayoutManager = new LinearLayoutManager(mContextC,LinearLayoutManager.VERTICAL, false);
+            LinearLayoutManager linearLayoutManager = new LinearLayoutManager(mContextC);
+            holder.repliesRecycler.setLayoutManager(linearLayoutManager);
+
+           //holder.repliesRecycler.setLayoutManager(new LinearLayoutManager(getActivity()));
         }
 
         @Override
         public int getItemCount() {
-            return mUsernames.size();
+            return mUsernamesC.size();
+        }
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+    public static class ViewHolderReplies extends RecyclerView.ViewHolder{
+        public TextView usernameR, contentR, dateR;
+
+        public ViewHolderReplies(LayoutInflater inflater, ViewGroup parent) {
+            super(inflater.inflate(R.layout.comment_reply_card, parent, false));
+            usernameR = itemView.findViewById(R.id.reply_card_username);
+            contentR = itemView.findViewById(R.id.reply_card_content);
+            dateR = itemView.findViewById(R.id.reply_card_date);
+
+            //itemView.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_lessonTopicFragment_to_lessonSelectionFragment, null));
+        }
+    }
+
+    //the contentR adapter where the views are binded together
+    public static class ContentAdapterReplies extends RecyclerView.Adapter<ViewHolderReplies>{
+
+        private final ArrayList<String> mUsernamesR, mContentsR, mDatesR;
+        //private final ProgressBar[] mProgressBars;
+
+        //pass it the year and section to represent the choice of the user
+        public ContentAdapterReplies(Context context){
+            Resources resources = context.getResources();
+            //String year = viewModel.getYear();
+            //String section = viewModel.getSection();
+
+            mUsernamesR = new ArrayList<>();
+            mContentsR = new ArrayList<>();
+            mDatesR = new ArrayList<>();
+
+            try {
+                // get JSONObject from JSON file
+                JSONObject obj = new JSONObject(loadJSONFromAsset(context));
+                // fetch JSONArray named users
+                JSONArray userArray = obj.getJSONArray("comments");
+                JSONArray replies = userArray.getJSONObject(0).getJSONArray("replies");
+
+
+                // implement for loop for getting users list data
+                for (int i = 0; i < replies.length(); i++) {
+                    // create a JSONObject for fetching single user data
+                    JSONObject comment = replies.getJSONObject(i);
+                    // fetch email and name and store it in arraylist
+                    mUsernamesR.add(comment.getString("user"));
+                    mContentsR.add(comment.getString("content"));
+                    mDatesR.add(comment.getString("date"));
+
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+        }
+
+        public String loadJSONFromAsset(Context context) {
+            String json = null;
+            try {
+                InputStream is = context.getAssets().open("comments.json");
+                int size = is.available();
+                byte[] buffer = new byte[size];
+                is.read(buffer);
+                is.close();
+                json = new String(buffer, "UTF-8");
+            } catch (IOException ex) {
+                ex.printStackTrace();
+                return null;
+            }
+            return json;
+        }
+
+        @Override
+        public ViewHolderReplies onCreateViewHolder(ViewGroup parent, int viewType) {
+            return new ViewHolderReplies(LayoutInflater.from(parent.getContext()), parent);
+        }
+
+        //put the resource elements in the views using the ViewHolder
+        @Override
+        public void onBindViewHolder(ViewHolderReplies holder, int position) {
+            holder.usernameR.setText(mUsernamesR.get(position % mUsernamesR.size()));
+            holder.contentR.setText(mContentsR.get(position % mContentsR.size()));
+            //holder.percentage.setText(mPercentages[position % mPercentages.length]);
+            holder.dateR.setText(mDatesR.get(position % mDatesR.size()));
+        }
+
+        @Override
+        public int getItemCount() {
+            return mUsernamesR.size();
         }
 
     }

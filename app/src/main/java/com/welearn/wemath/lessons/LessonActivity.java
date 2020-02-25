@@ -8,6 +8,7 @@ import androidx.fragment.app.FragmentManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -22,6 +23,7 @@ public class LessonActivity extends AppCompatActivity {
     private Button mNextButton;
     private TextView mCommentsButton;
     private FragmentContainerView mCommentsFrgament;
+    private WebView mWebView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +37,10 @@ public class LessonActivity extends AppCompatActivity {
         mCommentsButton = findViewById(R.id.lesson_comment_link);
         //mCommentsFrgament = findViewById(R.id.lesson_comment_fragment);
 
+        mWebView = findViewById(R.id.lesson_webview);
+        mWebView.loadUrl("file:///android_asset/htmltest.html");
+
+
         mNextButton = findViewById(R.id.next_question_button);
         mNextButton.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
@@ -47,13 +53,13 @@ public class LessonActivity extends AppCompatActivity {
             public void onClick(View v){
                 //Intent intent =  LessonQuestionActivity.newIntent(LessonActivity.this);
                 //startActivity(intent);
-                makeFragmet();
+                makeFragment();
 
             }
         });
     }
 
-    void makeFragmet(){
+    void makeFragment(){
         FragmentManager fm = getSupportFragmentManager();
         Fragment fragment = fm.findFragmentById(R.id.lesson_comment_fragment);
 
