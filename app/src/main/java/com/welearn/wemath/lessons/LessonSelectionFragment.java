@@ -66,7 +66,7 @@ public class LessonSelectionFragment extends Fragment {
         }
     }
 
-    //the content adapter where the views are binded together
+    //the contentR adapter where the views are binded together
     public static class ContentAdapter extends RecyclerView.Adapter<ViewHolder>{
 
         private final String[] mNames, mNumbers, mPercentages;

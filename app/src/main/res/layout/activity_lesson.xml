@@ -13,7 +13,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical" >
+            android:orientation="vertical">
 
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
@@ -27,6 +27,18 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
 
+                    <WebView
+                        android:id="@+id/lesson_webview"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="16dp"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginEnd="16dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
                     <TextView
                         android:id="@+id/lesson_content"
                         android:layout_width="wrap_content"
@@ -36,6 +48,7 @@
                         android:layout_marginEnd="8dp"
                         android:padding="20dp"
                         android:textAlignment="center"
+                        android:visibility="gone"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="@id/lesson_title"
@@ -48,6 +61,7 @@
                         android:layout_marginStart="120dp"
                         android:layout_marginTop="24dp"
                         android:text="TextView"
+                        android:visibility="gone"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
                         tools:text="LESSON 1: STATISTICS" />
@@ -58,6 +72,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="130dp"
                         android:layout_marginEnd="130dp"
+                        android:visibility="gone"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/lesson_content"
@@ -69,7 +84,7 @@
                         android:layout_marginTop="80dp"
                         android:orientation="horizontal"
                         android:paddingBottom="25dp"
-                        app:layout_constraintTop_toTopOf="@id/additional_lesson_link"
+                        app:layout_constraintTop_toBottomOf="@id/lesson_webview"
                         tools:layout_editor_absoluteX="156dp">
 
                         <TextView
@@ -77,7 +92,8 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="25dp"
-                            android:text="TextView"
+                            android:text="Comments"
+                            android:textColor="@color/colorPrimary"
                             tools:text="Comments" />
 
                         <RelativeLayout
@@ -105,6 +121,7 @@
                         android:layout_marginStart="25dp"
                         android:layout_marginTop="160dp"
                         android:textColor="@android:color/holo_blue_dark"
+                        android:visibility="gone"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="@id/lesson_image"
                         tools:text="Caption/ Roboto Regular" />
@@ -112,6 +129,12 @@
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
             </androidx.cardview.widget.CardView>
+
+            <FrameLayout
+                android:id="@+id/lesson_comment_fragment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="25dp" />
         </LinearLayout>
     </ScrollView>
 
