@@ -9,8 +9,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".quizzes.QuizQuestionActivity"></activity>
-        <activity android:name=".lessons.LessonActivity"></activity>
+        <activity android:name=".AdminQuizActivity"></activity>
+        <activity android:name=".quizzes.QuizQuestionActivity" />
+        <activity android:name=".lessons.LessonActivity" />
         <activity
             android:name=".lessons.LessonQuestionActivity"
             android:label="@string/title_activity_lesson_question">
