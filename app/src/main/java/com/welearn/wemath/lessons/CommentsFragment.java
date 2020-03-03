@@ -143,7 +143,7 @@ public class CommentsFragment extends Fragment {
             holder.dateC.setText(mDatesC.get(position % mDatesC.size()));
 
 
-            ContentAdapterReplies adapterR = new ContentAdapterReplies(mContextC);
+            ContentAdapterReplies adapterR = new ContentAdapterReplies(mContextC, position);
             holder.repliesRecycler.setAdapter(adapterR);
             holder.repliesRecycler.setHasFixedSize(true);
             //LinearLayoutManager linearLayoutManager = new LinearLayoutManager(mContextC,LinearLayoutManager.VERTICAL, false);
@@ -190,7 +190,7 @@ public class CommentsFragment extends Fragment {
         //private final ProgressBar[] mProgressBars;
 
         //pass it the year and section to represent the choice of the user
-        public ContentAdapterReplies(Context context){
+        public ContentAdapterReplies(Context context, int parentPosition){
             Resources resources = context.getResources();
             //String year = viewModel.getYear();
             //String section = viewModel.getSection();
@@ -204,7 +204,7 @@ public class CommentsFragment extends Fragment {
                 JSONObject obj = new JSONObject(loadJSONFromAsset(context));
                 // fetch JSONArray named users
                 JSONArray userArray = obj.getJSONArray("comments");
-                JSONArray replies = userArray.getJSONObject(0).getJSONArray("replies");
+                JSONArray replies = userArray.getJSONObject(parentPosition).getJSONArray("replies");
 
 
                 // implement for loop for getting users list data
