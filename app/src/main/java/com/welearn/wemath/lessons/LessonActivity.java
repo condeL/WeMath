@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.webkit.WebView;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -59,13 +60,18 @@ public class LessonActivity extends AppCompatActivity {
         });
     }
 
-    void makeFragment(){
+    void makeFragment() {
         FragmentManager fm = getSupportFragmentManager();
         Fragment fragment = fm.findFragmentById(R.id.lesson_comment_fragment);
-
-        if (fragment == null){ //check if it's not already there in case of an activity reopening
-            fragment = new CommentsFragment();
-            fm.beginTransaction().add(R.id.lesson_comment_fragment,fragment).commit(); //chainable methods because they all return a FragTran
+        FrameLayout frameLayout = findViewById(R.id.lesson_comment_fragment);
+        if (frameLayout.getVisibility() == View.GONE) {
+            frameLayout.setVisibility(View.VISIBLE);
+            if (fragment == null) { //check if it's not already there in case of an activity reopening
+                fragment = new CommentsFragment();
+                fm.beginTransaction().add(R.id.lesson_comment_fragment, fragment).commit(); //chainable methods because they all return a FragTran
+            }
+        } else {
+            frameLayout.setVisibility(View.GONE);
         }
     }
 }

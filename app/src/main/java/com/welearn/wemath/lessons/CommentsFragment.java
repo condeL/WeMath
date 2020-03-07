@@ -4,6 +4,8 @@ package com.welearn.wemath.lessons;
 
 import android.content.Context;
 import android.content.res.Resources;
+import android.graphics.Paint;
+import android.graphics.PorterDuff;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
@@ -14,7 +16,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.welearn.wemath.R;
 
@@ -29,6 +36,10 @@ import java.util.ArrayList;
 
 public class CommentsFragment extends Fragment {
 
+    private TextView mProfilePicture;
+    private EditText mMessage;
+    private ImageButton mSendButton;
+
 
     public CommentsFragment() {
         // Required empty public constructor
@@ -41,6 +52,27 @@ public class CommentsFragment extends Fragment {
         // Inflate the layout for this fragment
         View root = inflater.inflate(R.layout.fragment_comments, container, false);
 
+        mProfilePicture = root.findViewById(R.id.comments_fragment_profile_picture);
+        mMessage = root.findViewById(R.id.comments_fragment_editText);
+        mSendButton = root.findViewById(R.id.comments_fragment_send_button);
+
+
+        int[] profileColors = getResources().getIntArray(R.array.profile_colors);
+        Paint paint = new Paint();
+        paint.setColor(profileColors['J'%6]);
+        mProfilePicture.getBackground().setColorFilter(paint.getColor(), PorterDuff.Mode.ADD);
+
+        mSendButton.setOnClickListener( new View.OnClickListener() {
+            @Override
+            public void onClick (View v){
+
+                /*Toast.makeText(getContext(), mMessage.getText().toString(), Toast.LENGTH_LONG).show();
+                mMessage.setText("");*/
+                postComment(getContext(), mMessage);
+
+            }
+        });
+
         RecyclerView view = root.findViewById(R.id.comments_view);
         ContentAdapterComments adapter = new ContentAdapterComments(view.getContext());
         view.setAdapter(adapter);
@@ -50,6 +82,7 @@ public class CommentsFragment extends Fragment {
         return root;
     }
 
+
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
@@ -58,8 +91,24 @@ public class CommentsFragment extends Fragment {
         // TODO: Use the ViewModel
     }
 
+
+
+    static void postComment(Context context, EditText editText){
+        Toast.makeText(context, editText.getText().toString(), Toast.LENGTH_LONG).show();
+        editText.setText("");
+    }
+
+
+
+
+
     public static class ViewHolderComments extends RecyclerView.ViewHolder{
         public TextView usernameC, contentC, dateC;
+        public TextView repliesButtonC;
+        public Button replyButtonC;
+        public EditText messageC;
+        public ImageButton sendButtonC;
+        public LinearLayout replyBarC;
         public RecyclerView repliesRecycler;
 
         public ViewHolderComments(LayoutInflater inflater, ViewGroup parent) {
@@ -67,6 +116,14 @@ public class CommentsFragment extends Fragment {
             usernameC = itemView.findViewById(R.id.comment_card_username);
             contentC = itemView.findViewById(R.id.comment_card_content);
             dateC = itemView.findViewById(R.id.comment_card_date);
+
+
+            repliesButtonC = itemView.findViewById(R.id.comment_card_replies);
+
+            replyButtonC = itemView.findViewById(R.id.comment_card_reply_button);
+            replyBarC = itemView.findViewById(R.id.comment_card_reply_bar);
+            messageC = itemView.findViewById(R.id.comment_card_editText);
+            sendButtonC = itemView.findViewById(R.id.comment_card_send_button);
             repliesRecycler = itemView.findViewById(R.id.replies_view);
 
 
@@ -136,12 +193,46 @@ public class CommentsFragment extends Fragment {
 
         //put the resource elements in the views using the ViewHolder
         @Override
-        public void onBindViewHolder(ViewHolderComments holder, int position) {
+        public void onBindViewHolder(final ViewHolderComments holder, int position) {
             holder.usernameC.setText(mUsernamesC.get(position % mUsernamesC.size()));
             holder.contentC.setText(mContentsC.get(position % mContentsC.size()));
             //holder.percentage.setText(mPercentages[position % mPercentages.length]);
             holder.dateC.setText(mDatesC.get(position % mDatesC.size()));
 
+
+            holder.repliesButtonC.setOnClickListener( new View.OnClickListener() {
+                @Override
+                public void onClick (View v){
+
+                    if(holder.repliesRecycler.getVisibility() == View.GONE){
+                        holder.repliesRecycler.setVisibility(View.VISIBLE);
+                    } else {
+                        holder.repliesRecycler.setVisibility(View.GONE);
+                    }
+                }
+            });
+
+            holder.replyButtonC.setOnClickListener( new View.OnClickListener() {
+                @Override
+                public void onClick (View v){
+
+                    if(holder.replyBarC.getVisibility() == View.GONE){
+                        holder.replyBarC.setVisibility(View.VISIBLE);
+                    } else {
+                        holder.replyBarC.setVisibility(View.GONE);
+                    }
+                }
+            });
+
+            holder.sendButtonC.setOnClickListener( new View.OnClickListener() {
+                @Override
+                public void onClick (View v){
+
+                    /*Toast.makeText(mContextC, holder.messageC.getText().toString(), Toast.LENGTH_LONG).show();
+                    holder.messageC.setText("");*/
+                    postComment(mContextC, holder.messageC);
+                }
+            });
 
             ContentAdapterReplies adapterR = new ContentAdapterReplies(mContextC, position);
             holder.repliesRecycler.setAdapter(adapterR);
@@ -172,12 +263,21 @@ public class CommentsFragment extends Fragment {
 
     public static class ViewHolderReplies extends RecyclerView.ViewHolder{
         public TextView usernameR, contentR, dateR;
+        public Button replyButtonR;
+        public EditText messageR;
+        public ImageButton sendButtonR;
+        public LinearLayout replyBarR;
 
         public ViewHolderReplies(LayoutInflater inflater, ViewGroup parent) {
             super(inflater.inflate(R.layout.comment_reply_card, parent, false));
             usernameR = itemView.findViewById(R.id.reply_card_username);
             contentR = itemView.findViewById(R.id.reply_card_content);
             dateR = itemView.findViewById(R.id.reply_card_date);
+
+            replyButtonR = itemView.findViewById(R.id.reply_card_reply_button);
+            replyBarR = itemView.findViewById(R.id.reply_card_reply_bar);
+            messageR = itemView.findViewById(R.id.reply_card_editText);
+            sendButtonR = itemView.findViewById(R.id.reply_card_send_button);
 
             //itemView.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_lessonTopicFragment_to_lessonSelectionFragment, null));
         }
@@ -187,6 +287,8 @@ public class CommentsFragment extends Fragment {
     public static class ContentAdapterReplies extends RecyclerView.Adapter<ViewHolderReplies>{
 
         private final ArrayList<String> mUsernamesR, mContentsR, mDatesR;
+        Context mContextC;
+
         //private final ProgressBar[] mProgressBars;
 
         //pass it the year and section to represent the choice of the user
@@ -194,6 +296,7 @@ public class CommentsFragment extends Fragment {
             Resources resources = context.getResources();
             //String year = viewModel.getYear();
             //String section = viewModel.getSection();
+            mContextC = context;
 
             mUsernamesR = new ArrayList<>();
             mContentsR = new ArrayList<>();
@@ -246,11 +349,36 @@ public class CommentsFragment extends Fragment {
 
         //put the resource elements in the views using the ViewHolder
         @Override
-        public void onBindViewHolder(ViewHolderReplies holder, int position) {
+        public void onBindViewHolder(final ViewHolderReplies holder, int position) {
             holder.usernameR.setText(mUsernamesR.get(position % mUsernamesR.size()));
             holder.contentR.setText(mContentsR.get(position % mContentsR.size()));
             //holder.percentage.setText(mPercentages[position % mPercentages.length]);
             holder.dateR.setText(mDatesR.get(position % mDatesR.size()));
+
+            holder.replyButtonR.setOnClickListener( new View.OnClickListener() {
+                @Override
+                public void onClick (View v){
+
+                    if(holder.replyBarR.getVisibility() == View.GONE){
+                        holder.replyBarR.setVisibility(View.VISIBLE);
+                    } else {
+                        holder.replyBarR.setVisibility(View.GONE);
+                    }
+                }
+            });
+
+            holder.sendButtonR.setOnClickListener( new View.OnClickListener() {
+                @Override
+                public void onClick (View v){
+
+                    /*Toast.makeText(mContextC, holder.messageR.getText().toString(), Toast.LENGTH_LONG).show();
+                    holder.messageR.setText("");*/
+                    postComment(mContextC, holder.messageR);
+
+
+                }
+            });
+
         }
 
         @Override

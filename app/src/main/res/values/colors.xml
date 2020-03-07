@@ -5,4 +5,23 @@
     <color name="colorAccent">#009577</color>
     <color name="colorBackground">#E8E8E8</color>
 
+
+    <color name = "red">#C62828</color>
+    <color name = "orange">#ee6002</color>
+    <color name = "yellow">#CDDC39</color>
+    <color name = "green">#09af00</color>
+    <color name = "cyan">#1E88E5</color>
+    <color name = "indigo">#3949AB</color>
+    <color name = "purple">#6002EE</color>
+
+    <integer-array name="profile_colors">
+        <item>@color/red</item>
+        <item>@color/orange</item>
+        <item>@color/yellow</item>
+        <item>@color/green</item>
+        <item>@color/cyan</item>
+        <item>@color/indigo</item>
+        <item>@color/purple</item>
+    </integer-array>
+
 </resources>

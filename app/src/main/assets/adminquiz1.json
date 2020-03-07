@@ -1,0 +1,230 @@
+
+    {
+      "name": "quiz 1",
+      "section": "SHS",
+      "year": "1",
+      "topic": "Equations",
+      "author": "Lanciné",
+      "questions": [
+        {
+          "problem": "1+1 = ?",
+          "multiple": "false",
+          "choices" : [
+            {
+              "label": "1",
+              "truth": "false"
+            },
+            {
+              "label": "2",
+              "truth": "true"
+            },
+            {
+              "label": "3",
+              "truth": "false"
+            },
+            {
+              "label": "4",
+              "truth": "false"
+            }
+          ]
+        },
+        {
+          "problem": "1+10 = ?",
+          "multiple": "false",
+          "choices" : [
+            {
+              "label": "11",
+              "truth": "true"
+            },
+            {
+              "label": "12",
+              "truth": "false"
+            },
+            {
+              "label": "30",
+              "truth": "false"
+            },
+            {
+              "label": "45",
+              "truth": "false"
+            }
+          ]
+        },
+        {
+          "problem": "12+1 = ?",
+          "multiple": "false",
+          "choices" : [
+            {
+              "label": "11",
+              "truth": "false"
+            },
+            {
+              "label": "26",
+              "truth": "false"
+            },
+            {
+              "label": "13",
+              "truth": "true"
+            },
+            {
+              "label": "44",
+              "truth": "false"
+            }
+          ]
+        },
+        {
+          "problem": "1+19 = ?",
+          "multiple": "true",
+          "choices" : [
+            {
+              "label": "10",
+              "truth": "false"
+            },
+            {
+              "label": "20",
+              "truth": "true"
+            },
+            {
+              "label": "36",
+              "truth": "false"
+            },
+            {
+              "label": "10+10",
+              "truth": "true"
+            }
+          ]
+        },
+        {
+          "problem": "1-1 = ?",
+          "multiple": "false",
+          "choices" : [
+            {
+              "label": "1",
+              "truth": "false"
+            },
+            {
+              "label": "2",
+              "truth": "false"
+            },
+            {
+              "label": "3",
+              "truth": "false"
+            },
+            {
+              "label": "0",
+              "truth": "true"
+            }
+          ]
+        },
+        {
+          "problem": "10*5 = ?",
+          "multiple": "true",
+          "choices" : [
+            {
+              "label": "10",
+              "truth": "false"
+            },
+            {
+              "label": "20",
+              "truth": "false"
+            },
+            {
+              "label": "25+25",
+              "truth": "true"
+            },
+            {
+              "label": "50",
+              "truth": "true"
+            }
+          ]
+        },
+        {
+          "problem": "100/20 = ?",
+          "multiple": "true",
+          "choices" : [
+            {
+              "label": "5",
+              "truth": "true"
+            },
+            {
+              "label": "2+3",
+              "truth": "true"
+            },
+            {
+              "label": "50",
+              "truth": "false"
+            },
+            {
+              "label": "100",
+              "truth": "false"
+            }
+          ]
+        },
+        {
+          "problem": "75 = ?",
+          "multiple": "true",
+          "choices" : [
+            {
+              "label": "50+26",
+              "truth": "false"
+            },
+            {
+              "label": "80-8",
+              "truth": "false"
+            },
+            {
+              "label": "50+25",
+              "truth": "true"
+            },
+            {
+              "label": "80-5",
+              "truth": "true"
+            }
+          ]
+        },
+        {
+          "problem": "1+100 = ?",
+          "multiple": "false",
+          "choices" : [
+            {
+              "label": "101",
+              "truth": "true"
+            },
+            {
+              "label": "2",
+              "truth": "true"
+            },
+            {
+              "label": "3",
+              "truth": "false"
+            },
+            {
+              "label": "4",
+              "truth": "false"
+            }
+          ]
+        },
+        {
+          "problem": "11-1 = ?",
+          "multiple": "false",
+          "choices" : [
+            {
+              "label": "1",
+              "truth": "false"
+            },
+            {
+              "label": "10",
+              "truth": "true"
+            },
+            {
+              "label": "30",
+              "truth": "false"
+            },
+            {
+              "label": "85",
+              "truth": "false"
+            }
+          ]
+        }
+      ]
+    }

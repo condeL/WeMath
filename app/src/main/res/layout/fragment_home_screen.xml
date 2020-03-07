@@ -33,16 +33,19 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent">
 
-                        <ImageView
+                        <TextView
                             android:id="@+id/profile_home_image"
                             android:layout_width="75dp"
                             android:layout_height="75dp"
                             android:layout_marginStart="26dp"
                             android:layout_marginTop="32dp"
+                            android:background="@drawable/circle"
+                            android:gravity="center_horizontal|center_vertical"
+                            android:text="J"
+                            android:textColor="#FFFFFF"
+                            android:textSize="36sp"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="@id/welcome_text_home"
-                            app:srcCompat="@drawable/outline_account_circle_black_48dp"
-                            tools:src="@tools:sample/avatars" />
+                            app:layout_constraintTop_toTopOf="@id/welcome_text_home" />
 
                         <Button
                             android:id="@+id/profile_button_main"
@@ -83,9 +86,7 @@
                     android:layout_marginBottom="15dp"
                     android:padding="100dp"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintTop_toTopOf="@id/home_cardview1">
-
-                </androidx.cardview.widget.CardView>
+                    app:layout_constraintTop_toTopOf="@id/home_cardview1"/>
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </LinearLayout>
