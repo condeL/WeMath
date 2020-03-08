@@ -41,11 +41,11 @@
                             android:layout_marginTop="32dp"
                             android:background="@drawable/circle"
                             android:gravity="center_horizontal|center_vertical"
-                            android:text="J"
                             android:textColor="#FFFFFF"
                             android:textSize="36sp"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="@id/welcome_text_home" />
+                            app:layout_constraintTop_toTopOf="@id/welcome_text_home"
+                            tools:text="L" />
 
                         <Button
                             android:id="@+id/profile_button_main"
