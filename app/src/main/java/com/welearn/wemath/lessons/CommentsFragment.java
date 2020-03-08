@@ -23,6 +23,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.welearn.wemath.R;
 
 import org.json.JSONArray;
@@ -36,6 +38,7 @@ import java.util.ArrayList;
 
 public class CommentsFragment extends Fragment {
 
+    private FirebaseUser mUser;
     private TextView mProfilePicture;
     private EditText mMessage;
     private ImageButton mSendButton;
@@ -52,14 +55,19 @@ public class CommentsFragment extends Fragment {
         // Inflate the layout for this fragment
         View root = inflater.inflate(R.layout.fragment_comments, container, false);
 
+        mUser = FirebaseAuth.getInstance().getCurrentUser();
+
+        String name = mUser.getDisplayName();
+
         mProfilePicture = root.findViewById(R.id.comments_fragment_profile_picture);
         mMessage = root.findViewById(R.id.comments_fragment_editText);
         mSendButton = root.findViewById(R.id.comments_fragment_send_button);
 
+        mProfilePicture.setText(String.valueOf(name.toUpperCase().charAt(0)));
 
         int[] profileColors = getResources().getIntArray(R.array.profile_colors);
         Paint paint = new Paint();
-        paint.setColor(profileColors['J'%6]);
+        paint.setColor(profileColors[name.charAt(0)%6]);
         mProfilePicture.getBackground().setColorFilter(paint.getColor(), PorterDuff.Mode.ADD);
 
         mSendButton.setOnClickListener( new View.OnClickListener() {

@@ -14,7 +14,9 @@
         <activity android:name=".LoginRegisterActivity"></activity>
         <activity
             android:name=".SplashActivity"
-            android:theme="@style/AppTheme.NoActionBar.Launcher">
+            android:theme="@style/AppTheme.NoActionBar.Launcher"
+            android:screenOrientation="portrait"
+            android:configChanges="orientation|keyboardHidden">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -23,13 +25,25 @@
         </activity>
         <activity
             android:name=".LoginActivity"
-            android:label="Login"></activity>
-        <activity android:name=".AdminQuizActivity" />
-        <activity android:name=".quizzes.QuizQuestionActivity" />
-        <activity android:name=".lessons.LessonActivity" />
+            android:label="Login"
+            android:screenOrientation="portrait"
+            android:configChanges="orientation|keyboardHidden">
+
+        </activity>
+        <activity android:name=".AdminQuizActivity"
+            android:screenOrientation="portrait"
+            android:configChanges="orientation|keyboardHidden"/>
+        <activity android:name=".quizzes.QuizQuestionActivity"
+            android:screenOrientation="portrait"
+            android:configChanges="orientation|keyboardHidden"/>
+        <activity android:name=".lessons.LessonActivity"
+            android:screenOrientation="portrait"
+            android:configChanges="orientation|keyboardHidden"/>
         <activity
             android:name=".lessons.LessonQuestionActivity"
-            android:label="@string/title_activity_lesson_question">
+            android:label="@string/title_activity_lesson_question"
+            android:screenOrientation="portrait"
+            android:configChanges="orientation|keyboardHidden">
 
             <!--
             android:theme="@style/AppTheme.NoActionBar"> Your comment
@@ -41,7 +55,9 @@
             </intent-filter>
             -->
         </activity>
-        <activity android:name=".MainActivity"></activity>
+        <activity android:name=".MainActivity"
+            android:screenOrientation="portrait"
+            android:configChanges="orientation|keyboardHidden"></activity>
 
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"

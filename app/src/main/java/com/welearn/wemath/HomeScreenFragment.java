@@ -28,7 +28,7 @@ import com.google.firebase.auth.FirebaseUser;
  */
 public class HomeScreenFragment extends Fragment {
 
-    FirebaseUser mUser;
+    private FirebaseUser mUser;
     private TextView mWelcomeTextView, mProfileImage;
     private Button mProfileButton;
 
@@ -54,6 +54,7 @@ public class HomeScreenFragment extends Fragment {
         Paint paint = new Paint();
         paint.setColor(profileColors[name.charAt(0)%6]);
 
+        mProfileImage.getBackground().setColorFilter(paint.getColor(), PorterDuff.Mode.ADD);
 
         mProfileButton = root.findViewById(R.id.profile_button_main);
         mProfileButton.setOnClickListener(new View.OnClickListener() {
@@ -67,7 +68,6 @@ public class HomeScreenFragment extends Fragment {
         });
 
 
-        mProfileImage.getBackground().setColorFilter(paint.getColor(), PorterDuff.Mode.ADD);
 
         return root;
     }

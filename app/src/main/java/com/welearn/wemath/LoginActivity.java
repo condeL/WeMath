@@ -45,6 +45,36 @@ public class LoginActivity extends AppCompatActivity {
         // Initialize Firebase Auth
         mAuth = FirebaseAuth.getInstance();
 
+        // Check if user is signed in (non-null) and update UI accordingly.
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        //updateUI(currentUser);
+        mRegisterButton = findViewById(R.id.login_activity_register_button);
+        mSignInButton = findViewById(R.id.login_activity_signin_button);
+        mEmail = findViewById(R.id.login_activity_email);
+        mPassword = findViewById(R.id.login_activity_password);
+
+        mRegisterButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick (View v){
+
+                createUser(mEmail.getText().toString(),mPassword.getText().toString());
+                mEmail.setText("");
+                mPassword.setText("");
+
+            }
+        });
+
+        mSignInButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick (View v){
+
+                signInUser(mEmail.getText().toString(),mPassword.getText().toString());
+                mEmail.setText("");
+                mPassword.setText("");
+
+            }
+        });
+
         mCallbackManager = CallbackManager.Factory.create();
         mFacebookloginButton = findViewById(R.id.login_activity_facebook_button);
         mFacebookloginButton.setPermissions("email", "public_profile");
@@ -78,38 +108,12 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
+
+
     @Override
     public void onStart() {
         super.onStart();
-        // Check if user is signed in (non-null) and update UI accordingly.
-        FirebaseUser currentUser = mAuth.getCurrentUser();
-        //updateUI(currentUser);
-        mRegisterButton = findViewById(R.id.login_activity_register_button);
-        mSignInButton = findViewById(R.id.login_activity_signin_button);
-        mEmail = findViewById(R.id.login_activity_email);
-        mPassword = findViewById(R.id.login_activity_password);
 
-        mRegisterButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick (View v){
-
-                createUser(mEmail.getText().toString(),mPassword.getText().toString());
-                mEmail.setText("");
-                mPassword.setText("");
-
-            }
-        });
-
-        mSignInButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick (View v){
-
-                signInUser(mEmail.getText().toString(),mPassword.getText().toString());
-                mEmail.setText("");
-                mPassword.setText("");
-
-            }
-        });
 
     }
 
