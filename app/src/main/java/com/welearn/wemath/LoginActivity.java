@@ -15,6 +15,7 @@ import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
+import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -24,6 +25,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserInfo;
 
 
 public class LoginActivity extends AppCompatActivity {
@@ -32,7 +34,7 @@ public class LoginActivity extends AppCompatActivity {
 
 
     private FirebaseAuth mAuth;
-    private Button mRegisterButton, mSignInButton;
+    private Button mRegisterButton, mSignInButton, mSignOutButton;
     private EditText mEmail, mPassword;
     private CallbackManager mCallbackManager;
     private LoginButton mFacebookloginButton;
@@ -45,13 +47,17 @@ public class LoginActivity extends AppCompatActivity {
         // Initialize Firebase Auth
         mAuth = FirebaseAuth.getInstance();
 
-        // Check if user is signed in (non-null) and update UI accordingly.
-        FirebaseUser currentUser = mAuth.getCurrentUser();
-        //updateUI(currentUser);
         mRegisterButton = findViewById(R.id.login_activity_register_button);
         mSignInButton = findViewById(R.id.login_activity_signin_button);
+        mSignOutButton = findViewById(R.id.login_activity_signout_button);
         mEmail = findViewById(R.id.login_activity_email);
         mPassword = findViewById(R.id.login_activity_password);
+        mFacebookloginButton = findViewById(R.id.login_activity_facebook_button);
+
+
+        // Check if user is signed in (non-null) and update UI accordingly.
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        updateUI(currentUser);
 
         mRegisterButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -75,14 +81,32 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
+        mSignOutButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick (View v){
+                UserInfo profile = mAuth.getCurrentUser().getProviderData().get(1);
+                if(profile.getProviderId().equalsIgnoreCase("facebook.com")) {
+                    mAuth.signOut();
+                    LoginManager.getInstance().logOut();
+                    updateUI(null);
+                }
+                else{
+                    mAuth.signOut();
+                    updateUI(null);
+                }
+                //LoginManager.getInstance().logOut();
+
+            }
+        });
+
         mCallbackManager = CallbackManager.Factory.create();
-        mFacebookloginButton = findViewById(R.id.login_activity_facebook_button);
         mFacebookloginButton.setPermissions("email", "public_profile");
         mFacebookloginButton.registerCallback(mCallbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
                 Log.d(TAG, "facebook:onSuccess:" + loginResult);
-                handleFacebookAccessToken(loginResult.getAccessToken());
+                    handleFacebookAccessToken(loginResult.getAccessToken());
+
             }
 
             @Override
@@ -118,6 +142,25 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void updateUI(FirebaseUser user){
+        if(user != null){
+
+                mEmail.setVisibility(View.GONE);
+                mPassword.setVisibility(View.GONE);
+                mSignInButton.setVisibility(View.GONE);
+                mRegisterButton.setVisibility(View.GONE);
+                mFacebookloginButton.setVisibility(View.GONE);
+                mSignOutButton.setVisibility((View.VISIBLE));
+
+        } else{
+
+            mSignOutButton.setVisibility((View.GONE));
+            mEmail.setVisibility(View.VISIBLE);
+            mPassword.setVisibility(View.VISIBLE);
+            mSignInButton.setVisibility(View.VISIBLE);
+            mRegisterButton.setVisibility(View.VISIBLE);
+            mFacebookloginButton.setVisibility(View.VISIBLE);
+
+        }
 
     }
 
