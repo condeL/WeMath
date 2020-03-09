@@ -82,7 +82,7 @@ public class LessonQuestionActivity extends AppCompatActivity {
         }
 
         //setting up the behaviour of the Next button
-        mNextButton = findViewById(R.id.next_lesson_button);
+        mNextButton = findViewById(R.id.quiz_finish_button);
         mNextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
