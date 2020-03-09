@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.facebook.AccessToken;
@@ -26,6 +27,7 @@ import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserInfo;
+import com.google.firebase.auth.UserProfileChangeRequest;
 
 
 public class LoginActivity extends AppCompatActivity {
@@ -35,6 +37,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
     private Button mRegisterButton, mSignInButton, mSignOutButton;
+    TextView mAnonymousButton;
     private EditText mEmail, mPassword;
     private CallbackManager mCallbackManager;
     private LoginButton mFacebookloginButton;
@@ -50,6 +53,7 @@ public class LoginActivity extends AppCompatActivity {
         mRegisterButton = findViewById(R.id.login_activity_register_button);
         mSignInButton = findViewById(R.id.login_activity_signin_button);
         mSignOutButton = findViewById(R.id.login_activity_signout_button);
+        mAnonymousButton = findViewById(R.id.login_activity_anonymous);
         mEmail = findViewById(R.id.login_activity_email);
         mPassword = findViewById(R.id.login_activity_password);
         mFacebookloginButton = findViewById(R.id.login_activity_facebook_button);
@@ -81,18 +85,31 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
+        mAnonymousButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick (View v){
+
+                signInAnon();
+
+            }
+        });
+
         mSignOutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick (View v){
-                UserInfo profile = mAuth.getCurrentUser().getProviderData().get(1);
-                if(profile.getProviderId().equalsIgnoreCase("facebook.com")) {
-                    mAuth.signOut();
-                    LoginManager.getInstance().logOut();
-                    updateUI(null);
-                }
-                else{
+                if(mAuth.getCurrentUser().isAnonymous()){
                     mAuth.signOut();
                     updateUI(null);
+                }else {
+                    UserInfo profile = mAuth.getCurrentUser().getProviderData().get(1);
+                    if (profile.getProviderId().equalsIgnoreCase("facebook.com")) {
+                        mAuth.signOut();
+                        LoginManager.getInstance().logOut();
+                        updateUI(null);
+                    } else {
+                        mAuth.signOut();
+                        updateUI(null);
+                    }
                 }
                 //LoginManager.getInstance().logOut();
 
@@ -149,6 +166,7 @@ public class LoginActivity extends AppCompatActivity {
                 mSignInButton.setVisibility(View.GONE);
                 mRegisterButton.setVisibility(View.GONE);
                 mFacebookloginButton.setVisibility(View.GONE);
+                mAnonymousButton.setVisibility(View.GONE);
                 mSignOutButton.setVisibility((View.VISIBLE));
 
         } else{
@@ -159,6 +177,7 @@ public class LoginActivity extends AppCompatActivity {
             mSignInButton.setVisibility(View.VISIBLE);
             mRegisterButton.setVisibility(View.VISIBLE);
             mFacebookloginButton.setVisibility(View.VISIBLE);
+            mAnonymousButton.setVisibility(View.VISIBLE);
 
         }
 
@@ -216,6 +235,51 @@ public class LoginActivity extends AppCompatActivity {
                         // ...
                     }
                 });
+    }
+
+    public void signInAnon(){
+        mAuth.signInAnonymously()
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            // Sign in success, update UI with the signed-in user's information
+                            Log.d(TAG, "signInAnonymously:success");
+                            //FirebaseUser user = mAuth.getCurrentUser();
+                            createAnonUser();
+                            //redirect();
+                        } else {
+                            // If sign in fails, display a message to the user.
+                            Log.w(TAG, "signInAnonymously:failure", task.getException());
+                            Toast.makeText(LoginActivity.this, "Authentication failed.",
+                                    Toast.LENGTH_SHORT).show();
+                            updateUI(null);
+                        }
+
+                        // ...
+                    }
+                });
+
+    }
+
+    public void createAnonUser(){
+        UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
+                .setDisplayName("Guest")
+                .build();
+
+        mAuth.getCurrentUser().updateProfile(profileUpdates)
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()) {
+                            Log.d("Profile update", "User profile updated.");
+                            updateUI(mAuth.getCurrentUser());
+                            redirect();
+                        }
+                    }
+                });
+
+
     }
 
     private void handleFacebookAccessToken(AccessToken token) {
