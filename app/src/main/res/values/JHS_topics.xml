@@ -35,7 +35,7 @@
         <item>Geometric constructions</item>
         <item>Algebraic expressions</item>
         <item>Number Planes</item>
-        <item>Proprieties of Quadilaterals</item>
+        <item>Proprieties of Quadrilaterals</item>
         <item>Ratio and Proportions</item>
         <item>Rates</item>
         <item>Probability</item>
@@ -52,7 +52,7 @@
     <string-array name="topics_jhs3">
         <item>Application of sets</item>
         <item>Rigid motion</item>
-        <item>Enlargments and Similarities</item>
+        <item>Enlargements and Similarities</item>
         <item>Handling data and Probability</item>
         <item>Money and Taxes</item>
         <item>Algebraic expressions</item>
