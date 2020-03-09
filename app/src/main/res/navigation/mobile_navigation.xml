@@ -80,9 +80,9 @@
     </fragment>
     <activity
         android:id="@+id/quizQuestionActivity"
-        android:name="com.welearn.wemath.quizzes.QuizQuestionActivity"
+        android:name="com.welearn.wemath.quizzes.UserQuizTakingActivity"
         android:label="Quiz"
-        tools:layout="@layout/activity_quiz_question" />
+        tools:layout="@layout/activity_user_quiz_taking" />
     <fragment
         android:id="@+id/quizTakingMenuFragment"
         android:name="com.welearn.wemath.quizzes.QuizTakingMenuFragment"

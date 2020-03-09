@@ -23,7 +23,7 @@
 
                 <androidx.cardview.widget.CardView
                     android:id="@+id/lesson_year_title_card"
-                    android:layout_width="370dp"
+                    android:layout_width="0dp"
                     android:layout_height="65dp"
                     android:layout_marginStart="20dp"
                     android:layout_marginTop="20dp"
@@ -47,10 +47,10 @@
 
                 <androidx.cardview.widget.CardView
                     android:id="@+id/quiz_taking_admin_quiz_card"
-                    android:layout_width="175dp"
-                    android:layout_height="180dp"
+                    android:layout_width="130dp"
+                    android:layout_height="130dp"
                     android:layout_marginStart="50dp"
-                    android:layout_marginTop="150dp"
+                    android:layout_marginTop="100dp"
                     android:layout_marginEnd="50dp"
                     android:padding="150dp"
                     app:layout_constraintEnd_toStartOf="@+id/quiz_taking_user_quiz_card"
@@ -63,10 +63,9 @@
 
                         <ImageButton
                             android:id="@+id/quiz_taking_admin_quiz_image"
-                            android:layout_width="128dp"
-                            android:layout_height="128dp"
+                            android:layout_width="75dp"
+                            android:layout_height="75dp"
                             android:layout_marginStart="24dp"
-                            android:layout_marginTop="10dp"
                             android:layout_marginEnd="24dp"
                             android:layout_marginBottom="30dp"
                             android:background="@drawable/teacher_desk"
@@ -80,25 +79,25 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="50dp"
-                            android:layout_marginTop="140dp"
+                            android:layout_marginTop="10dp"
                             android:layout_marginEnd="50dp"
                             android:text="Admin quiz"
                             android:textSize="20sp"
                             android:textStyle="bold"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="@id/quiz_taking_admin_quiz_image" />
+                            app:layout_constraintTop_toBottomOf="@id/quiz_taking_admin_quiz_image" />
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
                 </androidx.cardview.widget.CardView>
 
                 <androidx.cardview.widget.CardView
                     android:id="@+id/quiz_taking_user_quiz_card"
-                    android:layout_width="175dp"
-                    android:layout_height="180dp"
+                    android:layout_width="130dp"
+                    android:layout_height="130dp"
                     android:layout_marginStart="190dp"
-                    android:layout_marginTop="150dp"
-                    android:layout_marginEnd="15dp"
+                    android:layout_marginTop="100dp"
+                    android:layout_marginEnd="50dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="@id/quiz_taking_admin_quiz_card"
                     app:layout_constraintTop_toTopOf="@id/lesson_year_title_card">
@@ -109,10 +108,9 @@
 
                         <ImageButton
                             android:id="@+id/quiz_taking_user_quiz_image"
-                            android:layout_width="128dp"
-                            android:layout_height="128dp"
+                            android:layout_width="75dp"
+                            android:layout_height="75dp"
                             android:layout_marginStart="24dp"
-                            android:layout_marginTop="10dp"
                             android:layout_marginEnd="24dp"
                             android:layout_marginBottom="30dp"
                             android:background="@drawable/homework"
@@ -126,28 +124,28 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="50dp"
-                            android:layout_marginTop="140dp"
+                            android:layout_marginTop="10dp"
                             android:layout_marginEnd="50dp"
                             android:text="User quizzes"
                             android:textSize="20sp"
                             android:textStyle="bold"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="@id/quiz_taking_user_quiz_image" />
+                            app:layout_constraintTop_toBottomOf="@id/quiz_taking_user_quiz_image" />
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
                 </androidx.cardview.widget.CardView>
 
                 <androidx.cardview.widget.CardView
                     android:id="@+id/quiz_taking_past_results_card"
-                    android:layout_width="175dp"
-                    android:layout_height="180dp"
+                    android:layout_width="130dp"
+                    android:layout_height="130dp"
                     android:layout_marginStart="50dp"
-                    android:layout_marginTop="220dp"
+                    android:layout_marginTop="40dp"
                     android:layout_marginEnd="50dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="@id/quiz_taking_admin_quiz_card">
+                    app:layout_constraintTop_toBottomOf="@id/quiz_taking_admin_quiz_card">
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
@@ -155,10 +153,9 @@
 
                         <ImageButton
                             android:id="@+id/quiz_taking_past_reults_image"
-                            android:layout_width="128dp"
-                            android:layout_height="128dp"
+                            android:layout_width="75dp"
+                            android:layout_height="75dp"
                             android:layout_marginStart="24dp"
-                            android:layout_marginTop="10dp"
                             android:layout_marginEnd="24dp"
                             android:layout_marginBottom="30dp"
                             android:background="@drawable/test"
@@ -172,14 +169,14 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="50dp"
-                            android:layout_marginTop="140dp"
+                            android:layout_marginTop="10dp"
                             android:layout_marginEnd="50dp"
                             android:text="Past results"
                             android:textSize="20sp"
                             android:textStyle="bold"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="@id/quiz_taking_past_reults_image" />
+                            app:layout_constraintTop_toBottomOf="@id/quiz_taking_past_reults_image" />
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
                 </androidx.cardview.widget.CardView>

@@ -22,15 +22,30 @@
                 android:layout_height="match_parent"
                 android:layout_marginBottom="25dp">
 
+                <TextView
+                    android:id="@+id/user_quiz_taking_timer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="180dp"
+                    android:layout_marginTop="30dp"
+                    android:layout_marginEnd="180dp"
+                    android:text="TextView"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="5:31" />
+
                 <com.google.android.material.card.MaterialCardView
                     android:id="@+id/questionTextView_card"
                     android:layout_width="325dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="64dp"
+                    android:layout_marginTop="10dp"
                     app:cardCornerRadius="10dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent">
+                    app:layout_constraintTop_toBottomOf="@id/user_quiz_taking_timer">
 
                     <TextView
                         android:id="@+id/question_text_view"
@@ -41,19 +56,6 @@
                         app:layout_constraintTop_toTopOf="parent"
                         tools:text="Question 1" />
                 </com.google.android.material.card.MaterialCardView>
-
-                <Button
-                    android:id="@+id/quiz_finish_button"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="50dp"
-                    android:layout_marginEnd="32dp"
-                    android:background="@color/colorAccent"
-                    android:drawablePadding="4dp"
-                    android:text="@string/next_button"
-                    android:textColor="#FFFFFF"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/answers_radio_group" />
 
                 <RadioGroup
                     android:id="@+id/answers_radio_group"
@@ -140,6 +142,63 @@
                         tools:visibility="gone" />
 
                 </RadioGroup>
+
+                <Button
+                    android:id="@+id/quiz_finish_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="50dp"
+                    android:layout_marginEnd="50dp"
+                    android:layout_marginBottom="20dp"
+                    android:background="@color/colorAccent"
+                    android:drawablePadding="4dp"
+                    android:text="Finish"
+                    android:textColor="#FFFFFF"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+                <TextView
+                    android:id="@+id/quiz_taking_question_number"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="50dp"
+                    android:layout_marginTop="40dp"
+                    android:layout_marginEnd="50dp"
+                    android:layout_marginBottom="25dp"
+                    android:text="TextView"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toTopOf="@id/quiz_finish_button"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/answers_radio_group"
+                    tools:text="Question 5/10" />
+
+                <ImageView
+                    android:id="@+id/quiz_takig_previous_question"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_marginStart="60dp"
+                    android:layout_marginTop="40dp"
+                    android:layout_marginBottom="25dp"
+                    app:layout_constraintBottom_toTopOf="@id/quiz_finish_button"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/answers_radio_group"
+                    app:srcCompat="@drawable/arrow_left" />
+
+                <ImageView
+                    android:id="@+id/quiz_takig_next_question"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_marginTop="40dp"
+                    android:layout_marginEnd="60dp"
+                    android:layout_marginBottom="25dp"
+                    app:layout_constraintBottom_toTopOf="@id/quiz_finish_button"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/answers_radio_group"
+                    app:srcCompat="@drawable/arrow_right" />
+
             </androidx.constraintlayout.widget.ConstraintLayout>
         </LinearLayout>
     </ScrollView>

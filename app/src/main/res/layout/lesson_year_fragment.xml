@@ -7,7 +7,7 @@
 
     <androidx.cardview.widget.CardView
         android:id="@+id/lesson_year_title_card"
-        android:layout_width="370dp"
+        android:layout_width="0dp"
         android:layout_height="65dp"
         android:layout_marginStart="20dp"
         android:layout_marginTop="20dp"
@@ -32,9 +32,9 @@
     <androidx.cardview.widget.CardView
         android:id="@+id/Year1_card"
         android:layout_width="wrap_content"
-        android:layout_height="160dp"
+        android:layout_height="130dp"
         android:layout_marginStart="100dp"
-        android:layout_marginTop="180dp"
+        android:layout_marginTop="110dp"
         android:layout_marginEnd="100dp"
         android:layout_marginBottom="81dp"
         app:layout_constraintBottom_toTopOf="@+id/Year3_card"
@@ -49,13 +49,13 @@
 
             <ImageButton
                 android:id="@+id/year1_button"
-                android:layout_width="128dp"
-                android:layout_height="128dp"
+                android:layout_width="75dp"
+                android:layout_height="75dp"
                 android:layout_margin="5dp"
                 android:layout_marginStart="25dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="25dp"
-                android:background="@drawable/desk_chair"
+                android:background="@drawable/backpack"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -65,14 +65,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="50dp"
-                android:layout_marginTop="130dp"
+                android:layout_marginTop="10dp"
                 android:layout_marginEnd="50dp"
                 android:text="Year 1"
                 android:textSize="20sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@id/year1_button" />
+                app:layout_constraintTop_toBottomOf="@id/year1_button" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.cardview.widget.CardView>
@@ -80,13 +80,13 @@
     <androidx.cardview.widget.CardView
         android:id="@+id/Year3_card"
         android:layout_width="wrap_content"
-        android:layout_height="160dp"
+        android:layout_height="130dp"
         android:layout_marginStart="24dp"
-        android:layout_marginTop="200dp"
+        android:layout_marginTop="40dp"
         android:layout_marginEnd="50dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/Year2_card"
-        app:layout_constraintTop_toTopOf="@id/Year1_card">
+        app:layout_constraintTop_toBottomOf="@id/Year1_card">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -94,13 +94,13 @@
 
             <ImageButton
                 android:id="@+id/year3_button"
-                android:layout_width="128dp"
-                android:layout_height="128dp"
+                android:layout_width="75dp"
+                android:layout_height="75dp"
                 android:layout_margin="5dp"
                 android:layout_marginStart="25dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="25dp"
-                android:background="@drawable/high_school"
+                android:background="@drawable/graduate"
                 android:cropToPadding="false"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -111,14 +111,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="50dp"
-                android:layout_marginTop="130dp"
+                android:layout_marginTop="10dp"
                 android:layout_marginEnd="50dp"
                 android:text="Year 3"
                 android:textSize="20sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@id/year3_button" />
+                app:layout_constraintTop_toBottomOf="@id/year3_button" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.cardview.widget.CardView>
@@ -126,13 +126,13 @@
     <androidx.cardview.widget.CardView
         android:id="@+id/Year2_card"
         android:layout_width="wrap_content"
-        android:layout_height="160dp"
+        android:layout_height="130dp"
         android:layout_marginStart="50dp"
-        android:layout_marginTop="200dp"
+        android:layout_marginTop="40dp"
         android:layout_marginEnd="24dp"
         app:layout_constraintEnd_toStartOf="@id/Year3_card"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/Year1_card">
+        app:layout_constraintTop_toBottomOf="@id/Year1_card">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -140,13 +140,13 @@
 
             <ImageButton
                 android:id="@+id/year2_button"
-                android:layout_width="128dp"
-                android:layout_height="128dp"
+                android:layout_width="75dp"
+                android:layout_height="75dp"
                 android:layout_margin="5dp"
                 android:layout_marginStart="25dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="25dp"
-                android:background="@drawable/high_school"
+                android:background="@drawable/agenda"
                 android:cropToPadding="false"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -157,16 +157,15 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="50dp"
-                android:layout_marginTop="130dp"
+                android:layout_marginTop="10dp"
                 android:layout_marginEnd="50dp"
                 android:text="Year 2"
                 android:textSize="20sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@id/year2_button" />
+                app:layout_constraintTop_toBottomOf="@id/year2_button" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.cardview.widget.CardView>
-
 </androidx.constraintlayout.widget.ConstraintLayout>
