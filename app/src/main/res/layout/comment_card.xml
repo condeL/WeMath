@@ -112,7 +112,7 @@
                         android:layout_height="match_parent">
 
                         <ImageView
-                            android:id="@+id/imageView"
+                            android:id="@+id/comment_card_downvote"
                             android:layout_width="40dp"
                             android:layout_height="40dp"
                             android:layout_marginTop="7dp"
@@ -149,7 +149,7 @@
                         android:layout_height="match_parent">
 
                         <ImageView
-                            android:id="@+id/imageView2"
+                            android:id="@+id/comment_card_upvote"
                             android:layout_width="40dp"
                             android:layout_height="40dp"
                             app:layout_constraintStart_toStartOf="parent"
