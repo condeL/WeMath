@@ -14,7 +14,7 @@
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="30dp"
             android:layout_marginBottom="20dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -99,10 +99,12 @@
 
                 <androidx.cardview.widget.CardView
                     android:id="@+id/downvote_cardview"
-                    android:layout_width="70dp"
+                    android:layout_width="80dp"
                     android:layout_height="50dp"
                     android:layout_marginStart="10dp"
                     android:layout_marginEnd="20dp"
+                    android:layout_marginBottom="10dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@+id/comment_card_replies"
                     app:layout_constraintStart_toEndOf="@id/upvote_cardview"
                     app:layout_constraintTop_toBottomOf="@id/comment_card_content">
@@ -125,7 +127,8 @@
                             android:layout_width="wrap_content"
                             android:layout_height="40dp"
                             android:layout_marginTop="7dp"
-                            android:text="TextView"
+                            android:layout_marginEnd="5dp"
+                            android:text="30"
                             android:textSize="20sp"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
@@ -136,9 +139,9 @@
 
                 <androidx.cardview.widget.CardView
                     android:id="@+id/upvote_cardview"
-                    android:layout_width="70dp"
+                    android:layout_width="80dp"
                     android:layout_height="50dp"
-                    android:layout_marginStart="80dp"
+                    android:layout_marginStart="70dp"
                     android:layout_marginBottom="10dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -161,7 +164,8 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="7dp"
-                            android:text="TextView"
+                            android:layout_marginEnd="5dp"
+                            android:text="36"
                             android:textSize="20sp"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
