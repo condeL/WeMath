@@ -121,12 +121,11 @@
                             app:srcCompat="@drawable/downvote2" />
 
                         <TextView
-                            android:id="@+id/downvotes"
+                            android:id="@+id/comment_card_downvotes_numbers"
                             android:layout_width="wrap_content"
                             android:layout_height="40dp"
                             android:layout_marginTop="7dp"
                             android:layout_marginEnd="5dp"
-                            android:text="30"
                             android:textSize="20sp"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
@@ -157,12 +156,11 @@
                             app:srcCompat="@drawable/upvote2" />
 
                         <TextView
-                            android:id="@+id/upvotes"
+                            android:id="@+id/comment_card_upvotes_numbers"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="7dp"
                             android:layout_marginEnd="5dp"
-                            android:text="36"
                             android:textSize="20sp"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
