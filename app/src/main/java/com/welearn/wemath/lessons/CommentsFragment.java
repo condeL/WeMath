@@ -151,7 +151,7 @@ public class CommentsFragment extends Fragment {
 
 
     public static class ViewHolderComments extends RecyclerView.ViewHolder{
-        public TextView usernameC, contentC, dateC;
+        public TextView usernameC, contentC, dateC, pictureC;
         public TextView repliesButtonC;
         public Button replyButtonC;
         public EditText messageC;
@@ -165,6 +165,7 @@ public class CommentsFragment extends Fragment {
             usernameC = itemView.findViewById(R.id.comment_card_username);
             contentC = itemView.findViewById(R.id.comment_card_content);
             dateC = itemView.findViewById(R.id.comment_card_date);
+            pictureC = itemView.findViewById(R.id.comment_card_profile_pic);
 
             downvotesC = itemView.findViewById(R.id.comment_card_downvotes_numbers);
             upvotesC = itemView.findViewById(R.id.comment_card_upvotes_numbers);
@@ -264,9 +265,16 @@ public class CommentsFragment extends Fragment {
 
             holder.usernameC.setText(mCommentsC.get(position % mCommentsC.size()).getName());
             holder.contentC.setText(mCommentsC.get(position % mCommentsC.size()).getMessage());
-            holder.dateC.setText(new SimpleDateFormat("dd/MM/yyyy").format(mCommentsC.get(position % mCommentsC.size()).getTimestamp()));
+            holder.dateC.setText(new SimpleDateFormat("dd MMM yyyy | hh:mm").format(mCommentsC.get(position % mCommentsC.size()).getTimestamp()));
             holder.downvotesC.setText(String.valueOf(mCommentsC.get(position%mCommentsC.size()).getDownvotes()));
             holder.upvotesC.setText(String.valueOf(mCommentsC.get(position%mCommentsC.size()).getUpvotes()));
+
+            String name = mCommentsC.get(position%mCommentsC.size()).getName();
+            holder.pictureC.setText(String.valueOf(name.toUpperCase().charAt(0)));
+            int[] profileColors = mContextC.getResources().getIntArray(R.array.profile_colors);
+            Paint paint = new Paint();
+            paint.setColor(profileColors[name.charAt(0)%6]);
+            holder.pictureC.getBackground().setColorFilter(paint.getColor(), PorterDuff.Mode.ADD);
 
             holder.repliesButtonC.setOnClickListener( new View.OnClickListener() {
                 @Override

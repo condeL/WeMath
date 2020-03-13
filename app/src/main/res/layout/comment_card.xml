@@ -23,27 +23,29 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-                <ImageButton
-                    android:id="@+id/comment_profile_pic"
-                    android:layout_width="70dp"
-                    android:layout_height="70dp"
+                <TextView
+                    android:id="@+id/comment_card_profile_pic"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
                     android:layout_marginStart="8dp"
-                    android:layout_marginTop="48dp"
-                    android:layout_marginBottom="60dp"
-                    app:layout_constraintBottom_toTopOf="@+id/upvote_cardview"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/circle"
+                    android:gravity="center"
+                    android:textColor="#FFFFFF"
+                    android:textSize="30sp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="@id/comment_card_username"
-                    app:srcCompat="@drawable/outline_account_circle_black_48dp" />
+                    tools:text="L" />
 
                 <TextView
                     android:id="@+id/comment_card_username"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="86dp"
+                    android:layout_marginStart="70dp"
                     android:layout_marginTop="10dp"
                     android:textSize="20sp"
                     android:textStyle="bold"
-                    app:layout_constraintStart_toStartOf="@id/comment_profile_pic"
+                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     tools:text="Username" />
 
@@ -52,7 +54,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="12dp"
-                    android:layout_marginEnd="50dp"
+                    android:layout_marginEnd="10dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     tools:text="16/02/2020" />
@@ -66,7 +68,7 @@
                     android:layout_marginEnd="8dp"
                     android:textSize="20sp"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@id/comment_profile_pic"
+                    app:layout_constraintStart_toEndOf="@id/comment_card_profile_pic"
                     app:layout_constraintTop_toTopOf="@id/comment_card_username"
                     tools:text="By the same illusion which lifts the horizon of the sea to the level of the spectator on a hillside, the sable cloud" />
 
@@ -74,7 +76,8 @@
                     android:id="@+id/comment_card_reply_button"
                     android:layout_width="65dp"
                     android:layout_height="40dp"
-                    android:layout_marginTop="45dp"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="15dp"
                     android:layout_marginEnd="35dp"
                     android:background="#FFFFFF"
                     android:text="Reply"
@@ -82,17 +85,20 @@
                     android:textAllCaps="false"
                     android:textColor="@color/colorPrimary"
                     app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/comment_card_replies"
                     app:layout_constraintTop_toBottomOf="@id/comment_card_content" />
 
                 <TextView
                     android:id="@+id/comment_card_replies"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="60dp"
-                    android:layout_marginEnd="30dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="30dp"
+                    android:layout_marginEnd="20dp"
                     android:text="Replies"
                     android:textColor="@color/colorAccent"
                     app:layout_constraintEnd_toStartOf="@+id/comment_card_reply_button"
+                    app:layout_constraintStart_toEndOf="@+id/downvote_cardview"
                     app:layout_constraintTop_toBottomOf="@id/comment_card_content"
                     tools:text="1 reply" />
 
@@ -101,7 +107,7 @@
                     android:layout_width="80dp"
                     android:layout_height="50dp"
                     android:layout_marginStart="10dp"
-                    android:layout_marginTop="45dp"
+                    android:layout_marginTop="15dp"
                     android:layout_marginEnd="20dp"
                     app:layout_constraintEnd_toStartOf="@+id/comment_card_replies"
                     app:layout_constraintStart_toEndOf="@id/upvote_cardview"
@@ -113,9 +119,11 @@
 
                         <ImageView
                             android:id="@+id/comment_card_downvote"
-                            android:layout_width="40dp"
+                            android:layout_width="30dp"
                             android:layout_height="40dp"
                             android:layout_marginTop="7dp"
+                            android:layout_marginEnd="10dp"
+                            app:layout_constraintEnd_toStartOf="@+id/comment_card_downvotes_numbers"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
                             app:srcCompat="@drawable/downvote2" />
@@ -138,8 +146,9 @@
                     android:id="@+id/upvote_cardview"
                     android:layout_width="80dp"
                     android:layout_height="50dp"
-                    android:layout_marginStart="70dp"
-                    android:layout_marginTop="45dp"
+                    android:layout_marginStart="30dp"
+                    android:layout_marginTop="15dp"
+                    app:layout_constraintEnd_toStartOf="@+id/downvote_cardview"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/comment_card_content">
 
@@ -149,8 +158,10 @@
 
                         <ImageView
                             android:id="@+id/comment_card_upvote"
-                            android:layout_width="40dp"
+                            android:layout_width="30dp"
                             android:layout_height="40dp"
+                            android:layout_marginEnd="10dp"
+                            app:layout_constraintEnd_toStartOf="@+id/comment_card_upvotes_numbers"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
                             app:srcCompat="@drawable/upvote2" />
@@ -158,7 +169,7 @@
                         <TextView
                             android:id="@+id/comment_card_upvotes_numbers"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_height="40dp"
                             android:layout_marginTop="7dp"
                             android:layout_marginEnd="5dp"
                             android:textSize="20sp"
