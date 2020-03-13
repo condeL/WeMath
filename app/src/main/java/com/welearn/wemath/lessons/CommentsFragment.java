@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
+import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -95,6 +96,7 @@ public class CommentsFragment extends Fragment {
             }
         });
 
+        Toast.makeText(getContext(),"Fetching comments...", Toast.LENGTH_LONG).show();
         mView = root.findViewById(R.id.comments_view);
         mAdapter = new ContentAdapterComments(mView.getContext());
         mView.setAdapter(mAdapter);
@@ -114,8 +116,9 @@ public class CommentsFragment extends Fragment {
 
 
 
-    void postComment(final Context context, EditText editText){
+    void postComment(final Context context, final EditText editText){
         Comment comment = new Comment(mUser.getUid(),mUser.getDisplayName(),editText.getText().toString());
+        Toast.makeText(context,"Sending comment...", Toast.LENGTH_LONG).show();
 
         mDb.collection("comments/jhs/year/topic0/lesson1").document()
                 .set(comment)
@@ -123,7 +126,8 @@ public class CommentsFragment extends Fragment {
                     @Override
                     public void onSuccess(Void aVoid) {
                         Log.d("success", "DocumentSnapshot successfully written!");
-                        Toast.makeText(context,"Comment sent", Toast.LENGTH_LONG).show();
+                        Toast.makeText(context,"Comment sent!", Toast.LENGTH_LONG).show();
+                        editText.setText("");
                         mAdapter = new ContentAdapterComments(getContext());
                         mView.setAdapter(mAdapter);
                         mAdapter.notifyDataSetChanged();
@@ -133,12 +137,11 @@ public class CommentsFragment extends Fragment {
                     @Override
                     public void onFailure(@NonNull Exception e) {
                         Log.w("failure", "Error writing document", e);
-                        Toast.makeText(context,"Error pushing document", Toast.LENGTH_LONG).show();
+                        Toast.makeText(context,"Error sending comment", Toast.LENGTH_LONG).show();
 
                     }
                 });
-        Toast.makeText(context, editText.getText().toString(), Toast.LENGTH_LONG).show();
-        editText.setText("");
+        //Toast.makeText(context, editText.getText().toString(), Toast.LENGTH_LONG).show();
 
     }
 
@@ -179,7 +182,6 @@ public class CommentsFragment extends Fragment {
             repliesRecycler = itemView.findViewById(R.id.replies_view);
 
 
-            //itemView.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_lessonTopicFragment_to_lessonSelectionFragment, null));
         }
     }
 
@@ -187,7 +189,7 @@ public class CommentsFragment extends Fragment {
     public static class ContentAdapterComments extends RecyclerView.Adapter<ViewHolderComments>{
 
         //private final ArrayList<String> mUsernamesC, mContentsC, mDatesC, mDownvotesC, mUpvotesC;
-        private final ArrayList<Comment> mCommentsC;
+        private final ArrayList<Pair<Comment,String>> mCommentsC;
         Context mContextC;
         FirebaseFirestore mDB = FirebaseFirestore.getInstance();
 
@@ -196,14 +198,7 @@ public class CommentsFragment extends Fragment {
         //pass it the year and section to represent the choice of the user
         public ContentAdapterComments(final Context context){
             Resources resources = context.getResources();
-            //String year = viewModel.getYear();
-            //String section = viewModel.getSection();
 
-            /*mUsernamesC = new ArrayList<>();
-            mContentsC = new ArrayList<>();
-            mDatesC = new ArrayList<>();
-            mDownvotesC = new ArrayList<>();
-            mUpvotesC = new ArrayList<>();*/
             mCommentsC = new ArrayList<>();
 
             mContextC = context;
@@ -219,6 +214,8 @@ public class CommentsFragment extends Fragment {
                     .build();*/
 
 
+            //mDB.document("comments/jhs/year/topic0/")
+
             mDB.collection("comments/jhs/year/topic0/lesson1")
                     .orderBy("timestamp",Query.Direction.ASCENDING)
                     .get()
@@ -228,8 +225,10 @@ public class CommentsFragment extends Fragment {
                             if (task.isSuccessful()) {
                                 for (QueryDocumentSnapshot document : task.getResult()) {
                                     Log.d("GETTING", document.getId() + " => " + document.getData());
-                                    mCommentsC.add(document.toObject(Comment.class));
-                                    Toast.makeText(context,"Getting successful", Toast.LENGTH_LONG).show();
+                                    mCommentsC.add(new Pair(document.toObject(Comment.class), document.getId()));
+                                    //mCommentsC.add(new Pair(document.toObject(Comment.class),document.getId());
+
+                                    Toast.makeText(context,"Fetching successful!", Toast.LENGTH_LONG).show();
                                     notifyDataSetChanged();
 
 
@@ -237,7 +236,7 @@ public class CommentsFragment extends Fragment {
                                 }
                             } else {
                                 Log.d("GETTING", "Error getting documents: ", task.getException());
-                                Toast.makeText(context,"Getting failed", Toast.LENGTH_LONG).show();
+                                Toast.makeText(context,"Fetching failed", Toast.LENGTH_LONG).show();
 
                             }
                         }
@@ -255,21 +254,16 @@ public class CommentsFragment extends Fragment {
 
         //put the resource elements in the views using the ViewHolder
         @Override
-        public void onBindViewHolder(final ViewHolderComments holder, int position) {
-            /*holder.usernameC.setText(mUsernamesC.get(position % mUsernamesC.size()));
-            holder.contentC.setText(mContentsC.get(position % mContentsC.size()));
-            holder.dateC.setText(mDatesC.get(position % mDatesC.size()));
-            holder.downvotesC.setText(mDownvotesC.get(position%mDownvotesC.size()));
-            holder.upvotesC.setText(mUpvotesC.get(position%mUpvotesC.size()));
-            */
+        public void onBindViewHolder(final ViewHolderComments holder, final int position) {
 
-            holder.usernameC.setText(mCommentsC.get(position % mCommentsC.size()).getName());
-            holder.contentC.setText(mCommentsC.get(position % mCommentsC.size()).getMessage());
-            holder.dateC.setText(new SimpleDateFormat("dd MMM yyyy | hh:mm").format(mCommentsC.get(position % mCommentsC.size()).getTimestamp()));
-            holder.downvotesC.setText(String.valueOf(mCommentsC.get(position%mCommentsC.size()).getDownvotes()));
-            holder.upvotesC.setText(String.valueOf(mCommentsC.get(position%mCommentsC.size()).getUpvotes()));
 
-            String name = mCommentsC.get(position%mCommentsC.size()).getName();
+            holder.usernameC.setText(mCommentsC.get(position % mCommentsC.size()).first.getName());
+            holder.contentC.setText(mCommentsC.get(position % mCommentsC.size()).first.getMessage());
+            holder.dateC.setText(new SimpleDateFormat("dd MMM yyyy | hh:mm aa").format(mCommentsC.get(position % mCommentsC.size()).first.getTimestamp()));
+            holder.downvotesC.setText(String.valueOf(mCommentsC.get(position%mCommentsC.size()).first.getDownvotes()));
+            holder.upvotesC.setText(String.valueOf(mCommentsC.get(position%mCommentsC.size()).first.getUpvotes()));
+
+            String name = mCommentsC.get(position%mCommentsC.size()).first.getName();
             holder.pictureC.setText(String.valueOf(name.toUpperCase().charAt(0)));
             int[] profileColors = mContextC.getResources().getIntArray(R.array.profile_colors);
             Paint paint = new Paint();
@@ -304,13 +298,39 @@ public class CommentsFragment extends Fragment {
                 @Override
                 public void onClick (View v){
 
-                    /*Toast.makeText(mContextC, holder.messageC.getText().toString(), Toast.LENGTH_LONG).show();
-                    holder.messageC.setText("");*/
-                    //postComment(mContextC, holder.messageC);
+                    Toast.makeText(mContextC,"Sending reply...", Toast.LENGTH_LONG).show();
+
+                    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                    Comment comment = new Comment(user.getUid(),user.getDisplayName(),holder.messageC.getText().toString());
+
+                    mDB.document("comments/jhs/year/topic0/lesson1/"+ mCommentsC.get(position).second).collection("replies").document()
+                            .set(comment)
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                    Log.d("success", "DocumentSnapshot successfully written!");
+                                    Toast.makeText(mContextC,"Reply sent!", Toast.LENGTH_LONG).show();
+                                    holder.messageC.setText("");
+                                    //notifyDataSetChanged();
+                                    notifyItemChanged(position);
+                                    /*mAdapter = new ContentAdapterComments(mContextC);
+                                    mView.setAdapter(mAdapter);
+                                    mAdapter.notifyDataSetChanged();*/
+                                }
+                            })
+                            .addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Log.w("failure", "Error writing document", e);
+                                    Toast.makeText(mContextC,"Error sending reply", Toast.LENGTH_LONG).show();
+
+                                }
+                            });
+
                 }
             });
 
-            ContentAdapterReplies adapterR = new ContentAdapterReplies(mContextC, position);
+            ContentAdapterReplies adapterR = new ContentAdapterReplies(mContextC, mCommentsC.get(position).second,position, this);
             holder.repliesRecycler.setAdapter(adapterR);
             holder.repliesRecycler.setHasFixedSize(true);
             //LinearLayoutManager linearLayoutManager = new LinearLayoutManager(mContextC,LinearLayoutManager.VERTICAL, false);
@@ -348,85 +368,86 @@ public class CommentsFragment extends Fragment {
 
 
     public static class ViewHolderReplies extends RecyclerView.ViewHolder{
-        public TextView usernameR, contentR, dateR;
+        public TextView usernameR, contentR, dateR, pictureR;
         public Button replyButtonR;
         public EditText messageR;
+        public TextView downvotesR, upvotesR;
         public ImageButton sendButtonR;
         public LinearLayout replyBarR;
+
+
 
         public ViewHolderReplies(LayoutInflater inflater, ViewGroup parent) {
             super(inflater.inflate(R.layout.comment_reply_card, parent, false));
             usernameR = itemView.findViewById(R.id.reply_card_username);
             contentR = itemView.findViewById(R.id.reply_card_content);
             dateR = itemView.findViewById(R.id.reply_card_date);
+            pictureR = itemView.findViewById(R.id.reply_profile_pic);
+
+            downvotesR = itemView.findViewById(R.id.reply_card_downvotes_numbers);
+            upvotesR = itemView.findViewById(R.id.reply_card_upvotes_numbers);
 
             replyButtonR = itemView.findViewById(R.id.reply_card_reply_button);
             replyBarR = itemView.findViewById(R.id.reply_card_reply_bar);
             messageR = itemView.findViewById(R.id.reply_card_editText);
             sendButtonR = itemView.findViewById(R.id.reply_card_send_button);
 
-            //itemView.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_lessonTopicFragment_to_lessonSelectionFragment, null));
         }
     }
 
     //the contentR adapter where the views are binded together
     public static class ContentAdapterReplies extends RecyclerView.Adapter<ViewHolderReplies>{
 
-        private final ArrayList<String> mUsernamesR, mContentsR, mDatesR;
-        Context mContextC;
+        Context mContextR;
+        private final ArrayList<Pair<Comment,String>> mCommentsR;
+        FirebaseFirestore mDB = FirebaseFirestore.getInstance();
+        String mParentRef;
+        int mParentPosition;
+        ContentAdapterComments mParentAdapter;
 
         //private final ProgressBar[] mProgressBars;
 
         //pass it the year and section to represent the choice of the user
-        public ContentAdapterReplies(Context context, int parentPosition){
+        public ContentAdapterReplies(Context context, String parentRef, int parentPosition, ContentAdapterComments parentAdapter){
             Resources resources = context.getResources();
             //String year = viewModel.getYear();
             //String section = viewModel.getSection();
-            mContextC = context;
-
-            mUsernamesR = new ArrayList<>();
-            mContentsR = new ArrayList<>();
-            mDatesR = new ArrayList<>();
-
-            try {
-                // get JSONObject from JSON file
-                JSONObject obj = new JSONObject(loadJSONFromAsset(context));
-                // fetch JSONArray named users
-                JSONArray userArray = obj.getJSONArray("comments");
-                JSONArray replies = userArray.getJSONObject(parentPosition).getJSONArray("replies");
+            mContextR = context;
+            mCommentsR = new ArrayList<>();
+            mParentRef = parentRef;
+            mParentAdapter = parentAdapter;
+            mParentPosition = parentPosition;
 
 
-                // implement for loop for getting users list data
-                for (int i = 0; i < replies.length(); i++) {
-                    // create a JSONObject for fetching single user data
-                    JSONObject comment = replies.getJSONObject(i);
-                    // fetch email and name and store it in arraylist
-                    mUsernamesR.add(comment.getString("user"));
-                    mContentsR.add(comment.getString("content"));
-                    mDatesR.add(comment.getString("date"));
+            mDB.collection("comments/jhs/year/topic0/lesson1/" + mParentRef+"/replies")
+                    .orderBy("timestamp",Query.Direction.ASCENDING)
+                    .get()
+                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                            if (task.isSuccessful()) {
+                                for (QueryDocumentSnapshot document : task.getResult()) {
+                                    Log.d("GETTING", document.getId() + " => " + document.getData());
+                                    mCommentsR.add(new Pair(document.toObject(Comment.class), document.getId()));
+                                    //mCommentsC.add(new Pair(document.toObject(Comment.class),document.getId());
 
-                }
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
+                                    //Toast.makeText(mContextR,"Getting successful", Toast.LENGTH_LONG).show();
+                                    notifyDataSetChanged();
+
+
+
+                                }
+                            } else {
+                                Log.d("GETTING", "Error getting documents: ", task.getException());
+                                Toast.makeText(mContextR,"Fetching failed", Toast.LENGTH_LONG).show();
+
+                            }
+                        }
+                    });
 
         }
 
-        public String loadJSONFromAsset(Context context) {
-            String json = null;
-            try {
-                InputStream is = context.getAssets().open("comments.json");
-                int size = is.available();
-                byte[] buffer = new byte[size];
-                is.read(buffer);
-                is.close();
-                json = new String(buffer, "UTF-8");
-            } catch (IOException ex) {
-                ex.printStackTrace();
-                return null;
-            }
-            return json;
-        }
+
 
         @Override
         public ViewHolderReplies onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -435,11 +456,23 @@ public class CommentsFragment extends Fragment {
 
         //put the resource elements in the views using the ViewHolder
         @Override
-        public void onBindViewHolder(final ViewHolderReplies holder, int position) {
-            holder.usernameR.setText(mUsernamesR.get(position % mUsernamesR.size()));
-            holder.contentR.setText(mContentsR.get(position % mContentsR.size()));
-            //holder.percentage.setText(mPercentages[position % mPercentages.length]);
-            holder.dateR.setText(mDatesR.get(position % mDatesR.size()));
+        public void onBindViewHolder(final ViewHolderReplies holder, final int position) {
+
+
+
+            holder.usernameR.setText(mCommentsR.get(position % mCommentsR.size()).first.getName());
+            holder.contentR.setText(mCommentsR.get(position % mCommentsR.size()).first.getMessage());
+            holder.dateR.setText(new SimpleDateFormat("dd MMM yyyy | hh:mm aa").format(mCommentsR.get(position % mCommentsR.size()).first.getTimestamp()));
+            holder.downvotesR.setText(String.valueOf(mCommentsR.get(position%mCommentsR.size()).first.getDownvotes()));
+            holder.upvotesR.setText(String.valueOf(mCommentsR.get(position%mCommentsR.size()).first.getUpvotes()));
+
+            String name = mCommentsR.get(position%mCommentsR.size()).first.getName();
+            holder.pictureR.setText(String.valueOf(name.toUpperCase().charAt(0)));
+            int[] profileColors = mContextR.getResources().getIntArray(R.array.profile_colors);
+            Paint paint = new Paint();
+            paint.setColor(profileColors[name.charAt(0)%6]);
+            holder.pictureR.getBackground().setColorFilter(paint.getColor(), PorterDuff.Mode.ADD);
+
 
             holder.replyButtonR.setOnClickListener( new View.OnClickListener() {
                 @Override
@@ -457,19 +490,44 @@ public class CommentsFragment extends Fragment {
                 @Override
                 public void onClick (View v){
 
-                    /*Toast.makeText(mContextC, holder.messageR.getText().toString(), Toast.LENGTH_LONG).show();
-                    holder.messageR.setText("");*/
-                    //postComment(mContextC, holder.messageR);
+                    Toast.makeText(mContextR,"Sending reply...", Toast.LENGTH_LONG).show();
 
+                    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                    Comment comment = new Comment(user.getUid(),user.getDisplayName(),holder.messageR.getText().toString());
+
+                    mDB.document("comments/jhs/year/topic0/lesson1/"+ mParentRef).collection("replies").document()
+                            .set(comment)
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                    Log.d("success", "DocumentSnapshot successfully written!");
+                                    Toast.makeText(mContextR,"Reply sent!", Toast.LENGTH_LONG).show();
+                                    holder.messageR.setText("");
+                                    mParentAdapter.notifyItemChanged(mParentPosition);
+
+                                }
+                            })
+                            .addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Log.w("failure", "Error writing document", e);
+                                    Toast.makeText(mContextR,"Error sending reply", Toast.LENGTH_LONG).show();
+
+                                }
+                            });
 
                 }
             });
+
+
+
+
 
         }
 
         @Override
         public int getItemCount() {
-            return mUsernamesR.size();
+            return mCommentsR.size();
         }
 
     }
