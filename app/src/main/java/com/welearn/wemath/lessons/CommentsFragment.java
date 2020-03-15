@@ -14,6 +14,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.text.TextUtils;
 import android.util.Log;
 import android.util.Pair;
 import android.view.LayoutInflater;
@@ -89,9 +90,11 @@ public class CommentsFragment extends Fragment {
             @Override
             public void onClick (View v){
 
-                /*Toast.makeText(getContext(), mMessage.getText().toString(), Toast.LENGTH_LONG).show();
-                mMessage.setText("");*/
-                postComment(getContext(), mMessage);
+                if(!TextUtils.isEmpty(mMessage.getText()))
+                    postComment(getContext(), mMessage);
+                else
+                    Toast.makeText(getContext(), "Please enter a comment", Toast.LENGTH_LONG).show();
+
 
             }
         });
@@ -209,12 +212,6 @@ public class CommentsFragment extends Fragment {
             Query query = mDB.collection("comments/jhs/year/topic0/lesson1")
                     .orderBy("timestamp", Query.Direction.ASCENDING);
 
-            /*FirestoreRecyclerOptions<Comment> options = new FirestoreRecyclerOptions.Builder<Comment>()
-                    .setQuery(query, Comment.class)
-                    .build();*/
-
-
-            //mDB.document("comments/jhs/year/topic0/")
 
             mDB.collection("comments/jhs/year/topic0/lesson1")
                     .orderBy("timestamp",Query.Direction.ASCENDING)
@@ -226,12 +223,9 @@ public class CommentsFragment extends Fragment {
                                 for (QueryDocumentSnapshot document : task.getResult()) {
                                     Log.d("GETTING", document.getId() + " => " + document.getData());
                                     mCommentsC.add(new Pair(document.toObject(Comment.class), document.getId()));
-                                    //mCommentsC.add(new Pair(document.toObject(Comment.class),document.getId());
 
                                     Toast.makeText(context,"Fetching successful!", Toast.LENGTH_LONG).show();
                                     notifyDataSetChanged();
-
-
 
                                 }
                             } else {
@@ -296,37 +290,42 @@ public class CommentsFragment extends Fragment {
 
             holder.sendButtonC.setOnClickListener( new View.OnClickListener() {
                 @Override
-                public void onClick (View v){
+                public void onClick (View v) {
 
-                    Toast.makeText(mContextC,"Sending reply...", Toast.LENGTH_LONG).show();
 
-                    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-                    Comment comment = new Comment(user.getUid(),user.getDisplayName(),holder.messageC.getText().toString());
+                    if (!TextUtils.isEmpty(holder.messageC.getText())) {
 
-                    mDB.document("comments/jhs/year/topic0/lesson1/"+ mCommentsC.get(position).second).collection("replies").document()
-                            .set(comment)
-                            .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                @Override
-                                public void onSuccess(Void aVoid) {
-                                    Log.d("success", "DocumentSnapshot successfully written!");
-                                    Toast.makeText(mContextC,"Reply sent!", Toast.LENGTH_LONG).show();
-                                    holder.messageC.setText("");
-                                    //notifyDataSetChanged();
-                                    notifyItemChanged(position);
-                                    /*mAdapter = new ContentAdapterComments(mContextC);
-                                    mView.setAdapter(mAdapter);
-                                    mAdapter.notifyDataSetChanged();*/
-                                }
-                            })
-                            .addOnFailureListener(new OnFailureListener() {
-                                @Override
-                                public void onFailure(@NonNull Exception e) {
-                                    Log.w("failure", "Error writing document", e);
-                                    Toast.makeText(mContextC,"Error sending reply", Toast.LENGTH_LONG).show();
+                        Toast.makeText(mContextC, "Sending reply...", Toast.LENGTH_LONG).show();
 
-                                }
-                            });
+                        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                        Comment comment = new Comment(user.getUid(), user.getDisplayName(), holder.messageC.getText().toString());
 
+                        mDB.document("comments/jhs/year/topic0/lesson1/" + mCommentsC.get(position).second).collection("replies").document()
+                                .set(comment)
+                                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void aVoid) {
+                                        Log.d("success", "DocumentSnapshot successfully written!");
+                                        Toast.makeText(mContextC, "Reply sent!", Toast.LENGTH_LONG).show();
+                                        holder.messageC.setText("");
+                                        //notifyDataSetChanged();
+                                        notifyItemChanged(position);
+                                        /*mAdapter = new ContentAdapterComments(mContextC);
+                                        mView.setAdapter(mAdapter);
+                                        mAdapter.notifyDataSetChanged();*/
+                                    }
+                                })
+                                .addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                        Log.w("failure", "Error writing document", e);
+                                        Toast.makeText(mContextC, "Error sending reply", Toast.LENGTH_LONG).show();
+                                    }
+                                });
+
+                    } else {
+                        Toast.makeText(mContextC, "Please enter a reply", Toast.LENGTH_LONG).show();
+                    }
                 }
             });
 
@@ -488,40 +487,41 @@ public class CommentsFragment extends Fragment {
 
             holder.sendButtonR.setOnClickListener( new View.OnClickListener() {
                 @Override
-                public void onClick (View v){
+                public void onClick (View v) {
 
-                    Toast.makeText(mContextR,"Sending reply...", Toast.LENGTH_LONG).show();
+                    if (!TextUtils.isEmpty(holder.messageR.getText())) {
 
-                    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-                    Comment comment = new Comment(user.getUid(),user.getDisplayName(),holder.messageR.getText().toString());
+                        Toast.makeText(mContextR, "Sending reply...", Toast.LENGTH_LONG).show();
 
-                    mDB.document("comments/jhs/year/topic0/lesson1/"+ mParentRef).collection("replies").document()
-                            .set(comment)
-                            .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                @Override
-                                public void onSuccess(Void aVoid) {
-                                    Log.d("success", "DocumentSnapshot successfully written!");
-                                    Toast.makeText(mContextR,"Reply sent!", Toast.LENGTH_LONG).show();
-                                    holder.messageR.setText("");
-                                    mParentAdapter.notifyItemChanged(mParentPosition);
+                        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                        Comment comment = new Comment(user.getUid(), user.getDisplayName(), holder.messageR.getText().toString());
 
-                                }
-                            })
-                            .addOnFailureListener(new OnFailureListener() {
-                                @Override
-                                public void onFailure(@NonNull Exception e) {
-                                    Log.w("failure", "Error writing document", e);
-                                    Toast.makeText(mContextR,"Error sending reply", Toast.LENGTH_LONG).show();
+                        mDB.document("comments/jhs/year/topic0/lesson1/" + mParentRef).collection("replies").document()
+                                .set(comment)
+                                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void aVoid) {
+                                        Log.d("success", "DocumentSnapshot successfully written!");
+                                        Toast.makeText(mContextR, "Reply sent!", Toast.LENGTH_LONG).show();
+                                        holder.messageR.setText("");
+                                        mParentAdapter.notifyItemChanged(mParentPosition);
 
-                                }
-                            });
+                                    }
+                                })
+                                .addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                        Log.w("failure", "Error writing document", e);
+                                        Toast.makeText(mContextR, "Error sending reply", Toast.LENGTH_LONG).show();
 
+                                    }
+                                });
+
+                    } else{
+                        Toast.makeText(mContextR, "Please enter a reply", Toast.LENGTH_LONG).show();
+                    }
                 }
             });
-
-
-
-
 
         }
 
