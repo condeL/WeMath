@@ -27,7 +27,7 @@
             android:name=".LoginActivity"
             android:configChanges="orientation|keyboardHidden"
             android:label="Login"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".lessons.LessonActivity"
             android:configChanges="orientation|keyboardHidden"
@@ -51,6 +51,7 @@
         <activity
             android:name=".MainActivity"
             android:configChanges="orientation|keyboardHidden"
+            android:windowSoftInputMode="adjustPan"
             android:screenOrientation="portrait" />
 
         <meta-data
