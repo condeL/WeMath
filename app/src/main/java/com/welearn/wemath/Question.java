@@ -1,10 +1,10 @@
 package com.welearn.wemath;
 
-
 import android.util.Pair;
 
 import java.util.ArrayList;
 
+/*Question interface for both LessongQuestion and QuizQuestion*/
 public abstract class Question {
 
     private String mProblem = "";
@@ -12,7 +12,7 @@ public abstract class Question {
     private boolean mMultipleChoice;
     private int mNbCorrectAnswers;
 
-    Question(String problem, ArrayList<Pair<String, Boolean>> answers, boolean multipleChoice){
+    public Question(String problem, ArrayList<Pair<String, Boolean>> answers, boolean multipleChoice){
 
         int nbCorrectAnswers = 0;
         mProblem = problem;

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="topics_jhs1">
+        <item>Numbers and Numerals</item>
+        <item>Sets</item>
+        <item>Fractions</item>
+        <item>Shape and Space</item>
+        <item>Length and Area</item>
+        <item>Powers of natural numbers</item>
+        <item>Introductions to the use of Calculators</item>
+        <item>Relations</item>
+        <item>Algebraic expressions</item>
+        <item>Capacity, Mass, Time and Money</item>
+        <item>Integers</item>
+        <item>Geometric constructions</item>
+        <item>Decimal fractions</item>
+        <item>Percentages</item>
+        <item>Collecting and Handling data (Discrete)</item>
+
+    </string-array>
+
+    <string-array name="lessons_jhs1">
+        <item>[JHS]Placeholder 1</item>
+        <item>[JHS]Placeholder 2</item>
+        <item>[JHS]Placeholder 3</item>
+    </string-array>
+
+    <string-array name="topics_jhs2">
+        <item>Numeration systems</item>
+        <item>Linear equaations and inequalities</item>
+        <item>Angles</item>
+        <item>Collecting and Handling data</item>
+        <item>Rational numbers</item>
+        <item>Shape and space</item>
+        <item>Geometric constructions</item>
+        <item>Algebraic expressions</item>
+        <item>Number Planes</item>
+        <item>Proprieties of Quadrilaterals</item>
+        <item>Ratio and Proportions</item>
+        <item>Rates</item>
+        <item>Probability</item>
+        <item>Vectors</item>
+
+    </string-array>
+
+    <string-array name="lessons_jhs2">
+        <item>[JHS]Placeholder 1</item>
+        <item>[JHS]Placeholder 2</item>
+        <item>[JHS]Placeholder 3</item>
+    </string-array>
+
+    <string-array name="topics_jhs3">
+        <item>Application of sets</item>
+        <item>Rigid motion</item>
+        <item>Enlargements and Similarities</item>
+        <item>Handling data and Probability</item>
+        <item>Money and Taxes</item>
+        <item>Algebraic expressions</item>
+        <item>Properties of Polygons</item>
+        <item>Investigations with Numbers</item>
+
+
+    </string-array>
+
+    <string-array name="lessons_jhs3">
+        <item>[JHS]Placeholder 1</item>
+        <item>[JHS]Placeholder 2</item>
+        <item>[JHS]Placeholder 3</item>
+    </string-array>
+
+</resources>
