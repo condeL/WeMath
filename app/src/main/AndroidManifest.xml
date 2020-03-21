@@ -11,12 +11,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".LoginRegisterActivity"></activity>
+        <activity android:name=".LoginRegisterActivity" />
         <activity
             android:name=".SplashActivity"
-            android:theme="@style/AppTheme.NoActionBar.Launcher"
+            android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait"
-            android:configChanges="orientation|keyboardHidden">
+            android:theme="@style/AppTheme.NoActionBar.Launcher">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -25,25 +25,18 @@
         </activity>
         <activity
             android:name=".LoginActivity"
+            android:configChanges="orientation|keyboardHidden"
             android:label="Login"
-            android:screenOrientation="portrait"
-            android:configChanges="orientation|keyboardHidden">
-
-        </activity>
-        <activity android:name=".AdminQuizActivity"
-            android:screenOrientation="portrait"
-            android:configChanges="orientation|keyboardHidden"/>
-        <activity android:name=".quizzes.QuizQuestionActivity"
-            android:screenOrientation="portrait"
-            android:configChanges="orientation|keyboardHidden"/>
-        <activity android:name=".lessons.LessonActivity"
-            android:screenOrientation="portrait"
-            android:configChanges="orientation|keyboardHidden"/>
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".lessons.LessonActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".lessons.LessonQuestionActivity"
+            android:configChanges="orientation|keyboardHidden"
             android:label="@string/title_activity_lesson_question"
-            android:screenOrientation="portrait"
-            android:configChanges="orientation|keyboardHidden">
+            android:screenOrientation="portrait">
 
             <!--
             android:theme="@style/AppTheme.NoActionBar"> Your comment
@@ -55,9 +48,10 @@
             </intent-filter>
             -->
         </activity>
-        <activity android:name=".MainActivity"
-            android:screenOrientation="portrait"
-            android:configChanges="orientation|keyboardHidden"></activity>
+        <activity
+            android:name=".MainActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="portrait" />
 
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"

@@ -308,11 +308,8 @@ public class CommentsFragment extends Fragment {
                                         Log.d("success", "DocumentSnapshot successfully written!");
                                         Toast.makeText(mContextC, "Reply sent!", Toast.LENGTH_LONG).show();
                                         holder.messageC.setText("");
-                                        //notifyDataSetChanged();
                                         notifyItemChanged(position);
-                                        /*mAdapter = new ContentAdapterComments(mContextC);
-                                        mView.setAdapter(mAdapter);
-                                        mAdapter.notifyDataSetChanged();*/
+
                                     }
                                 })
                                 .addOnFailureListener(new OnFailureListener() {
@@ -328,6 +325,61 @@ public class CommentsFragment extends Fragment {
                     }
                 }
             });
+
+
+            holder.downvotesC.setOnClickListener( new View.OnClickListener() {
+                @Override
+                public void onClick (View v) {
+
+
+                        mDB.document("comments/jhs/year/topic0/lesson1/" + mCommentsC.get(position).second)
+                                .update("downvotes", mCommentsC.get(position).first.getDownvotes()+1)
+                                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void aVoid) {
+                                        Log.d("success", "DocumentSnapshot successfully written!");
+                                        Toast.makeText(mContextC, "Downvoted", Toast.LENGTH_LONG).show();
+                                        notifyItemChanged(position);
+                                    }
+                                })
+                                .addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                        Log.w("failure", "Error writing document", e);
+                                        Toast.makeText(mContextC, "Error", Toast.LENGTH_SHORT).show();
+                                    }
+                                });
+
+                }
+            });
+
+            holder.upvotesC.setOnClickListener( new View.OnClickListener() {
+                @Override
+                public void onClick (View v) {
+
+
+                    mDB.document("comments/jhs/year/topic0/lesson1/" + mCommentsC.get(position).second)
+                            .update("upvotes", mCommentsC.get(position).first.getUpvotes()+1)
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                    Log.d("success", "DocumentSnapshot successfully written!");
+                                    Toast.makeText(mContextC, "Upvoted", Toast.LENGTH_LONG).show();
+                                    notifyItemChanged(position);
+
+                                }
+                            })
+                            .addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Log.w("failure", "Error writing document", e);
+                                    Toast.makeText(mContextC, "Error", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+
+                }
+            });
+
 
             ContentAdapterReplies adapterR = new ContentAdapterReplies(mContextC, mCommentsC.get(position).second,position, this);
             holder.repliesRecycler.setAdapter(adapterR);
@@ -428,12 +480,8 @@ public class CommentsFragment extends Fragment {
                                 for (QueryDocumentSnapshot document : task.getResult()) {
                                     Log.d("GETTING", document.getId() + " => " + document.getData());
                                     mCommentsR.add(new Pair(document.toObject(Comment.class), document.getId()));
-                                    //mCommentsC.add(new Pair(document.toObject(Comment.class),document.getId());
 
-                                    //Toast.makeText(mContextR,"Getting successful", Toast.LENGTH_LONG).show();
                                     notifyDataSetChanged();
-
-
 
                                 }
                             } else {
@@ -523,6 +571,58 @@ public class CommentsFragment extends Fragment {
                 }
             });
 
+
+            holder.downvotesR.setOnClickListener( new View.OnClickListener() {
+                @Override
+                public void onClick (View v) {
+
+
+                    mDB.document("comments/jhs/year/topic0/lesson1/" + mParentRef +"/replies/"+mCommentsR.get(position).second)
+                            .update("downvotes", mCommentsR.get(position).first.getDownvotes()+1)
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                    Log.d("success", "DocumentSnapshot successfully written!");
+                                    Toast.makeText(mContextR, "Downvoted", Toast.LENGTH_LONG).show();
+                                    notifyItemChanged(position);
+                                }
+                            })
+                            .addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Log.w("failure", "Error writing document", e);
+                                    Toast.makeText(mContextR, "Error", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+
+                }
+            });
+
+            holder.upvotesR.setOnClickListener( new View.OnClickListener() {
+                @Override
+                public void onClick (View v) {
+
+
+                    mDB.document("comments/jhs/year/topic0/lesson1/" + mParentRef +"/replies/"+mCommentsR.get(position).second)
+                            .update("upvotes", mCommentsR.get(position).first.getUpvotes()+1)
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                    Log.d("success", "DocumentSnapshot successfully written!");
+                                    Toast.makeText(mContextR, "Upvoted", Toast.LENGTH_LONG).show();
+                                    notifyItemChanged(position);
+                                }
+                            })
+                            .addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Log.w("failure", "Error writing document", e);
+                                    Toast.makeText(mContextR, "Error", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+
+                }
+            });
         }
 
         @Override
