@@ -17,7 +17,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 
-public class LessonQuestionActivity extends AppCompatActivity {
+public class
+LessonQuestionActivity extends AppCompatActivity {
 
     private RadioGroup mRadioGroup;
     private Button mNextButton;
