@@ -66,12 +66,34 @@
         <action
             android:id="@+id/action_lessonSelectionFragment_to_lessonActivity"
             app:destination="@id/lessonActivity" />
+        <argument
+            android:name="year"
+            app:argType="string" />
+        <argument
+            android:name="section"
+            app:argType="string" />
+        <argument
+            android:name="topic"
+            app:argType="integer" />
     </fragment>
     <activity
         android:id="@+id/lessonActivity"
         android:name="com.welearn.wemath.lessons.LessonActivity"
         android:label="Lesson"
-        tools:layout="@layout/activity_lesson" />
+        tools:layout="@layout/activity_lesson" >
+        <argument
+            android:name="section"
+            app:argType="string" />
+        <argument
+            android:name="year"
+            app:argType="string" />
+        <argument
+            android:name="topic"
+            app:argType="integer" />
+        <argument
+            android:name="lesson"
+            app:argType="integer" />
+    </activity>
     <fragment
         android:id="@+id/adminQuizSelection"
         android:name="com.welearn.wemath.quizzes.AdminQuizSelectionFragment"

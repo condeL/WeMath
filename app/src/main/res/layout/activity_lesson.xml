@@ -114,6 +114,16 @@
                                 android:background="@color/colorAccent"
                                 android:text="Next"
                                 android:textColor="#fff" />
+
+                            <Button
+                                android:id="@+id/prev_lesson_button"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="50dp"
+                                android:layout_alignParentRight="true"
+                                android:layout_marginRight="25dp"
+                                android:text="Prev" />
+
                         </RelativeLayout>
 
 

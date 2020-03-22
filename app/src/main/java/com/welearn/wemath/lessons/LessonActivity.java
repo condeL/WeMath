@@ -1,12 +1,10 @@
 package com.welearn.wemath.lessons;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentContainerView;
-import androidx.fragment.app.FragmentManager;
-
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.View;
 import android.webkit.WebView;
 import android.widget.Button;
@@ -14,7 +12,15 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentContainerView;
+import androidx.fragment.app.FragmentManager;
+
 import com.welearn.wemath.R;
+
+import java.util.prefs.PreferenceChangeEvent;
 
 public class LessonActivity extends AppCompatActivity {
     private Lesson mLesson;
@@ -22,14 +28,28 @@ public class LessonActivity extends AppCompatActivity {
     private TextView mContent;
     private ImageView mImage;
     private Button mNextButton;
+    private Button mPrevButton;
     private TextView mCommentsButton;
     private FragmentContainerView mCommentsFrgament;
     private WebView mWebView;
+    private int numberpage;
+    private SharedPreferences preferences;
+    String url = "file:///android_asset/lesson";
+    String html = ".html";
+
+    public static Intent newIntent(Context packageContext){
+        Intent intent = new Intent(packageContext, LessonActivity.class);
+        //intent.putExtra(EXTRA_ANSWER_IS_TRUE, answerIsTrue);
+        return intent;
+    }
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lesson);
+
 
         //mLesson = new Lesson("Title", "Content", "C:\\Users\\hp\\AndroidStudioProjects\\math-application\\app\\src\\main\\res\\drawable\\fblogo.png");
         mTitle= findViewById(R.id.lesson_title);
@@ -37,16 +57,52 @@ public class LessonActivity extends AppCompatActivity {
         mImage = findViewById(R.id.lesson_image);
         mCommentsButton = findViewById(R.id.lesson_comment_link);
         //mCommentsFrgament = findViewById(R.id.lesson_comment_fragment);
+        final SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        int numberpage = preferences.getInt("numberpage", 1);
 
         mWebView = findViewById(R.id.lesson_webview);
-        mWebView.loadUrl("file:///android_asset/htmltest.html");
+        //mWebView.loadUrl("file:///android_asset/lesson1.html");
+        mWebView.loadUrl(url+numberpage+html);
+
+
 
 
         mNextButton = findViewById(R.id.next_question_button);
         mNextButton.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
+
+                int numberpage = preferences.getInt("numberpage", 1);
+                numberpage++;
+
+                SharedPreferences.Editor edit = preferences.edit();
+                edit.putInt("numberpage", numberpage);
+                edit.commit();
                 Intent intent =  LessonQuestionActivity.newIntent(LessonActivity.this);
+                //intent.putExtra("numberpage", numberpage);
+                //startActivityForResult(intent, 100);
                 startActivity(intent);
+            }
+        });
+
+        mPrevButton = findViewById(R.id.prev_lesson_button);
+        if (numberpage == 1){
+            mPrevButton.setVisibility(View.GONE);
+        }
+        mPrevButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                int numberpage = preferences.getInt("numberpage", 1);
+                if(numberpage != 1) {
+                    //numberpage--;
+                    //SharedPreferences.Editor edit = preferences.edit();
+                    //edit.putInt("numberpage", numberpage);
+                    //edit.commit();
+                    Intent intent = LessonQuestionActivity.newIntent(LessonActivity.this);
+                    startActivity(intent);
+                } else {
+                    //onBackPressed();
+
+                }
             }
         });
 
@@ -74,4 +130,19 @@ public class LessonActivity extends AppCompatActivity {
             frameLayout.setVisibility(View.GONE);
         }
     }
+
+    /*@Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        if(requestCode == 100){
+            if(resultCode == RESULT_OK){
+                int numberpage = data.getIntExtra("numberpage", 1);
+                //numberpage++;
+                if(1 != numberpage){
+                    mWebView = findViewById(R.id.lesson_webview);
+                    mWebView.loadUrl(url+numberpage+html);
+                }
+            }
+        }
+        super.onActivityResult(requestCode, resultCode, data);
+    }*/
 }
