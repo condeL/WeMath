@@ -11,7 +11,19 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".LoginRegisterActivity" />
+        <activity android:name=".LoginRegisterActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="portrait" />
+
+        <activity android:name=".quizzes.UserQuizTakingActivity"
+            android:label="User Quiz"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".quizzes.AdminQuizTakingActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:label="Admin Quiz"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".SplashActivity"
             android:configChanges="orientation|keyboardHidden"
@@ -30,12 +42,13 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".lessons.LessonActivity"
+            android:label="Lesson"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait" />
         <activity
             android:name=".lessons.LessonQuestionActivity"
             android:configChanges="orientation|keyboardHidden"
-            android:label="@string/title_activity_lesson_question"
+            android:label="Question"
             android:screenOrientation="portrait">
 
             <!--

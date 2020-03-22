@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.TextView;
 
 
 /**
@@ -20,6 +21,7 @@ import android.widget.ImageButton;
 public class LessonSectionFragment extends Fragment {
 
     private ImageButton mJHS, mSHS;
+    private TextView mJHSText, mSHSText;
 
     public LessonSectionFragment() {
         // Required empty public constructor
@@ -34,6 +36,8 @@ public class LessonSectionFragment extends Fragment {
 
         mJHS = root.findViewById(R.id.jhs_button);
         mSHS = root.findViewById(R.id.shs_button);
+        mJHSText = root.findViewById(R.id.jhs_text);
+        mSHSText = root.findViewById(R.id.shs_text);
 
         //mJHS.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_navigation_lesson_section_to_lessonYearFragment, null));
 
@@ -51,7 +55,28 @@ public class LessonSectionFragment extends Fragment {
             }
         });
 
+        mJHSText.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v){
+                //parameter to be passed to the year selection fragment
+                String section = "jhs";
+
+                //setting up the navigation action with the parameter to be passed
+                NavDirections action = LessonSectionFragmentDirections.actionNavigationLessonSectionToLessonYearFragment(section);
+                Navigation.findNavController(v).navigate(action);
+
+            }
+        });
+
         mSHS.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v){
+                String section = "shs";
+                NavDirections action = LessonSectionFragmentDirections.actionNavigationLessonSectionToLessonYearFragment(section);
+                Navigation.findNavController(v).navigate(action);
+
+            }
+        });
+
+        mSHSText.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
                 String section = "shs";
                 NavDirections action = LessonSectionFragmentDirections.actionNavigationLessonSectionToLessonYearFragment(section);

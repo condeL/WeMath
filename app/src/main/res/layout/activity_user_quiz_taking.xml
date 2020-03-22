@@ -144,7 +144,7 @@
                 </RadioGroup>
 
                 <Button
-                    android:id="@+id/quiz_finish_button"
+                    android:id="@+id/user_quiz_taking_finish_button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="50dp"
@@ -159,7 +159,7 @@
                     app:layout_constraintStart_toStartOf="parent" />
 
                 <TextView
-                    android:id="@+id/quiz_taking_question_number"
+                    android:id="@+id/user_quiz_taking_question_number"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="50dp"
@@ -169,7 +169,7 @@
                     android:text="TextView"
                     android:textSize="20sp"
                     android:textStyle="bold"
-                    app:layout_constraintBottom_toTopOf="@id/quiz_finish_button"
+                    app:layout_constraintBottom_toTopOf="@id/user_quiz_taking_finish_button"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/answers_radio_group"
@@ -182,19 +182,19 @@
                     android:layout_marginStart="60dp"
                     android:layout_marginTop="40dp"
                     android:layout_marginBottom="25dp"
-                    app:layout_constraintBottom_toTopOf="@id/quiz_finish_button"
+                    app:layout_constraintBottom_toTopOf="@id/user_quiz_taking_finish_button"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/answers_radio_group"
                     app:srcCompat="@drawable/arrow_left" />
 
                 <ImageView
-                    android:id="@+id/quiz_takig_next_question"
+                    android:id="@+id/user_quiz_taking_next_question"
                     android:layout_width="20dp"
                     android:layout_height="20dp"
                     android:layout_marginTop="40dp"
                     android:layout_marginEnd="60dp"
                     android:layout_marginBottom="25dp"
-                    app:layout_constraintBottom_toTopOf="@id/quiz_finish_button"
+                    app:layout_constraintBottom_toTopOf="@id/user_quiz_taking_finish_button"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/answers_radio_group"
                     app:srcCompat="@drawable/arrow_right" />

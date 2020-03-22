@@ -6,6 +6,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavDirections;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -80,11 +81,11 @@ public class UserQuizSelectionFragment extends Fragment {
 
         private final ArrayList<Pair<UserQuiz,String>> mUserQuizzes;
         FirebaseFirestore mDB = FirebaseFirestore.getInstance();
+        Context mContext;
 
-        //pass it the year and section to represent the choice of the user
         public ContentAdapter(final Context context ){
             mUserQuizzes = new ArrayList<>();
-
+            mContext = context;
             mDB.collection("quiz")
                     .orderBy("timestamp",Query.Direction.ASCENDING)
                     .get()
@@ -96,13 +97,13 @@ public class UserQuizSelectionFragment extends Fragment {
                                     Log.d("GETTING", document.getId() + " => " + document.getData());
                                     mUserQuizzes.add(new Pair(document.toObject(UserQuiz.class), document.getId()));
 
-                                    Toast.makeText(context,"Fetching successful!", Toast.LENGTH_LONG).show();
+                                    Toast.makeText(mContext,"Fetching successful!", Toast.LENGTH_LONG).show();
                                     notifyDataSetChanged();
 
                                 }
                             } else {
                                 Log.d("GETTING", "Error getting documents: ", task.getException());
-                                Toast.makeText(context,"Fetching failed", Toast.LENGTH_LONG).show();
+                                Toast.makeText(mContext,"Fetching failed", Toast.LENGTH_LONG).show();
 
                             }
                         }
@@ -116,11 +117,51 @@ public class UserQuizSelectionFragment extends Fragment {
 
         //put the resource elements in the views using the ViewHolder
         @Override
-        public void onBindViewHolder(ViewHolder holder, int position) {
+        public void onBindViewHolder(ViewHolder holder,final int position) {
             holder.title.setText(mUserQuizzes.get(position).first.getTitle());
             holder.details.setText(mUserQuizzes.get(position).first.getSection().toUpperCase() + " / " + mUserQuizzes.get(position).first.getYear());
             holder.author.setText("Created by: " + mUserQuizzes.get(position).first.getUsername());
             holder.difficulty.setText("Difficulty: " + mUserQuizzes.get(position).first.getDifficulty());
+
+
+
+            /*holder.itemView.setOnClickListener(new View.OnClickListener(){
+                public void onClick(View v){
+                    mDB.collection("quiz").document(mUserQuizzes.get(position).second)
+                            .get()
+                            .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                @Override
+                                public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                    if (task.isSuccessful()) {
+                                        for (QueryDocumentSnapshot document : task.getResult()) {
+                                            Log.d("GETTING", document.getId() + " => " + document.getData());
+                                            String[]
+                                            Toast.makeText(mContext,"Fetching successful!", Toast.LENGTH_LONG).show();
+
+                                        }
+                                    } else {
+                                        Log.d("GETTING", "Error getting documents: ", task.getException());
+                                        Toast.makeText(context,"Fetching failed", Toast.LENGTH_LONG).show();
+
+                                    }
+                                }
+                            });
+                    //NavDirections action = LessonSectionFragmentDirections.actionNavigationLessonSectionToLessonYearFragment(section);
+                    //Navigation.findNavController(v).navigate(action);
+
+                }
+            });*/
+
+           holder.itemView.setOnClickListener(new View.OnClickListener(){
+               public void onClick(View v){
+                   String quiz_id = mUserQuizzes.get(position).second;
+                   NavDirections action = UserQuizSelectionFragmentDirections.actionUserQuizSelectionToUserQuizTakingActivity(false, quiz_id);
+                   Toast.makeText(mContext,quiz_id, Toast.LENGTH_LONG).show();
+                   Navigation.findNavController(v).navigate(action);
+
+               }
+           });
+
         }
 
         @Override
