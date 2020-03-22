@@ -74,6 +74,7 @@
                         android:id="@+id/user_quiz_creation_jhs_button"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:checked="true"
                         android:text="JHS" />
 
                     <RadioButton
@@ -97,6 +98,7 @@
                         android:id="@+id/user_quiz_creation_year1_button"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:checked="true"
                         android:text="Year 1" />
 
                     <RadioButton

@@ -120,6 +120,19 @@
         android:id="@+id/userQuizCreationQuestionFragment"
         android:name="com.welearn.wemath.quizzes.UserQuizCreationQuestionFragment"
         android:label="fragment_user_quiz_creation_question"
-        tools:layout="@layout/fragment_user_quiz_creation_question" />
+        tools:layout="@layout/fragment_user_quiz_creation_question" >
+        <argument
+            android:name="title"
+            app:argType="string" />
+        <argument
+            android:name="section"
+            app:argType="string" />
+        <argument
+            android:name="year"
+            app:argType="string" />
+        <argument
+            android:name="topics"
+            app:argType="string[]" />
+    </fragment>
 
 </navigation>

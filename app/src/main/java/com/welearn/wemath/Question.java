@@ -12,6 +12,8 @@ public abstract class Question {
     private boolean mMultipleChoice;
     private int mNbCorrectAnswers;
 
+    public Question(){};
+
     public Question(String problem, ArrayList<Pair<String, Boolean>> answers, boolean multipleChoice){
 
         int nbCorrectAnswers = 0;

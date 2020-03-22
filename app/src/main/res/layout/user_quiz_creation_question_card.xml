@@ -145,13 +145,26 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="64dp"
-                android:layout_marginBottom="10dp"
                 android:hint="Answer 4"
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.4"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/user_quiz_creation_card_answer3" />
+
+            <EditText
+                android:id="@+id/user_quiz_creation_card_explanation"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="32dp"
+                android:ems="10"
+                android:gravity="start|top"
+                android:hint="Explanation (Optional)"
+                android:inputType="textMultiLine"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/user_quiz_creation_card_answer4" />
 
             <RadioGroup
                 android:id="@+id/user_quiz_creation_card_radioGroup"
@@ -167,6 +180,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="25dp"
+                    android:checked="true"
                     android:text="True" />
 
                 <RadioButton
