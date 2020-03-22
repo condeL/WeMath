@@ -49,6 +49,8 @@ public class QuizMainFragment extends Fragment {
         mCreateButton = root.findViewById(R.id.quiz_creation_image);
 
         mAnswerButton.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_navigation_quiz_main_to_quizTakingMenuFragment, null));
+        mCreateButton.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_navigation_quiz_main_to_userQuizCreationFragment, null));
+
 
         return root;
 

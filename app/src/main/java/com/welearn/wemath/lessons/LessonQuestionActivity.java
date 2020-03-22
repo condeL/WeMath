@@ -2,7 +2,9 @@ package com.welearn.wemath.lessons;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.util.Pair;
 import android.view.View;
 import android.widget.Button;
@@ -11,6 +13,7 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.content.SharedPreferences;
 
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -30,8 +33,10 @@ LessonQuestionActivity extends AppCompatActivity {
     //references to the various widgets on the activity
     private RadioGroup mRadioGroup;
     private Button mNextButton;
+    private Button mPrevButton;
     private TextView mQuestionTextView;
     private Button[] mAnswers; //generic button to hold the radio or checkboxes
+
 
     //public static Intent newIntent(Context packageContext, boolean answerIsTrue){
     public static Intent newIntent(Context packageContext){
@@ -82,6 +87,9 @@ LessonQuestionActivity extends AppCompatActivity {
             }
         }
 
+
+
+
         //setting up the behaviour of the Next button
         mNextButton = findViewById(R.id.quiz_finish_button);
         mNextButton.setOnClickListener(new View.OnClickListener() {
@@ -97,9 +105,35 @@ LessonQuestionActivity extends AppCompatActivity {
                 } else{
                     checkAnswer(0);
                 }
+                Intent intent = LessonActivity.newIntent(LessonQuestionActivity.this);
+                startActivity(intent);
+
             }
         });
 
+        final SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        //final SharedPreferences preferences1;
+        mPrevButton = findViewById(R.id.prev_lesson_button);
+        mPrevButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v2) {
+                int numberpage = preferences.getInt("numberpage", 1);
+                if (numberpage != 1) {
+                    numberpage--;
+
+                    SharedPreferences.Editor edit = preferences.edit();
+                    edit.putInt("numberpage", numberpage);
+                    edit.commit();
+                    //preferences1 = PreferenceManager.getDefaultSharedPreferences(this);
+                    //int numberpage = preferences1.getInt("numberpage", 1);
+                    //numberpage--;
+                    Intent intent = LessonActivity.newIntent(LessonQuestionActivity.this);
+                    startActivity(intent);
+                } else {
+                    onBackPressed();
+                }
+            }
+        });
 
     }
 
@@ -138,6 +172,7 @@ LessonQuestionActivity extends AppCompatActivity {
         Toast.makeText(this, messageResId, Toast.LENGTH_SHORT).show();
 
     }
+
 
 
 }

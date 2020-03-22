@@ -1,5 +1,6 @@
 package com.welearn.wemath;
 
+import androidx.activity.OnBackPressedDispatcher;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -66,10 +67,14 @@ public class LoginActivity extends AppCompatActivity {
         mRegisterButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick (View v){
-
-                createUser(mEmail.getText().toString(),mPassword.getText().toString());
-                mEmail.setText("");
-                mPassword.setText("");
+                if (mEmail.getText().toString().trim().length() != 0 && mPassword.getText().toString().trim().length() != 0 ) {
+                    Toast.makeText(LoginActivity.this, "Creating new account...", Toast.LENGTH_SHORT).show();
+                    createUser(mEmail.getText().toString(), mPassword.getText().toString());
+                    mEmail.setText("");
+                    mPassword.setText("");
+                } else{
+                    Toast.makeText(LoginActivity.this, "Please enter a valid email and password", Toast.LENGTH_SHORT).show();
+                }
 
             }
         });
@@ -77,18 +82,23 @@ public class LoginActivity extends AppCompatActivity {
         mSignInButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick (View v){
+                if (mEmail.getText().toString().trim().length() != 0 && mPassword.getText().toString().trim().length() != 0 ) {
+                    Toast.makeText(LoginActivity.this, "Signing in...", Toast.LENGTH_SHORT).show();
+                    signInUser(mEmail.getText().toString(), mPassword.getText().toString());
+                    mEmail.setText("");
+                    mPassword.setText("");
 
-                signInUser(mEmail.getText().toString(),mPassword.getText().toString());
-                mEmail.setText("");
-                mPassword.setText("");
-
+                } else{
+                    Toast.makeText(LoginActivity.this, "Please enter a valid email and password", Toast.LENGTH_SHORT).show();
+                }
             }
         });
+
 
         mAnonymousButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick (View v){
-
+                Toast.makeText(LoginActivity.this, "Logging in...", Toast.LENGTH_SHORT).show();
                 signInAnon();
 
             }
@@ -111,6 +121,9 @@ public class LoginActivity extends AppCompatActivity {
                         updateUI(null);
                     }
                 }
+                Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
                 //LoginManager.getInstance().logOut();
 
             }
@@ -191,7 +204,7 @@ public class LoginActivity extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "createUserWithEmail:success");
-                            Toast.makeText(LoginActivity.this, "Authentication successful.",
+                            Toast.makeText(LoginActivity.this, "Success!",
                                     Toast.LENGTH_SHORT).show();
                             FirebaseUser user = mAuth.getCurrentUser();
                             updateUI(user);
@@ -201,7 +214,7 @@ public class LoginActivity extends AppCompatActivity {
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "createUserWithEmail:failure", task.getException());
-                            Toast.makeText(LoginActivity.this, "Authentication failed.",
+                            Toast.makeText(LoginActivity.this, "Invalid email",
                                     Toast.LENGTH_SHORT).show();
                             updateUI(null);
                         }
@@ -227,8 +240,7 @@ public class LoginActivity extends AppCompatActivity {
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "signInWithEmail:failure", task.getException());
-                            Toast.makeText(LoginActivity.this, "Sign-in failed.",
-                                    Toast.LENGTH_SHORT).show();
+                            Toast.makeText(LoginActivity.this, "Sign-in failed.", Toast.LENGTH_SHORT).show();
                             updateUI(null);
                         }
 
@@ -251,7 +263,7 @@ public class LoginActivity extends AppCompatActivity {
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "signInAnonymously:failure", task.getException());
-                            Toast.makeText(LoginActivity.this, "Authentication failed.",
+                            Toast.makeText(LoginActivity.this, "Please check your internet connection",
                                     Toast.LENGTH_SHORT).show();
                             updateUI(null);
                         }
@@ -273,6 +285,7 @@ public class LoginActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<Void> task) {
                         if (task.isSuccessful()) {
                             Log.d("Profile update", "User profile updated.");
+                            Toast.makeText(getBaseContext(), "Logged-in as Guest", Toast.LENGTH_SHORT).show();
                             updateUI(mAuth.getCurrentUser());
                             redirect();
                         }

@@ -19,15 +19,39 @@
 
     </string-array>
 
-    <string-array name="lessons_jhs1">
-        <item>[JHS]Placeholder 1</item>
-        <item>[JHS]Placeholder 2</item>
-        <item>[JHS]Placeholder 3</item>
+    <string-array name="lessons_jhs1_1">
+        <item>Lesson 1</item>
+        <item>Lesson 2</item>
+        <item>Lesson 3</item>
+    </string-array>
+
+    <string-array name="lessons_jhs1_2">
+        <item>Lesson 1</item>
+        <item>Lesson 2</item>
+        <item>Lesson 3</item>
+    </string-array>
+
+    <string-array name="lessons_jhs1_3">
+        <item>Lesson 1</item>
+        <item>Lesson 2</item>
+        <item>Lesson 3</item>
+    </string-array>
+
+    <string-array name="lessons_jhs1_4">
+        <item>Lesson 1</item>
+        <item>Lesson 2</item>
+        <item>Lesson 3</item>
+    </string-array>
+
+    <string-array name="lessons_jhs1_5">
+        <item>Lesson 1</item>
+        <item>Lesson 2</item>
+        <item>Lesson 3</item>
     </string-array>
 
     <string-array name="topics_jhs2">
         <item>Numeration systems</item>
-        <item>Linear equaations and inequalities</item>
+        <item>Linear equations and inequalities</item>
         <item>Angles</item>
         <item>Collecting and Handling data</item>
         <item>Rational numbers</item>
@@ -43,10 +67,34 @@
 
     </string-array>
 
-    <string-array name="lessons_jhs2">
-        <item>[JHS]Placeholder 1</item>
-        <item>[JHS]Placeholder 2</item>
-        <item>[JHS]Placeholder 3</item>
+    <string-array name="lessons_jhs2_1">
+        <item>Lesson 1</item>
+        <item>Lesson 2</item>
+        <item>Lesson 3</item>
+    </string-array>
+
+    <string-array name="lessons_jhs2_2">
+        <item>Lesson 1</item>
+        <item>Lesson 2</item>
+        <item>Lesson 3</item>
+    </string-array>
+
+    <string-array name="lessons_jhs2_3">
+        <item>Lesson 1</item>
+        <item>Lesson 2</item>
+        <item>Lesson 3</item>
+    </string-array>
+
+    <string-array name="lessons_jhs2_4">
+        <item>Lesson 1</item>
+        <item>Lesson 2</item>
+        <item>Lesson 3</item>
+    </string-array>
+
+    <string-array name="lessons_jhs2_5">
+        <item>Lesson 1</item>
+        <item>Lesson 2</item>
+        <item>Lesson 3</item>
     </string-array>
 
     <string-array name="topics_jhs3">
@@ -62,10 +110,34 @@
 
     </string-array>
 
-    <string-array name="lessons_jhs3">
-        <item>[JHS]Placeholder 1</item>
-        <item>[JHS]Placeholder 2</item>
-        <item>[JHS]Placeholder 3</item>
+    <string-array name="lessons_jhs3_1">
+        <item>Lesson 1</item>
+        <item>Lesson 2</item>
+        <item>Lesson 3</item>
+    </string-array>
+
+    <string-array name="lessons_jhs3_2">
+        <item>Lesson 1</item>
+        <item>Lesson 2</item>
+        <item>Lesson 3</item>
+    </string-array>
+
+    <string-array name="lessons_jhs3_3">
+        <item>Lesson 1</item>
+        <item>Lesson 2</item>
+        <item>Lesson 3</item>
+    </string-array>
+
+    <string-array name="lessons_jhs3_4">
+        <item>Lesson 1</item>
+        <item>Lesson 2</item>
+        <item>Lesson 3</item>
+    </string-array>
+
+    <string-array name="lessons_jhs3_5">
+        <item>Lesson 1</item>
+        <item>Lesson 2</item>
+        <item>Lesson 3</item>
     </string-array>
 
 </resources>
