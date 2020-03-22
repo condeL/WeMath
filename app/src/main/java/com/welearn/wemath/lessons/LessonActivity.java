@@ -50,6 +50,7 @@ public class LessonActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lesson);
 
+
         //mLesson = new Lesson("Title", "Content", "C:\\Users\\hp\\AndroidStudioProjects\\math-application\\app\\src\\main\\res\\drawable\\fblogo.png");
         mTitle= findViewById(R.id.lesson_title);
         mContent = findViewById(R.id.lesson_content);
