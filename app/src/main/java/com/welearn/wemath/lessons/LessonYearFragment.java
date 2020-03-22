@@ -15,6 +15,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.TextView;
 
 import com.welearn.wemath.R;
 
@@ -22,6 +23,7 @@ public class LessonYearFragment extends Fragment {
 
     private LessonYearViewModel mViewModel;
     private ImageButton mYear1, mYear2, mYear3;
+    private TextView mYear1Text, mYear2Text, mYear3Text;
 
     public static LessonYearFragment newInstance() {
         return new LessonYearFragment();
@@ -42,9 +44,25 @@ public class LessonYearFragment extends Fragment {
         mYear2 = root.findViewById(R.id.year2_button);
         mYear3 = root.findViewById(R.id.year3_button);
 
+        mYear1Text = root.findViewById(R.id.year1_text);
+        mYear2Text = root.findViewById(R.id.year2_text);
+        mYear3Text = root.findViewById(R.id.year3_text);
+
         /*Setting the behaviours of the buttons*/
 
         mYear1.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v){
+                //parameters to be passed to the topics fragment
+                String year = "1";
+
+                //set up the navigation action with the parameters
+                NavDirections action = LessonYearFragmentDirections.actionLessonYearFragmentToLessonTopicFragment(year, section);
+                Navigation.findNavController(v).navigate(action);
+
+            }
+        });
+
+        mYear1Text.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
                 //parameters to be passed to the topics fragment
                 String year = "1";
@@ -66,7 +84,27 @@ public class LessonYearFragment extends Fragment {
             }
         });
 
+        mYear2Text.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v){
+                String year = "2";
+                //String section = LessonYearFragmentArgs.fromBundle(getArguments()).getSection();
+                NavDirections action = LessonYearFragmentDirections.actionLessonYearFragmentToLessonTopicFragment(year, section);
+                Navigation.findNavController(v).navigate(action);
+
+            }
+        });
+
         mYear3.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v){
+                String year = "3";
+                //String section = LessonYearFragmentArgs.fromBundle(getArguments()).getSection();
+                NavDirections action = LessonYearFragmentDirections.actionLessonYearFragmentToLessonTopicFragment(year, section);
+                Navigation.findNavController(v).navigate(action);
+
+            }
+        });
+
+        mYear3Text.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
                 String year = "3";
                 //String section = LessonYearFragmentArgs.fromBundle(getArguments()).getSection();
