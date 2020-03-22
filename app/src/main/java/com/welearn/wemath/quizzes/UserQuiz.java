@@ -4,26 +4,26 @@ import com.welearn.wemath.Quiz;
 import com.welearn.wemath.QuizQuestion;
 
 import java.sql.Timestamp;
-import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class UserQuiz extends Quiz {
 
-    private float mRating;
+    private double mRating;
     private boolean mState;
     private Date mTimestamp;
 
 
-    public UserQuiz(String uid, String username, String title, String section, String year, String[] topics, String difficulty, ArrayList<QuizQuestion> questions){
+    public UserQuiz(String uid, String username, String title, String section, String year, List<String> topics, String difficulty, List<QuizQuestion> questions){
         super(uid, username, title, section, year, topics, difficulty, questions);
 
         mState = false;
-        mRating = 0;
+        mRating = 0.0;
         mTimestamp = new Timestamp(new Date().getTime());
 
     }
 
-    public float getRating() {
+    public double getRating() {
         return mRating;
     }
 

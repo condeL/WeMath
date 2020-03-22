@@ -1,6 +1,6 @@
 package com.welearn.wemath;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public abstract class Quiz {
     private String mUid;
@@ -8,13 +8,13 @@ public abstract class Quiz {
     private String mTitle;
     private String mSection;
     private String mYear;
-    private String[] mTopics;
+    private List<String> mTopics;
     private String mDifficulty;
-    private ArrayList<QuizQuestion> mQuizQuestions;
+    private List<QuizQuestion> mQuizQuestions;
 
     public Quiz(){};
 
-    public Quiz(String uid, String username, String title, String section, String year, String[] topics, String difficulty, ArrayList<QuizQuestion> questions){
+    public Quiz(String uid, String username, String title, String section, String year, List<String> topics, String difficulty, List<QuizQuestion> questions){
         mUid = uid;
         mUsername = username;
         mTitle = title;
@@ -66,11 +66,11 @@ public abstract class Quiz {
         mYear = year;
     }
 
-    public String[] getTopics() {
+    public List<String> getTopics() {
         return mTopics;
     }
 
-    public void setTopics(String[] topics) {
+    public void setTopics(List<String> topics) {
         mTopics = topics;
     }
 
@@ -82,11 +82,11 @@ public abstract class Quiz {
         mDifficulty = difficulty;
     }
 
-    public ArrayList<QuizQuestion> getQuizQuestions() {
+    public List<QuizQuestion> getQuizQuestions() {
         return mQuizQuestions;
     }
 
-    public void setQuizQuestions(ArrayList<QuizQuestion> quizQuestions) {
+    public void setQuizQuestions(List<QuizQuestion> quizQuestions) {
         mQuizQuestions = quizQuestions;
     }
 }

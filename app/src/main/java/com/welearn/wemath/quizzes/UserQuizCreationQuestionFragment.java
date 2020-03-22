@@ -4,10 +4,12 @@ package com.welearn.wemath.quizzes;
 import android.content.Context;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,13 +24,16 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.welearn.wemath.Quiz;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.welearn.wemath.QuizQuestion;
 import com.welearn.wemath.R;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -74,9 +79,32 @@ public class UserQuizCreationQuestionFragment extends Fragment {
             @Override
             public void onClick (View v){
                 FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                FirebaseFirestore db = FirebaseFirestore.getInstance();
 
-                UserQuiz quiz = new UserQuiz(user.getUid(), user.getDisplayName(),mTitle,mSection,mYear,mTopics,getDifficulty(),adapter.submit(mQuestions));
-                Toast.makeText(getContext(),quiz.toString(), Toast.LENGTH_LONG).show();
+                UserQuiz quiz = new UserQuiz(user.getUid(), user.getDisplayName(),mTitle,mSection,mYear,Arrays.asList(mTopics),getDifficulty(), adapter.submit(mQuestions));
+
+                db.collection("quiz").document(quiz.getTitle())
+                        .set(quiz)
+                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void aVoid) {
+                                Log.d("success", "DocumentSnapshot successfully written!");
+                                Toast.makeText(getContext(),"Quiz sent!", Toast.LENGTH_LONG).show();
+                                //editText.setText("");
+                                //mAdapter = new CommentsFragment.ContentAdapterComments(getContext());
+                                //mView.setAdapter(mAdapter);
+                                //mAdapter.notifyDataSetChanged();
+                            }
+                        })
+                        .addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Log.w("failure", "Error writing document", e);
+                                Toast.makeText(getContext(),"Error sending comment", Toast.LENGTH_LONG).show();
+
+                            }
+                        });
+                //Toast.makeText(getContext(),quiz.toString(), Toast.LENGTH_LONG).show();
 
 
             }
@@ -176,13 +204,13 @@ public class UserQuizCreationQuestionFragment extends Fragment {
             return holder_list.get(position);
         }
 
-        public ArrayList<QuizQuestion> submit(RecyclerView r){
+        public List<QuizQuestion> submit(RecyclerView r){
             for(int i = 0; i<10;i++){
                 String problem = getHolder(i).problem.getText().toString();
 
                 boolean multipleChoice = getHolder(i).multiple.isChecked();
 
-                ArrayList<Pair<String, Boolean>> answers = new ArrayList<>();
+                List<Pair<String, Boolean>> answers = new ArrayList<>();
 
                 if(multipleChoice) {
                     for (int y = 0; y < 4; y++) {
@@ -200,7 +228,7 @@ public class UserQuizCreationQuestionFragment extends Fragment {
                 if(!getHolder(i).explanation.getText().toString().isEmpty())
                     explanation = getHolder(i).explanation.toString();
                 else
-                    explanation = null;
+                    explanation = " ";
                 mQuizQuestions.add(new QuizQuestion(problem, answers, multipleChoice, explanation));
             }
             return mQuizQuestions;
