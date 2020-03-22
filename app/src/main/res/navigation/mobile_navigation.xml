@@ -27,6 +27,9 @@
         <action
             android:id="@+id/action_navigation_quiz_main_to_quizTakingMenuFragment"
             app:destination="@id/quizTakingMenuFragment" />
+        <action
+            android:id="@+id/action_navigation_quiz_main_to_userQuizCreationFragment"
+            app:destination="@id/userQuizCreationFragment" />
     </fragment>
     <fragment
         android:id="@+id/lessonYearFragment"
@@ -125,6 +128,33 @@
         <action
             android:id="@+id/action_userQuizSelection_to_quizQuestionActivity"
             app:destination="@id/quizQuestionActivity" />
+    </fragment>
+    <fragment
+        android:id="@+id/userQuizCreationFragment"
+        android:name="com.welearn.wemath.quizzes.UserQuizCreationFragment"
+        android:label="fragment_user_quiz_creation"
+        tools:layout="@layout/fragment_user_quiz_creation" >
+        <action
+            android:id="@+id/action_userQuizCreationFragment_to_userQuizCreationQuestionFragment"
+            app:destination="@id/userQuizCreationQuestionFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/userQuizCreationQuestionFragment"
+        android:name="com.welearn.wemath.quizzes.UserQuizCreationQuestionFragment"
+        android:label="fragment_user_quiz_creation_question"
+        tools:layout="@layout/fragment_user_quiz_creation_question" >
+        <argument
+            android:name="title"
+            app:argType="string" />
+        <argument
+            android:name="section"
+            app:argType="string" />
+        <argument
+            android:name="year"
+            app:argType="string" />
+        <argument
+            android:name="topics"
+            app:argType="string[]" />
     </fragment>
 
 </navigation>

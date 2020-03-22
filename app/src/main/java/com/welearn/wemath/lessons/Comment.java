@@ -2,55 +2,81 @@ package com.welearn.wemath.lessons;
 
 /*Custom class for the comments*/
 
-import java.sql.Time;
 import java.sql.Timestamp;
-import java.time.Instant;
-import java.util.UUID;
+import java.util.Date;
 
 public class Comment {
 
-    UUID mUUID;
-    String mContent;
-    Timestamp mTimestamp;
-    int mScore;
+    String mUID;
+    String mName;
+    String mMessage;
+    Date mTimestamp;
+    int mDownvotes;
+    int mUpvotes;
     boolean mState;
 
-    Comment(UUID uUid, String content){
-        mUUID = uUid;
-        mContent = content;
-        mScore = 0;
-        //mTimestamp = (Timestamp) Time.valueOf((String)System.currentTimeMillis());
+    Comment(){
+
+    }
+
+    Comment(String uUid, String name, String message){
+        mUID = uUid;
+        mMessage = message;
+        mName = name;
+        mDownvotes = 0;
+        mUpvotes = 0;
+        mTimestamp = new Timestamp(new Date().getTime());
         mState = false;
     }
 
-    public UUID getUUID() {
-        return mUUID;
+    public String getUID() {
+        return mUID;
     }
 
-    public String getContent() {
-        return mContent;
+    public String getMessage() {
+        return mMessage;
     }
 
-    public void setContent(String content) {
-        mContent = content;
+    public void setMessage(String message) {
+        mMessage = message;
     }
 
-    public Timestamp getTimestamp() {
+    public Date getTimestamp() {
         return mTimestamp;
     }
 
-
-    public int getScore() {
-        return mScore;
+    public void setUID(String UID) {
+        mUID = UID;
     }
 
-    public void increaseScore() {
-        mScore--;
+    public void setName(String name) {
+        mName = name;
     }
 
-    public void decreaseScore(){
-        mScore++;
+    public void setTimestamp(Date timestamp) {
+        mTimestamp = timestamp;
     }
+
+    public void setDownvotes(int downvotes) {
+        mDownvotes = downvotes;
+    }
+
+    public void setUpvotes(int upvotes) {
+        mUpvotes = upvotes;
+    }
+
+    public int getDownvotes() {
+        return mDownvotes;
+    }
+
+    public String getName() {
+        return mName;
+    }
+
+    public int getUpvotes() {
+        return mUpvotes;
+    }
+
 
     public boolean isState() {
         return mState;

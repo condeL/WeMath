@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -34,26 +35,30 @@ public class LoginRegisterActivity extends AppCompatActivity {
 
         mRegisterButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick (View v){
+            public void onClick (View v) {
+                    if (mNameEditText.getText().toString().trim().length() != 0){
+                        Toast.makeText(LoginRegisterActivity.this, "Registering...", Toast.LENGTH_LONG).show();
+                        UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
+                                .setDisplayName(mNameEditText.getText().toString())
+                                .build();
 
-                UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
-                        .setDisplayName(mNameEditText.getText().toString())
-                        .build();
-
-                currentUser.updateProfile(profileUpdates)
-                        .addOnCompleteListener(new OnCompleteListener<Void>() {
-                            @Override
-                            public void onComplete(@NonNull Task<Void> task) {
-                                if (task.isSuccessful()) {
-                                    Log.d("Profile update", "User profile updated.");
-                                    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                                    startActivity(intent);
-                                    finish();
+                    currentUser.updateProfile(profileUpdates)
+                            .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    if (task.isSuccessful()) {
+                                        Log.d("Profile update", "User profile updated.");
+                                        Toast.makeText(LoginRegisterActivity.this, "Registration successful!", Toast.LENGTH_LONG).show();
+                                        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                                        startActivity(intent);
+                                        finish();
+                                    }
                                 }
-                            }
-                        });
+                            });
 
-
+                } else{
+                        Toast.makeText(LoginRegisterActivity.this, "Please enter a valid username", Toast.LENGTH_LONG).show();
+                    }
             }
         });
     }

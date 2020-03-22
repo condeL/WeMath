@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".quizzes.UserQuizCreationFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/user_quiz_creation_cardView"
+            android:layout_width="0dp"
+            android:layout_height="65dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="20dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/user_quiz_creation_textView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingTop="20dp"
+                android:text="Create a quiz"
+                android:textAlignment="center"
+                android:textSize="20dp"
+                android:textStyle="bold" />
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/user_quiz_creation_content_cardview"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="64dp"
+            android:layout_marginEnd="10dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/user_quiz_creation_cardView">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <EditText
+                    android:id="@+id/user_quiz_creation_editname"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="10dp"
+                    android:ems="10"
+                    android:hint="Title"
+                    android:inputType="textPersonName"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <RadioGroup
+                    android:id="@+id/user_quiz_creation_sectionGroup"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="10dp"
+                    android:orientation="horizontal"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/user_quiz_creation_editname">
+
+                    <RadioButton
+                        android:id="@+id/user_quiz_creation_jhs_button"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:checked="true"
+                        android:text="JHS" />
+
+                    <RadioButton
+                        android:id="@+id/user_quiz_creation_shs_button"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="SHS" />
+                </RadioGroup>
+
+                <RadioGroup
+                    android:id="@+id/user_quiz_creation_yearGroup"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="10dp"
+                    android:orientation="horizontal"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/user_quiz_creation_sectionGroup">
+
+                    <RadioButton
+                        android:id="@+id/user_quiz_creation_year1_button"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:checked="true"
+                        android:text="Year 1" />
+
+                    <RadioButton
+                        android:id="@+id/user_quiz_creation_year2_button"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Year 2" />
+
+                    <RadioButton
+                        android:id="@+id/user_quiz_creation_year3_button"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Year 3" />
+
+                </RadioGroup>
+
+
+                <HorizontalScrollView
+                    android:id="@+id/user_quiz_creation_topic_scrollView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/user_quiz_creation_yearGroup">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <RadioGroup
+                            android:id="@+id/user_quiz_creation_topicGroup"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <CheckBox
+                                android:id="@+id/user_quiz_creation_topic1_button"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="Topic 1" />
+
+                            <CheckBox
+                                android:id="@+id/user_quiz_creation_topic2_button"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="Topic 2" />
+
+                            <CheckBox
+                                android:id="@+id/user_quiz_creation_topic3_button"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="Topic 3" />
+
+                            <CheckBox
+                                android:id="@+id/user_quiz_creation_topic4_button"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="Topic 4" />
+
+                            <CheckBox
+                                android:id="@+id/user_quiz_creation_topic5_button"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="Topic 5" />
+
+                        </RadioGroup>
+                    </LinearLayout>
+                </HorizontalScrollView>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.cardview.widget.CardView>
+
+        <Button
+            android:id="@+id/user_quiz_creation_next_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="25dp"
+            android:layout_marginBottom="24dp"
+            android:background="@color/colorAccent"
+            android:enabled="true"
+            android:text="Next"
+            android:textColor="#FFFFFF"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/user_quiz_creation_content_cardview" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>

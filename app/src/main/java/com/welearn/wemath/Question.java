@@ -3,16 +3,19 @@ package com.welearn.wemath;
 import android.util.Pair;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /*Question interface for both LessongQuestion and QuizQuestion*/
 public abstract class Question {
 
     private String mProblem = "";
-    private ArrayList<Pair<String,Boolean>> mAnswers = new ArrayList<Pair<String,Boolean>>();
+    private List<Pair<String, Boolean>> mAnswers = new ArrayList<>();
     private boolean mMultipleChoice;
     private int mNbCorrectAnswers;
 
-    public Question(String problem, ArrayList<Pair<String, Boolean>> answers, boolean multipleChoice){
+    public Question(){};
+
+    public Question(String problem, List<Pair<String, Boolean>> answers, boolean multipleChoice){
 
         int nbCorrectAnswers = 0;
         mProblem = problem;
@@ -37,7 +40,7 @@ public abstract class Question {
         mProblem = problem;
     }
 
-    public ArrayList<Pair<String, Boolean>> getAnswers() {
+    public List<Pair<String, Boolean>> getAnswers() {
         return mAnswers;
     }
 
