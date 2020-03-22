@@ -124,7 +124,8 @@ public class UserQuizCreationQuestionFragment extends Fragment {
         public EditText problem, explanation;
         public EditText[] answer;
         public CheckBox multiple;
-        public CheckBox[] truth;
+        public CheckBox[] truthCheckboxes;
+        public RadioButton[] truthRadios;
         public RadioGroup truthRadioGroup;
         public LinearLayout truthCheckBoxes;
 
@@ -140,11 +141,18 @@ public class UserQuizCreationQuestionFragment extends Fragment {
             answer[2] = itemView.findViewById(R.id.user_quiz_creation_card_answer3);
             answer[3] = itemView.findViewById(R.id.user_quiz_creation_card_answer4);
 
-            truth = new CheckBox[4];
-            truth[0] = itemView.findViewById(R.id.user_quiz_creation_card_checkbox1);
-            truth[1] = itemView.findViewById(R.id.user_quiz_creation_card_checkbox2);
-            truth[2] = itemView.findViewById(R.id.user_quiz_creation_card_checkbox3);
-            truth[3] = itemView.findViewById(R.id.user_quiz_creation_card_checkbox4);
+            truthCheckboxes = new CheckBox[4];
+            truthCheckboxes[0] = itemView.findViewById(R.id.user_quiz_creation_card_checkbox1);
+            truthCheckboxes[1] = itemView.findViewById(R.id.user_quiz_creation_card_checkbox2);
+            truthCheckboxes[2] = itemView.findViewById(R.id.user_quiz_creation_card_checkbox3);
+            truthCheckboxes[3] = itemView.findViewById(R.id.user_quiz_creation_card_checkbox4);
+
+            truthRadios = new RadioButton[4];
+            truthRadios[0] = itemView.findViewById(R.id.user_quiz_creation_card_radioButton1);
+            truthRadios[1] = itemView.findViewById(R.id.user_quiz_creation_card_radioButton2);
+            truthRadios[2] = itemView.findViewById(R.id.user_quiz_creation_card_radioButton3);
+            truthRadios[3] = itemView.findViewById(R.id.user_quiz_creation_card_radioButton4);
+
 
             truthRadioGroup = itemView.findViewById(R.id.user_quiz_creation_card_radioGroup);
             truthCheckBoxes = itemView.findViewById(R.id.user_quiz_creation_card_checkboxGroup);
@@ -214,13 +222,13 @@ public class UserQuizCreationQuestionFragment extends Fragment {
 
                 if(multipleChoice) {
                     for (int y = 0; y < 4; y++) {
-                        answers.add(new Pair<>(getHolder(i).answer[y].getText().toString(), getHolder(i).truth[y].isChecked()));
+                        answers.add(new Pair<>(getHolder(i).answer[y].getText().toString(), getHolder(i).truthCheckboxes[y].isChecked()));
                     }
                 } else{
                     for (int y = 0; y < 4; y++) {
                         int selectedID = getHolder(i).truthRadioGroup.getCheckedRadioButtonId();
                         RadioButton selectedSectionRadio = (getHolder(i).truthRadioGroup.findViewById(selectedID));
-                        answers.add(new Pair<>(getHolder(i).answer[y].getText().toString(), selectedSectionRadio.isChecked()));
+                        answers.add(new Pair<>(getHolder(i).answer[y].getText().toString(), getHolder(i).truthRadios[y].isChecked()));
                     }
                 }
 

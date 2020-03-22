@@ -40,9 +40,9 @@ public abstract class Question {
         mProblem = problem;
     }
 
-    public List<Pair<String, Boolean>> getAnswers() {
+    /*public List<Pair<String, Boolean>> getAnswers() {
         return mAnswers;
-    }
+    }*/
 
     public int getAnswersSize(){
         return mAnswers.size();

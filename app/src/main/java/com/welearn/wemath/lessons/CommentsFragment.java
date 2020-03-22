@@ -209,8 +209,8 @@ public class CommentsFragment extends Fragment {
 
 
 
-            Query query = mDB.collection("comments/jhs/year/topic0/lesson1")
-                    .orderBy("timestamp", Query.Direction.ASCENDING);
+            /*Query query = mDB.collection("comments/jhs/year/topic0/lesson1")
+                    .orderBy("timestamp", Query.Direction.ASCENDING);*/
 
 
             mDB.collection("comments/jhs/year/topic0/lesson1")

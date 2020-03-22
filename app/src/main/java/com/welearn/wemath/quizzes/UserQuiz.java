@@ -13,6 +13,9 @@ public class UserQuiz extends Quiz {
     private boolean mState;
     private Date mTimestamp;
 
+public UserQuiz(){
+
+}
 
     public UserQuiz(String uid, String username, String title, String section, String year, List<String> topics, String difficulty, List<QuizQuestion> questions){
         super(uid, username, title, section, year, topics, difficulty, questions);
