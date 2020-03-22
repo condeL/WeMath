@@ -11,6 +11,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavDirections;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -88,7 +89,7 @@ public class LessonTopicFragment extends Fragment {
                     //context.startActivity(intent);
                 }
             });*/
-            itemView.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_lessonTopicFragment_to_lessonSelectionFragment, null));
+            //itemView.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_lessonTopicFragment_to_lessonSelectionFragment, null));
         }
     }
 
@@ -97,13 +98,15 @@ public class LessonTopicFragment extends Fragment {
 
         private final String[] mNames, mNumbers, mPercentages;
         //private final ProgressBar[] mProgressBars;
+        String mYear, mSection;
 
         //pass it the year and section to represent the choice of the user
         public ContentAdapter(Context context, String year, String section){
             Resources resources = context.getResources();
             //String year = viewModel.getYear();
             //String section = viewModel.getSection();
-
+            mYear = year;
+            mSection = section;
             //to programmatically get the correct topics based on the bundled parameters
             String choice = "topics_" + section + year;
             int id = resources.getIdentifier(choice,"array",context.getPackageName());
@@ -120,11 +123,20 @@ public class LessonTopicFragment extends Fragment {
 
         //put the resource elements in the views using the ViewHolder
         @Override
-        public void onBindViewHolder(ViewHolder holder, int position) {
+        public void onBindViewHolder(ViewHolder holder, final int position) {
             holder.title.setText(mNames[position % mNames.length]);
-            holder.number.setText(mNumbers[position % mNumbers.length]);
+            //holder.number.setText(mNumbers[position % mNumbers.length]);
             //holder.percentage.setText(mPercentages[position % mPercentages.length]);
-            holder.percentage.setText("50%");
+            //holder.percentage.setText("50%");
+
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    //set up the navigation action with the parameters
+                    NavDirections action = LessonTopicFragmentDirections.actionLessonTopicFragmentToLessonSelectionFragment(mYear, mSection, position+1);
+                    Navigation.findNavController(v).navigate(action);
+                }
+            });
         }
 
         @Override

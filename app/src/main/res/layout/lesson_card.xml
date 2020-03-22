@@ -21,47 +21,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="27dp"
-                android:layout_marginTop="3dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:text="Topic" />
-
-            <TextView
-                android:id="@+id/lesson_selection_number"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="5dp"
-                android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                android:textSize="10sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/lesson_selection_name"
-                tools:text="10 lessons" />
-
-            <ProgressBar
-                android:id="@+id/lesson_selection_bar"
-                style="?android:attr/progressBarStyleHorizontal"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="75dp"
-                android:layout_marginTop="3dp"
-                android:indeterminate="false"
-                android:progress="75"
-                app:layout_constraintStart_toEndOf="@id/lesson_selection_name"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/lesson_selection_completed"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="59dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="7dp"
-                android:textSize="12sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toEndOf="@id/lesson_selection_number"
-                app:layout_constraintTop_toBottomOf="@id/lesson_selection_bar"
-                tools:text="% completed" />
+                tools:text="Lesson" />
 
             <ImageView
                 android:id="@+id/lesson_selection_right_arrow"
