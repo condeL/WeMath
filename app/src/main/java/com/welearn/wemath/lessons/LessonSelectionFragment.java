@@ -11,6 +11,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavDirections;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -100,6 +101,13 @@ public class LessonSelectionFragment extends Fragment {
             //mNumbers = resources.getStringArray(id);
             //mPercentages = resources.getStringArray(id);
 
+            final SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
+            SharedPreferences.Editor edit = preferences.edit();
+            edit.putString("url2", choice);
+            edit.commit();
+
+
+
         }
 
         @Override
@@ -126,9 +134,9 @@ public class LessonSelectionFragment extends Fragment {
                     edit.putInt("numberpage", (position % mNames.length)+1);
                     edit.commit();
                     holder.itemView.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_lessonSelectionFragment_to_lessonActivity, null));
-                    //final Intent intent;
-                    //intent = new Intent(this, LessonActivity.class);
-                    //startActivity(intent);
+
+                    //NavDirections action = LessonSelectionFragmentDirections.actionLessonSelectionFragmentToLessonActivity(mYear, mSection, mTopic, position+1);
+                    //Navigation.findNavController(view).navigate(action);
 
                 }
             });

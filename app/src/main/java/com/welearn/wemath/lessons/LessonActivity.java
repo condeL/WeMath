@@ -3,6 +3,7 @@ package com.welearn.wemath.lessons;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.View;
@@ -34,7 +35,7 @@ public class LessonActivity extends AppCompatActivity {
     private WebView mWebView;
     private int numberpage;
     private SharedPreferences preferences;
-    String url = "file:///android_asset/lesson";
+    String url = "file:///android_asset/";
     String html = ".html";
 
     public static Intent newIntent(Context packageContext){
@@ -51,6 +52,7 @@ public class LessonActivity extends AppCompatActivity {
         setContentView(R.layout.activity_lesson);
 
 
+
         //mLesson = new Lesson("Title", "Content", "C:\\Users\\hp\\AndroidStudioProjects\\math-application\\app\\src\\main\\res\\drawable\\fblogo.png");
         mTitle= findViewById(R.id.lesson_title);
         mContent = findViewById(R.id.lesson_content);
@@ -59,10 +61,11 @@ public class LessonActivity extends AppCompatActivity {
         //mCommentsFrgament = findViewById(R.id.lesson_comment_fragment);
         final SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
         int numberpage = preferences.getInt("numberpage", 1);
+        String url2 = preferences.getString("url2", null );
 
         mWebView = findViewById(R.id.lesson_webview);
-        //mWebView.loadUrl("file:///android_asset/lesson1.html");
-        mWebView.loadUrl(url+numberpage+html);
+        //mWebView.loadUrl("file:///android_asset/lessons_jhs1_1_1.html");
+        mWebView.loadUrl(url+url2+"_"+numberpage+html);
 
 
 
