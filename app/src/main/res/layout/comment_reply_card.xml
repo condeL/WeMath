@@ -13,16 +13,14 @@
 
         <TextView
             android:id="@+id/reply_profile_pic"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_marginStart="30dp"
-            android:layout_marginTop="48dp"
-            android:layout_marginEnd="20dp"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="20dp"
             android:background="@drawable/circle"
             android:gravity="center"
             android:textColor="#FFFFFF"
-            android:textSize="30sp"
-            app:layout_constraintEnd_toStartOf="@+id/reply_card_content"
+            android:textSize="28sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@id/reply_card_username" />
 
@@ -30,9 +28,9 @@
             android:id="@+id/reply_card_username"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="110dp"
-            android:layout_marginTop="10dp"
-            android:textSize="20sp"
+            android:layout_marginStart="50dp"
+            android:layout_marginTop="8dp"
+            android:textSize="18sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -43,7 +41,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
-            android:layout_marginEnd="50dp"
+            android:layout_marginEnd="10dp"
+            android:textSize="12sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="16/02/2020" />
@@ -55,7 +54,7 @@
             android:layout_marginStart="10dp"
             android:layout_marginTop="35dp"
             android:layout_marginEnd="40dp"
-            android:textSize="20sp"
+            android:textSize="18sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/reply_profile_pic"
             app:layout_constraintTop_toTopOf="@id/reply_card_username"
@@ -67,7 +66,6 @@
             android:layout_height="50dp"
             android:layout_marginStart="10dp"
             android:layout_marginTop="15dp"
-            android:layout_marginEnd="20dp"
             app:layout_constraintStart_toEndOf="@id/reply_upvote_cardview"
             app:layout_constraintTop_toBottomOf="@id/reply_card_content">
 
@@ -104,9 +102,8 @@
             android:id="@+id/reply_upvote_cardview"
             android:layout_width="80dp"
             android:layout_height="50dp"
-            android:layout_marginStart="30dp"
+            android:layout_marginStart="15dp"
             android:layout_marginTop="15dp"
-            app:layout_constraintEnd_toStartOf="@+id/reply_downvote_cardview"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/reply_card_content">
 
@@ -141,17 +138,15 @@
             android:id="@+id/reply_card_reply_button"
             android:layout_width="65dp"
             android:layout_height="40dp"
-            android:layout_marginTop="75dp"
+            android:layout_marginTop="25dp"
             android:layout_marginEnd="35dp"
-            android:layout_marginBottom="8dp"
             android:background="#FFFFFF"
             android:text="Reply"
             android:textAlignment="center"
             android:textAllCaps="false"
             android:textColor="@color/colorPrimary"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/reply_card_content" />
+            app:layout_constraintTop_toBottomOf="@+id/reply_card_content" />
 
         <LinearLayout
             android:id="@+id/reply_card_reply_bar"

@@ -24,13 +24,10 @@ import com.welearn.wemath.R;
 import java.util.prefs.PreferenceChangeEvent;
 
 public class LessonActivity extends AppCompatActivity {
-    private Lesson mLesson;
-    private TextView mTitle;
-    private TextView mContent;
-    private ImageView mImage;
+
     private Button mNextButton;
     private Button mPrevButton;
-    private TextView mCommentsButton;
+    private Button mCommentsButton;
     private FragmentContainerView mCommentsFrgament;
     private WebView mWebView;
     private int numberpage;
@@ -52,11 +49,6 @@ public class LessonActivity extends AppCompatActivity {
         setContentView(R.layout.activity_lesson);
 
 
-
-        //mLesson = new Lesson("Title", "Content", "C:\\Users\\hp\\AndroidStudioProjects\\math-application\\app\\src\\main\\res\\drawable\\fblogo.png");
-        mTitle= findViewById(R.id.lesson_title);
-        mContent = findViewById(R.id.lesson_content);
-        mImage = findViewById(R.id.lesson_image);
         mCommentsButton = findViewById(R.id.lesson_comment_link);
         //mCommentsFrgament = findViewById(R.id.lesson_comment_fragment);
         final SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);

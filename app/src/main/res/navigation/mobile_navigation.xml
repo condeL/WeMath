@@ -101,13 +101,20 @@
         tools:layout="@layout/fragment_admin_quiz_selection">
         <action
             android:id="@+id/action_adminQuizSelection_to_quizQuestionActivity"
-            app:destination="@id/quizQuestionActivity" />
+            app:destination="@id/activityuserquiztaking" />
     </fragment>
     <activity
-        android:id="@+id/quizQuestionActivity"
+        android:id="@+id/activityuserquiztaking"
         android:name="com.welearn.wemath.quizzes.UserQuizTakingActivity"
-        android:label="Quiz"
-        tools:layout="@layout/activity_user_quiz_taking" />
+        android:label="User Quiz"
+        tools:layout="@layout/activity_user_quiz_taking">
+        <argument
+            android:name="admins"
+            app:argType="boolean" />
+        <argument
+            android:name="quiz_id"
+            app:argType="string" />
+    </activity>
     <fragment
         android:id="@+id/quizTakingMenuFragment"
         android:name="com.welearn.wemath.quizzes.QuizTakingMenuFragment"
@@ -126,8 +133,8 @@
         android:label="User Quizzes"
         tools:layout="@layout/fragment_user_quiz_selection">
         <action
-            android:id="@+id/action_userQuizSelection_to_quizQuestionActivity"
-            app:destination="@id/quizQuestionActivity" />
+            android:id="@+id/action_userQuizSelection_to_userQuizTakingActivity"
+            app:destination="@id/activityuserquiztaking" />
     </fragment>
     <fragment
         android:id="@+id/userQuizCreationFragment"
