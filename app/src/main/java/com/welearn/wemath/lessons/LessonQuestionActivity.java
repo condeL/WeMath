@@ -22,6 +22,8 @@ import com.welearn.wemath.R;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import static java.lang.Boolean.parseBoolean;
+
 
 public class
 LessonQuestionActivity extends AppCompatActivity {
@@ -48,16 +50,35 @@ LessonQuestionActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) { //called the activity is created
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lesson_question); //deflating the activity
+        final SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        String q = "question";
+        String answer = "answer";
+        String a = "a";
+        int n = preferences.getInt("numberpage", 1);
+        n--;
+
+        int id = getResources().getIdentifier(q+n, "string", getPackageName());
+        int id1 = getResources().getIdentifier(answer+n+"_"+1, "string", getPackageName());
+        int id2 = getResources().getIdentifier(answer+n+"_"+2, "string", getPackageName());
+        int id3 = getResources().getIdentifier(answer+n+"_"+3, "string", getPackageName());
+        int id4 = getResources().getIdentifier(answer+n+"_"+4, "string", getPackageName());
+
+        int b1 = getResources().getIdentifier(a+n+"_1", "string", getPackageName());
+        int b2 = getResources().getIdentifier(a+n+"_2", "string", getPackageName());
+        int b3 = getResources().getIdentifier(a+n+"_3", "string", getPackageName());
+        int b4 = getResources().getIdentifier(a+n+"_4", "string", getPackageName());
+
+        int mcq = getResources().getIdentifier("mcq"+n, "string", getPackageName());
 
         //instantiating the LessonQuestion object
          mLessonQuestion = new LessonQuestion(
-                getResources().getString(R.string.question1),
-                new ArrayList<>(Arrays.asList(
-                        new Pair<>(getResources().getString(R.string.answer1_1), false),
-                        new Pair<>(getResources().getString(R.string.answer1_2), true),
-                        new Pair<>(getResources().getString(R.string.answer1_3), false),
-                        new Pair<>(getResources().getString(R.string.answer1_4), true))),
-                true);
+                getResources().getString(id),
+                new ArrayList<Pair<String, Boolean>>(Arrays.asList(
+                        new Pair<>(getResources().getString(id1), parseBoolean(getResources().getString(b1))),
+                        new Pair<>(getResources().getString(id2), parseBoolean(getResources().getString(b2))),
+                        new Pair<>(getResources().getString(id3), parseBoolean(getResources().getString(b3))),
+                        new Pair<>(getResources().getString(id4), parseBoolean(getResources().getString(b4))))),
+                parseBoolean(getResources().getString(mcq)));
 
         mQuestionTextView = findViewById(R.id.question_text_view); //link the reference to the actual widget item
         mQuestionTextView.setText(mLessonQuestion.getProblem()); //set the text to the problem
@@ -110,7 +131,7 @@ LessonQuestionActivity extends AppCompatActivity {
             }
         });
 
-        final SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        //final SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
         //final SharedPreferences preferences1;
         mPrevButton = findViewById(R.id.prev_lesson_button);
         mPrevButton.setOnClickListener(new View.OnClickListener() {

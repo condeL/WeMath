@@ -57,7 +57,7 @@ public class LessonActivity extends AppCompatActivity {
 
         mWebView = findViewById(R.id.lesson_webview);
         //mWebView.loadUrl("file:///android_asset/lessons_jhs1_1_1.html");
-        mWebView.loadUrl(url+url2+"_"+numberpage+html);
+        mWebView.loadUrl(url+url2+"."+numberpage+html);
 
 
 
