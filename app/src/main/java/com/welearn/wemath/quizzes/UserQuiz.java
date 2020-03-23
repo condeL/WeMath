@@ -1,7 +1,6 @@
 package com.welearn.wemath.quizzes;
 
 import com.welearn.wemath.Quiz;
-import com.welearn.wemath.QuizQuestion;
 
 import java.sql.Timestamp;
 import java.util.Date;

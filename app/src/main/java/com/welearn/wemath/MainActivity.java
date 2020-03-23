@@ -10,8 +10,10 @@ import androidx.navigation.ui.NavigationUI;
 import android.content.Intent;
 import android.graphics.Paint;
 import android.graphics.PorterDuff;
+import android.graphics.Rect;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewTreeObserver;
 import android.widget.TextView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -30,8 +32,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        BottomNavigationView navView = findViewById(R.id.bottom_nav_view);
-        DrawerLayout drawerLayout = findViewById(R.id.main_drawer_layout);
+        final BottomNavigationView navView = findViewById(R.id.bottom_nav_view);
+        final DrawerLayout drawerLayout = findViewById(R.id.main_drawer_layout);
         NavigationView drawerNavView = findViewById(R.id.drawer_nav_view);
 
         View header = drawerNavView.getHeaderView(0);
@@ -77,6 +79,27 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(navView, navController);
         NavigationUI.setupWithNavController(drawerNavView,navController);
+
+
+        //https://stackoverflow.com/questions/4207880/android-how-do-i-prevent-the-soft-keyboard-from-pushing-my-view-up
+        drawerLayout.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                Rect r = new Rect();
+                drawerLayout.getWindowVisibleDisplayFrame(r);
+                int heightDiff = drawerLayout.getRootView().getHeight() - (r.bottom - r.top);
+
+                if (heightDiff > 200) { // if more than 100 pixels, its probably a keyboard...
+                    //ok now we know the keyboard is up...
+                    navView.setVisibility(View.GONE);
+
+                }else{
+                    //ok now we know the keyboard is down...
+                    navView.setVisibility(View.VISIBLE);
+
+                }
+            }
+        });
 
     }
 

@@ -1,7 +1,9 @@
 package com.welearn.wemath.quizzes;
 
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -52,7 +54,7 @@ public class UserQuizSelectionFragment extends Fragment {
 
         Toast.makeText(getContext(),"Fetching quizzes...", Toast.LENGTH_LONG).show();
 
-        ContentAdapter adapter = new ContentAdapter(root.getContext());
+        ContentAdapter adapter = new ContentAdapter(root.getContext(), getActivity());
         mQuizRecycler.setAdapter(adapter);
         mQuizRecycler.setHasFixedSize(true);
         mQuizRecycler.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -82,10 +84,12 @@ public class UserQuizSelectionFragment extends Fragment {
         private final ArrayList<Pair<UserQuiz,String>> mUserQuizzes;
         FirebaseFirestore mDB = FirebaseFirestore.getInstance();
         Context mContext;
+        Activity mActivity;
 
-        public ContentAdapter(final Context context ){
+        public ContentAdapter(final Context context,  Activity activity ){
             mUserQuizzes = new ArrayList<>();
             mContext = context;
+            mActivity = activity;
             mDB.collection("quiz")
                     .orderBy("timestamp",Query.Direction.ASCENDING)
                     .get()
@@ -122,42 +126,23 @@ public class UserQuizSelectionFragment extends Fragment {
             holder.details.setText(mUserQuizzes.get(position).first.getSection().toUpperCase() + " / " + mUserQuizzes.get(position).first.getYear());
             holder.author.setText("Created by: " + mUserQuizzes.get(position).first.getUsername());
             holder.difficulty.setText("Difficulty: " + mUserQuizzes.get(position).first.getDifficulty());
+            holder.rating.setRating((int)(mUserQuizzes.get(position).first.getRating()));
 
 
 
-            /*holder.itemView.setOnClickListener(new View.OnClickListener(){
-                public void onClick(View v){
-                    mDB.collection("quiz").document(mUserQuizzes.get(position).second)
-                            .get()
-                            .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                                @Override
-                                public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                                    if (task.isSuccessful()) {
-                                        for (QueryDocumentSnapshot document : task.getResult()) {
-                                            Log.d("GETTING", document.getId() + " => " + document.getData());
-                                            String[]
-                                            Toast.makeText(mContext,"Fetching successful!", Toast.LENGTH_LONG).show();
 
-                                        }
-                                    } else {
-                                        Log.d("GETTING", "Error getting documents: ", task.getException());
-                                        Toast.makeText(context,"Fetching failed", Toast.LENGTH_LONG).show();
-
-                                    }
-                                }
-                            });
-                    //NavDirections action = LessonSectionFragmentDirections.actionNavigationLessonSectionToLessonYearFragment(section);
-                    //Navigation.findNavController(v).navigate(action);
-
-                }
-            });*/
 
            holder.itemView.setOnClickListener(new View.OnClickListener(){
                public void onClick(View v){
                    String quiz_id = mUserQuizzes.get(position).second;
-                   NavDirections action = UserQuizSelectionFragmentDirections.actionUserQuizSelectionToUserQuizTakingActivity(false, quiz_id);
-                   Toast.makeText(mContext,quiz_id, Toast.LENGTH_LONG).show();
-                   Navigation.findNavController(v).navigate(action);
+                   //NavDirections action = UserQuizSelectionFragmentDirections.actionUserQuizSelectionToUserQuizTakingActivity(false, quiz_id);
+                   Toast.makeText(mContext,"Setting up quiz...", Toast.LENGTH_LONG).show();
+                  // Navigation.findNavController(v).navigate(action);
+
+                   Intent intent = new Intent(mContext, UserQuizTakingActivity.class);
+                   intent.putExtra("quiz_id", quiz_id);
+                   mContext.startActivity(intent);
+                   mActivity.finish();
 
                }
            });

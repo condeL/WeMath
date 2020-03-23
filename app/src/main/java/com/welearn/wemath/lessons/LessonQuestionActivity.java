@@ -111,7 +111,7 @@ LessonQuestionActivity extends AppCompatActivity {
 
 
         //setting up the behaviour of the Next button
-        mNextButton = findViewById(R.id.quiz_finish_button);
+        mNextButton = findViewById(R.id.lesson_question_next_button);
         mNextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

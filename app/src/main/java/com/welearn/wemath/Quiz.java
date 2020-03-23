@@ -1,5 +1,7 @@
 package com.welearn.wemath;
 
+import com.welearn.wemath.quizzes.QuizQuestion;
+
 import java.util.List;
 
 public abstract class Quiz {

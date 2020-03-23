@@ -29,7 +29,6 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.welearn.wemath.QuizQuestion;
 import com.welearn.wemath.R;
 
 import java.util.ArrayList;
@@ -78,6 +77,7 @@ public class UserQuizCreationQuestionFragment extends Fragment {
         mSubmitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick (View v){
+                Toast.makeText(getContext(),"Sending quiz...!", Toast.LENGTH_LONG).show();
                 FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
                 FirebaseFirestore db = FirebaseFirestore.getInstance();
 
@@ -234,7 +234,7 @@ public class UserQuizCreationQuestionFragment extends Fragment {
 
                 String explanation;
                 if(!getHolder(i).explanation.getText().toString().isEmpty())
-                    explanation = getHolder(i).explanation.toString();
+                    explanation = getHolder(i).explanation.getText().toString();
                 else
                     explanation = " ";
                 mQuizQuestions.add(new QuizQuestion(problem, answers, multipleChoice, explanation));

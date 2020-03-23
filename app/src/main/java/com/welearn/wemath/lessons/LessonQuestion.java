@@ -12,5 +12,6 @@ public class LessonQuestion extends Question {
 
     LessonQuestion(String problem, ArrayList<Pair<String, Boolean>> answers, boolean multipleChoice){
         super(problem, answers, multipleChoice);
+
     }
 }
