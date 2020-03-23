@@ -123,41 +123,17 @@ public class UserQuizSelectionFragment extends Fragment {
             holder.details.setText(mUserQuizzes.get(position).first.getSection().toUpperCase() + " / " + mUserQuizzes.get(position).first.getYear());
             holder.author.setText("Created by: " + mUserQuizzes.get(position).first.getUsername());
             holder.difficulty.setText("Difficulty: " + mUserQuizzes.get(position).first.getDifficulty());
+            holder.rating.setRating((int)(mUserQuizzes.get(position).first.getRating()));
 
 
 
-            /*holder.itemView.setOnClickListener(new View.OnClickListener(){
-                public void onClick(View v){
-                    mDB.collection("quiz").document(mUserQuizzes.get(position).second)
-                            .get()
-                            .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                                @Override
-                                public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                                    if (task.isSuccessful()) {
-                                        for (QueryDocumentSnapshot document : task.getResult()) {
-                                            Log.d("GETTING", document.getId() + " => " + document.getData());
-                                            String[]
-                                            Toast.makeText(mContext,"Fetching successful!", Toast.LENGTH_LONG).show();
 
-                                        }
-                                    } else {
-                                        Log.d("GETTING", "Error getting documents: ", task.getException());
-                                        Toast.makeText(context,"Fetching failed", Toast.LENGTH_LONG).show();
-
-                                    }
-                                }
-                            });
-                    //NavDirections action = LessonSectionFragmentDirections.actionNavigationLessonSectionToLessonYearFragment(section);
-                    //Navigation.findNavController(v).navigate(action);
-
-                }
-            });*/
 
            holder.itemView.setOnClickListener(new View.OnClickListener(){
                public void onClick(View v){
                    String quiz_id = mUserQuizzes.get(position).second;
                    //NavDirections action = UserQuizSelectionFragmentDirections.actionUserQuizSelectionToUserQuizTakingActivity(false, quiz_id);
-                   Toast.makeText(mContext,quiz_id, Toast.LENGTH_LONG).show();
+                   Toast.makeText(mContext,"Setting up quiz...", Toast.LENGTH_LONG).show();
                   // Navigation.findNavController(v).navigate(action);
 
                    Intent intent = new Intent(mContext, UserQuizTakingActivity.class);

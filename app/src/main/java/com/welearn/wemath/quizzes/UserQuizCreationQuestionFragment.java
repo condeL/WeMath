@@ -233,7 +233,7 @@ public class UserQuizCreationQuestionFragment extends Fragment {
 
                 String explanation;
                 if(!getHolder(i).explanation.getText().toString().isEmpty())
-                    explanation = getHolder(i).explanation.toString();
+                    explanation = getHolder(i).explanation.getText().toString();
                 else
                     explanation = " ";
                 mQuizQuestions.add(new QuizQuestion(problem, answers, multipleChoice, explanation));
