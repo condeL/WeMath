@@ -21,6 +21,14 @@
         <item>Lesson 1</item>
         <item>Lesson 2</item>
         <item>Lesson 3</item>
+        <item>Lesson 4</item>
+        <item>Lesson 5</item>
+        <item>Lesson 6</item>
+    </string-array>
+
+    <string-array name="lessons_shs1_2">
+        <item>Lesson 1</item>
+        <item>Lesson 2</item>
     </string-array>
 
     <string-array name="topics_shs2">
@@ -41,7 +49,6 @@
     <string-array name="lessons_shs2_1">
         <item>Lesson 1</item>
         <item>Lesson 2</item>
-        <item>Lesson 3</item>
     </string-array>
 
     <string-array name="topics_shs3">
@@ -54,7 +61,13 @@
     <string-array name="lessons_shs3_1">
         <item>Lesson 1</item>
         <item>Lesson 2</item>
+    </string-array>
+
+    <string-array name="lessons_shs3_2">
+        <item>Lesson 1</item>
+        <item>Lesson 2</item>
         <item>Lesson 3</item>
+        <item>Lesson 4</item>
     </string-array>
 
 </resources>
