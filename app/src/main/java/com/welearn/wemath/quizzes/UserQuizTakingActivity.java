@@ -6,7 +6,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.util.Pair;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -21,14 +20,9 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
 import com.welearn.wemath.R;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.List;
 
 public class UserQuizTakingActivity extends AppCompatActivity {
 
@@ -38,6 +32,7 @@ public class UserQuizTakingActivity extends AppCompatActivity {
     FirebaseFirestore mDB;
     private int mCurrentIndex;
     private boolean[] mResults;
+    private boolean[][] mMemory;
 
     //references to the various widgets on the activity
     private RadioGroup mRadioGroup;
@@ -45,7 +40,9 @@ public class UserQuizTakingActivity extends AppCompatActivity {
     private ImageView mPrevButton;
     private Button mFinishButton;
     private TextView mQuestionTextView, mQuestionNumber, mTimer;
-    private Button[] mAnswers; //generic button to hold the radio or checkboxes
+    private CheckBox[] mAnswersChoice; //button to hold the radio or checkboxes
+    private RadioButton[] mAnswersRadio; //=button to hold the radio or checkboxes
+
 
 
     @Override
@@ -54,6 +51,7 @@ public class UserQuizTakingActivity extends AppCompatActivity {
         setContentView(R.layout.activity_user_quiz_taking);
         mCurrentIndex = 0;
         mResults = new boolean[10];
+        mMemory = new boolean[10][4];
         mDB = FirebaseFirestore.getInstance();
 
         //retrieve the section from the bundle
@@ -68,7 +66,12 @@ public class UserQuizTakingActivity extends AppCompatActivity {
         mQuestionNumber = findViewById(R.id.user_quiz_taking_question_number);
         mTimer = findViewById(R.id.user_quiz_taking_timer);
 
-
+        mAnswersRadio = new RadioButton[4];
+        mAnswersChoice = new CheckBox[4];
+        for(int i = 0; i<4;i++) {
+            mAnswersRadio[i] = (RadioButton) mRadioGroup.getChildAt(i);
+            mAnswersChoice[i] = (CheckBox)mRadioGroup.getChildAt(i+4);
+        }
 
         DocumentReference docRef = mDB.collection("quiz").document(quiz_id);
                 docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
@@ -102,9 +105,9 @@ public class UserQuizTakingActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                if (mRadioGroup.getCheckedRadioButtonId()!=-1) {
+                if (mRadioGroup.getCheckedRadioButtonId()!=-1 || checkChecked()) {
                     updateAswer();
-
+                }
                     if (mCurrentIndex >= 0) {
                         mCurrentIndex = Math.abs((mCurrentIndex + 1) % 10);
                         setup(mQuizQuestions);
@@ -113,9 +116,9 @@ public class UserQuizTakingActivity extends AppCompatActivity {
                         setup(mQuizQuestions);
                     }
 
-                }
+                /*}
                 else
-                    Toast.makeText(getBaseContext(), "Please select an answer", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getBaseContext(), "Please select an answer", Toast.LENGTH_SHORT).show();*/
             }
         });
 
@@ -124,10 +127,10 @@ public class UserQuizTakingActivity extends AppCompatActivity {
             public void onClick(View v) {
 
 
-                if (mRadioGroup.getCheckedRadioButtonId()!=-1) {
+                if (mRadioGroup.getCheckedRadioButtonId()!=-1 || checkChecked()) {
 
                     updateAswer();
-
+                }
                     if (mCurrentIndex == 0) {
                         mCurrentIndex = 9;
                         setup(mQuizQuestions);
@@ -135,9 +138,9 @@ public class UserQuizTakingActivity extends AppCompatActivity {
                         mCurrentIndex = Math.abs((mCurrentIndex - 1) % 10);
                         setup(mQuizQuestions);
                     }
-                }
+                /*}
                 else
-                    Toast.makeText(getBaseContext(), "Please select an answer", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getBaseContext(), "Please select an answer", Toast.LENGTH_SHORT).show();*/
 
             }
         });
@@ -146,7 +149,15 @@ public class UserQuizTakingActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
+                if (mRadioGroup.getCheckedRadioButtonId()!=-1 || checkChecked()) {
 
+                    updateAswer();
+                }
+
+                Intent intent = new Intent(getApplicationContext(), QuizResultActivity.class);
+                intent.putExtra("result", mResults);
+                startActivity(intent);
+                finish();
 
             }
         });
@@ -160,21 +171,20 @@ public class UserQuizTakingActivity extends AppCompatActivity {
         mQuestionNumber.setText("Question " + (mCurrentIndex+1) + "/10");
 
         if(!currentQuestion.isMultipleChoice()) {
-            mAnswers = new RadioButton[4];
             for(int i = 0; i<currentQuestion.getChoices().size();i++){
-                mAnswers[i] = (RadioButton)mRadioGroup.getChildAt(i);
-                mAnswers[i].setText(currentQuestion.getChoices().get(i));
-                mAnswers[i].setVisibility(View.VISIBLE);
+                mAnswersChoice[i].setVisibility(View.GONE);
+                mAnswersRadio[i].setVisibility(View.VISIBLE);
+                mAnswersRadio[i].setText(currentQuestion.getChoices().get(i));
+                mAnswersRadio[i].setChecked(mMemory[mCurrentIndex][i]);
             }
 
         }
         else{
-            mAnswers = new CheckBox[4];
             for(int i = 0; i<currentQuestion.getChoices().size();i++){
-                // mAnswers[i] = new CheckBox(this);
-                mAnswers[i] = (CheckBox)mRadioGroup.getChildAt(i+4);
-                mAnswers[i].setText(currentQuestion.getChoices().get(i));
-                mAnswers[i].setVisibility(View.VISIBLE);
+                mAnswersRadio[i].setVisibility(View.GONE);
+                mAnswersChoice[i].setVisibility(View.VISIBLE);
+                mAnswersChoice[i].setText(currentQuestion.getChoices().get(i));
+                mAnswersChoice[i].setChecked(mMemory[mCurrentIndex][i]);
 
             }
         }
@@ -203,26 +213,24 @@ public class UserQuizTakingActivity extends AppCompatActivity {
         if(!question.isMultipleChoice()) {
             if (question.getTruths().get(answerNumber)) {
                 result = true;
-                mRadioGroup.clearCheck();
             } else {
                 result = false;
-                mRadioGroup.clearCheck();
             }
+
+            for(int i=0;i<4;i++){
+                mMemory[mCurrentIndex][i] = mAnswersRadio[i].isChecked();
+            }
+            mRadioGroup.clearCheck();
         } else{
 
             int score = 0;
-            for(int i = 0; i<question.getAnswersSize();i++){
-                if(((CheckBox)mAnswers[i]).isChecked()){
+            for(int i = 0; i<4;i++){
+                if(((mAnswersChoice[i]).isChecked())){
                     if (question.getTruths().get(i)){
                         score++;
-                        ((CheckBox)mAnswers[i]).setChecked(false);
                     }
                     else{
                         score=-1;
-                        ((CheckBox)mAnswers[0]).setChecked(false);
-                        ((CheckBox)mAnswers[1]).setChecked(false);
-                        ((CheckBox)mAnswers[2]).setChecked(false);
-                        ((CheckBox)mAnswers[3]).setChecked(false);
                         break;
                     }
                 }
@@ -232,10 +240,35 @@ public class UserQuizTakingActivity extends AppCompatActivity {
             } else {
                 result = false;
             }
+
+            for(int i=0;i<4;i++){
+                mMemory[mCurrentIndex][i] = mAnswersChoice[i].isChecked();
+            }
+            clearChecked();
+
         }
         //little message indicating if it's correct or not
         Toast.makeText(this, String.valueOf(result), Toast.LENGTH_SHORT).show();
         mResults[mCurrentIndex] = result;
 
+    }
+
+    private boolean checkChecked(){
+        for(int i = 0; i<4;i++) {
+            if(mAnswersChoice[i].isChecked()){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private void clearChecked(){
+        for(int i = 0; i<4;i++) {
+            mAnswersChoice[i].setChecked(false);
+            }
+    }
+
+    @Override
+    public void onBackPressed() {
     }
 }

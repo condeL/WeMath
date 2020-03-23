@@ -1,6 +1,7 @@
 package com.welearn.wemath.quizzes;
 
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -53,7 +54,7 @@ public class UserQuizSelectionFragment extends Fragment {
 
         Toast.makeText(getContext(),"Fetching quizzes...", Toast.LENGTH_LONG).show();
 
-        ContentAdapter adapter = new ContentAdapter(root.getContext());
+        ContentAdapter adapter = new ContentAdapter(root.getContext(), getActivity());
         mQuizRecycler.setAdapter(adapter);
         mQuizRecycler.setHasFixedSize(true);
         mQuizRecycler.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -83,10 +84,12 @@ public class UserQuizSelectionFragment extends Fragment {
         private final ArrayList<Pair<UserQuiz,String>> mUserQuizzes;
         FirebaseFirestore mDB = FirebaseFirestore.getInstance();
         Context mContext;
+        Activity mActivity;
 
-        public ContentAdapter(final Context context ){
+        public ContentAdapter(final Context context,  Activity activity ){
             mUserQuizzes = new ArrayList<>();
             mContext = context;
+            mActivity = activity;
             mDB.collection("quiz")
                     .orderBy("timestamp",Query.Direction.ASCENDING)
                     .get()
@@ -139,6 +142,7 @@ public class UserQuizSelectionFragment extends Fragment {
                    Intent intent = new Intent(mContext, UserQuizTakingActivity.class);
                    intent.putExtra("quiz_id", quiz_id);
                    mContext.startActivity(intent);
+                   mActivity.finish();
 
                }
            });

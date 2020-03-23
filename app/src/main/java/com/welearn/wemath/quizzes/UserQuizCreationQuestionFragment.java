@@ -77,6 +77,7 @@ public class UserQuizCreationQuestionFragment extends Fragment {
         mSubmitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick (View v){
+                Toast.makeText(getContext(),"Sending quiz...!", Toast.LENGTH_LONG).show();
                 FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
                 FirebaseFirestore db = FirebaseFirestore.getInstance();
 

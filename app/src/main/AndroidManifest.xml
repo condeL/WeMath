@@ -11,13 +11,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".LoginRegisterActivity"
+        <activity android:name=".quizzes.QuizResultActivity"></activity>
+        <activity
+            android:name=".LoginRegisterActivity"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait" />
-
-        <activity android:name=".quizzes.UserQuizTakingActivity"
-            android:label="User Quiz"
+        <activity
+            android:name=".quizzes.UserQuizTakingActivity"
             android:configChanges="orientation|keyboardHidden"
+            android:label="User Quiz"
             android:screenOrientation="portrait" />
         <activity
             android:name=".quizzes.AdminQuizTakingActivity"
@@ -42,8 +44,8 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".lessons.LessonActivity"
-            android:label="Lesson"
             android:configChanges="orientation|keyboardHidden"
+            android:label="Lesson"
             android:screenOrientation="portrait" />
         <activity
             android:name=".lessons.LessonQuestionActivity"
@@ -64,8 +66,8 @@
         <activity
             android:name=".MainActivity"
             android:configChanges="orientation|keyboardHidden"
-            android:windowSoftInputMode="adjustResize"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize" />
 
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
