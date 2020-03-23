@@ -1,6 +1,8 @@
-package com.welearn.wemath;
+package com.welearn.wemath.quizzes;
 
 import android.util.Pair;
+
+import com.welearn.wemath.Question;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -12,24 +12,35 @@ public abstract class Question {
     private List<Pair<String, Boolean>> mAnswers = new ArrayList<>();
     private boolean mMultipleChoice;
     private int mNbCorrectAnswers;
+    private ArrayList<String> mChoices;
+    private ArrayList<Boolean> mTruths;
 
     public Question(){};
 
-    public Question(String problem, List<Pair<String, Boolean>> answers, boolean multipleChoice){
+    public Question(String problem, List<Pair<String, Boolean>> answers, boolean multipleChoice) {
 
         int nbCorrectAnswers = 0;
         mProblem = problem;
         int length = answers.size();
-        if(length >1 && length <5){
-            for(int i=0; i<length;i++) {
+        if (length > 1 && length < 5) {
+            for (int i = 0; i < length; i++) {
                 mAnswers.add(answers.get(i));
-                if(answers.get(i).second.booleanValue() == true){
+                if (answers.get(i).second.booleanValue() == true) {
                     nbCorrectAnswers++;
                 }
             }
         }
         mMultipleChoice = multipleChoice;
         mNbCorrectAnswers = nbCorrectAnswers;
+
+        mTruths = new ArrayList<>();
+        mChoices = new ArrayList<>();
+        for (int i = 0; i < 4; i++) {
+            mTruths.add(mAnswers.get(i).second);
+        }
+        for (int i = 0; i < 4; i++) {
+            mChoices.add(mAnswers.get(i).first);
+        }
     }
 
     public String getProblem() {
@@ -74,5 +85,21 @@ public abstract class Question {
 
     public void setNbCorrectAnswers(int nbCorrectAnswers) {
         mNbCorrectAnswers = nbCorrectAnswers;
+    }
+
+    public ArrayList<String> getChoices() {
+        return mChoices;
+    }
+
+    public void setChoices(ArrayList<String> choices) {
+        mChoices = choices;
+    }
+
+    public ArrayList<Boolean> getTruths() {
+        return mTruths;
+    }
+
+    public void setTruths(ArrayList<Boolean> truths) {
+        mTruths = truths;
     }
 }

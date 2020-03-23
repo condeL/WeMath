@@ -52,7 +52,7 @@ LessonQuestionActivity extends AppCompatActivity {
         //instantiating the LessonQuestion object
          mLessonQuestion = new LessonQuestion(
                 getResources().getString(R.string.question1),
-                new ArrayList<Pair<String, Boolean>>(Arrays.asList(
+                new ArrayList<>(Arrays.asList(
                         new Pair<>(getResources().getString(R.string.answer1_1), false),
                         new Pair<>(getResources().getString(R.string.answer1_2), true),
                         new Pair<>(getResources().getString(R.string.answer1_3), false),

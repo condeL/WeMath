@@ -2,6 +2,7 @@ package com.welearn.wemath.quizzes;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -155,9 +156,13 @@ public class UserQuizSelectionFragment extends Fragment {
            holder.itemView.setOnClickListener(new View.OnClickListener(){
                public void onClick(View v){
                    String quiz_id = mUserQuizzes.get(position).second;
-                   NavDirections action = UserQuizSelectionFragmentDirections.actionUserQuizSelectionToUserQuizTakingActivity(false, quiz_id);
+                   //NavDirections action = UserQuizSelectionFragmentDirections.actionUserQuizSelectionToUserQuizTakingActivity(false, quiz_id);
                    Toast.makeText(mContext,quiz_id, Toast.LENGTH_LONG).show();
-                   Navigation.findNavController(v).navigate(action);
+                  // Navigation.findNavController(v).navigate(action);
+
+                   Intent intent = new Intent(mContext, UserQuizTakingActivity.class);
+                   intent.putExtra("quiz_id", quiz_id);
+                   mContext.startActivity(intent);
 
                }
            });
