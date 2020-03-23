@@ -95,15 +95,15 @@ public class LessonSelectionFragment extends Fragment {
 
             //to programmatically get the correct topics based on the bundled parameters
             String choice = "lessons_" + section + year + "_" + topic;
+            String choice2 = section + year + "_" + topic;
             int id = resources.getIdentifier(choice,"array",context.getPackageName());
-
             mNames = resources.getStringArray(id);
             //mNumbers = resources.getStringArray(id);
             //mPercentages = resources.getStringArray(id);
 
             final SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
             SharedPreferences.Editor edit = preferences.edit();
-            edit.putString("url2", choice);
+            edit.putString("url2", choice2);
             edit.commit();
 
 
@@ -121,11 +121,6 @@ public class LessonSelectionFragment extends Fragment {
         public void onBindViewHolder(final ViewHolder holder, final int position) {
             holder.title.setText(mNames[position % mNames.length]);
 
-            //final SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
-            //SharedPreferences.Editor edit = preferences.edit();
-            //edit.putInt("numberpage", position+1);
-            //edit.commit();
-            //holder.itemView.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_lessonSelectionFragment_to_lessonActivity, null));
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {

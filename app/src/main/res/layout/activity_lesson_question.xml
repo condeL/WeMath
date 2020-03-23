@@ -64,7 +64,7 @@
                     android:drawablePadding="4dp"
                     android:text="Prev"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/next_lesson_button" />
+                    app:layout_constraintTop_toBottomOf="@+id/quiz_finish_button" />
 
                 <RadioGroup
                     android:id="@+id/answers_radio_group"
