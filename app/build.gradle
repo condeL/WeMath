@@ -13,8 +13,8 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
         multiDexEnabled true
-
     }
+
     buildTypes {
         release {
             minifyEnabled false
@@ -44,6 +44,4 @@ dependencies {
     implementation 'com.facebook.android:facebook-android-sdk:6.1.0'
     implementation 'com.facebook.android:facebook-login:6.1'
     implementation 'com.google.firebase:firebase-firestore:21.4.1'
-
-
 }

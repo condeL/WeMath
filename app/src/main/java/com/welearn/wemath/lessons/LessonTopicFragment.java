@@ -99,6 +99,7 @@ public class LessonTopicFragment extends Fragment {
         private final String[] mNames, mNumbers, mPercentages;
         //private final ProgressBar[] mProgressBars;
         String mYear, mSection;
+        Context mContext;
 
         //pass it the year and section to represent the choice of the user
         public ContentAdapter(Context context, String year, String section){
@@ -107,6 +108,8 @@ public class LessonTopicFragment extends Fragment {
             //String section = viewModel.getSection();
             mYear = year;
             mSection = section;
+            mContext = context;
+
             //to programmatically get the correct topics based on the bundled parameters
             String choice = "topics_" + section + year;
             int id = resources.getIdentifier(choice,"array",context.getPackageName());
@@ -125,7 +128,13 @@ public class LessonTopicFragment extends Fragment {
         @Override
         public void onBindViewHolder(ViewHolder holder, final int position) {
             holder.title.setText(mNames[position % mNames.length]);
-            //holder.number.setText(mNumbers[position % mNumbers.length]);
+            //to programmatically get the correct topics based on the bundled parameters
+            Resources resources = mContext.getResources();
+            String choice = "lessons_" + mSection + mYear + "_" + (position+1);
+            int id = resources.getIdentifier(choice,"array",mContext.getPackageName());
+
+            String[] lessons = resources.getStringArray(id);
+            holder.number.setText(lessons.length + " lessons");
             //holder.percentage.setText(mPercentages[position % mPercentages.length]);
             //holder.percentage.setText("50%");
 

@@ -23,6 +23,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -162,6 +163,7 @@ public class CommentsFragment extends Fragment {
         public Button replyButtonC;
         public EditText messageC;
         public TextView downvotesC, upvotesC;
+        public ImageView downvotesIC, upvotesIC;
         public ImageButton sendButtonC;
         public LinearLayout replyBarC;
         public RecyclerView repliesRecycler;
@@ -175,6 +177,9 @@ public class CommentsFragment extends Fragment {
 
             downvotesC = itemView.findViewById(R.id.comment_card_downvotes_numbers);
             upvotesC = itemView.findViewById(R.id.comment_card_upvotes_numbers);
+
+            downvotesIC = itemView.findViewById(R.id.comment_card_downvote);
+            upvotesIC = itemView.findViewById(R.id.comment_card_upvote);
 
             repliesButtonC = itemView.findViewById(R.id.comment_card_replies);
 
@@ -353,7 +358,60 @@ public class CommentsFragment extends Fragment {
                 }
             });
 
+            holder.downvotesIC.setOnClickListener( new View.OnClickListener() {
+                @Override
+                public void onClick (View v) {
+
+
+                    mDB.document("comments/jhs/year/topic0/lesson1/" + mCommentsC.get(position).second)
+                            .update("downvotes", mCommentsC.get(position).first.getDownvotes()+1)
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                    Log.d("success", "DocumentSnapshot successfully written!");
+                                    Toast.makeText(mContextC, "Downvoted", Toast.LENGTH_LONG).show();
+                                    notifyItemChanged(position);
+                                }
+                            })
+                            .addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Log.w("failure", "Error writing document", e);
+                                    Toast.makeText(mContextC, "Error", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+
+                }
+            });
+
             holder.upvotesC.setOnClickListener( new View.OnClickListener() {
+                @Override
+                public void onClick (View v) {
+
+
+                    mDB.document("comments/jhs/year/topic0/lesson1/" + mCommentsC.get(position).second)
+                            .update("upvotes", mCommentsC.get(position).first.getUpvotes()+1)
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                    Log.d("success", "DocumentSnapshot successfully written!");
+                                    Toast.makeText(mContextC, "Upvoted", Toast.LENGTH_LONG).show();
+                                    notifyItemChanged(position);
+
+                                }
+                            })
+                            .addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Log.w("failure", "Error writing document", e);
+                                    Toast.makeText(mContextC, "Error", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+
+                }
+            });
+
+            holder.upvotesIC.setOnClickListener( new View.OnClickListener() {
                 @Override
                 public void onClick (View v) {
 
@@ -423,6 +481,7 @@ public class CommentsFragment extends Fragment {
         public Button replyButtonR;
         public EditText messageR;
         public TextView downvotesR, upvotesR;
+        public ImageView downvotesIR, upvotesIR;
         public ImageButton sendButtonR;
         public LinearLayout replyBarR;
 
@@ -437,6 +496,9 @@ public class CommentsFragment extends Fragment {
 
             downvotesR = itemView.findViewById(R.id.reply_card_downvotes_numbers);
             upvotesR = itemView.findViewById(R.id.reply_card_upvotes_numbers);
+
+            downvotesIR = itemView.findViewById(R.id.reply_card_downvote);
+            upvotesIR = itemView.findViewById(R.id.reply_card_upvote);
 
             replyButtonR = itemView.findViewById(R.id.reply_card_reply_button);
             replyBarR = itemView.findViewById(R.id.reply_card_reply_bar);
@@ -598,7 +660,59 @@ public class CommentsFragment extends Fragment {
                 }
             });
 
+            holder.downvotesIR.setOnClickListener( new View.OnClickListener() {
+                @Override
+                public void onClick (View v) {
+
+
+                    mDB.document("comments/jhs/year/topic0/lesson1/" + mParentRef +"/replies/"+mCommentsR.get(position).second)
+                            .update("downvotes", mCommentsR.get(position).first.getDownvotes()+1)
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                    Log.d("success", "DocumentSnapshot successfully written!");
+                                    Toast.makeText(mContextR, "Downvoted", Toast.LENGTH_LONG).show();
+                                    notifyItemChanged(position);
+                                }
+                            })
+                            .addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Log.w("failure", "Error writing document", e);
+                                    Toast.makeText(mContextR, "Error", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+
+                }
+            });
+
             holder.upvotesR.setOnClickListener( new View.OnClickListener() {
+                @Override
+                public void onClick (View v) {
+
+
+                    mDB.document("comments/jhs/year/topic0/lesson1/" + mParentRef +"/replies/"+mCommentsR.get(position).second)
+                            .update("upvotes", mCommentsR.get(position).first.getUpvotes()+1)
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                    Log.d("success", "DocumentSnapshot successfully written!");
+                                    Toast.makeText(mContextR, "Upvoted", Toast.LENGTH_LONG).show();
+                                    notifyItemChanged(position);
+                                }
+                            })
+                            .addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Log.w("failure", "Error writing document", e);
+                                    Toast.makeText(mContextR, "Error", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+
+                }
+            });
+
+            holder.upvotesIR.setOnClickListener( new View.OnClickListener() {
                 @Override
                 public void onClick (View v) {
 

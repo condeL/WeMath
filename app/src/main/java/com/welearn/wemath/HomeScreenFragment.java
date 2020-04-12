@@ -61,8 +61,8 @@ public class HomeScreenFragment extends Fragment {
             @Override
             public void onClick (View v){
 
-                //Intent intent =  LoginActivity.newIntent(getContext());
-                //startActivity(intent);
+                Intent intent = new Intent(getContext(), LoginActivity.class);
+                startActivity(intent);
 
             }
         });

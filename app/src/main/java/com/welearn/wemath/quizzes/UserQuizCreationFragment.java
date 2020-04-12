@@ -39,6 +39,7 @@ public class UserQuizCreationFragment extends Fragment {
         // Inflate the layout for this fragment
         View root = inflater.inflate(R.layout.fragment_user_quiz_creation, container, false);
 
+
         mTitle = root.findViewById(R.id.user_quiz_creation_editname);
         mSection = root.findViewById(R.id.user_quiz_creation_sectionGroup);
         mYear = root.findViewById(R.id.user_quiz_creation_yearGroup);

@@ -97,7 +97,7 @@
     <fragment
         android:id="@+id/adminQuizSelection"
         android:name="com.welearn.wemath.quizzes.AdminQuizSelectionFragment"
-        android:label="Admin Quizzes"
+        android:label="Admin Quiz"
         tools:layout="@layout/fragment_admin_quiz_selection">
         <action
             android:id="@+id/action_adminQuizSelection_to_quizQuestionActivity"
@@ -130,7 +130,7 @@
     <fragment
         android:id="@+id/userQuizSelection"
         android:name="com.welearn.wemath.quizzes.UserQuizSelectionFragment"
-        android:label="User Quizzes"
+        android:label="User Quiz"
         tools:layout="@layout/fragment_user_quiz_selection">
         <action
             android:id="@+id/action_userQuizSelection_to_userQuizTakingActivity"
@@ -139,8 +139,8 @@
     <fragment
         android:id="@+id/userQuizCreationFragment"
         android:name="com.welearn.wemath.quizzes.UserQuizCreationFragment"
-        android:label="fragment_user_quiz_creation"
-        tools:layout="@layout/fragment_user_quiz_creation" >
+        android:label="Quiz Creation"
+        tools:layout="@layout/fragment_user_quiz_creation">
         <action
             android:id="@+id/action_userQuizCreationFragment_to_userQuizCreationQuestionFragment"
             app:destination="@id/userQuizCreationQuestionFragment" />
@@ -148,8 +148,8 @@
     <fragment
         android:id="@+id/userQuizCreationQuestionFragment"
         android:name="com.welearn.wemath.quizzes.UserQuizCreationQuestionFragment"
-        android:label="fragment_user_quiz_creation_question"
-        tools:layout="@layout/fragment_user_quiz_creation_question" >
+        android:label="Question Creation"
+        tools:layout="@layout/fragment_user_quiz_creation_question">
         <argument
             android:name="title"
             app:argType="string" />

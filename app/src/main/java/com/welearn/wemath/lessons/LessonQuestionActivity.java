@@ -63,6 +63,7 @@ LessonQuestionActivity extends AppCompatActivity {
         int id3 = getResources().getIdentifier(answer+n+"_"+3, "string", getPackageName());
         int id4 = getResources().getIdentifier(answer+n+"_"+4, "string", getPackageName());
 
+
         int b1 = getResources().getIdentifier(a+n+"_1", "string", getPackageName());
         int b2 = getResources().getIdentifier(a+n+"_2", "string", getPackageName());
         int b3 = getResources().getIdentifier(a+n+"_3", "string", getPackageName());
