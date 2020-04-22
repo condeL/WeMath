@@ -84,6 +84,8 @@ public class LessonSelectionFragment extends Fragment {
     public class ContentAdapter extends RecyclerView.Adapter<ViewHolder>{
 
         private final String[] mNames; // mNumbers, mPercentages;
+        private String mYear, mSection;
+        private int mTopic;
         //private final ProgressBar[] mProgressBars;
 
         public ContentAdapter(Context context, String year, String section, int topic){
@@ -93,18 +95,21 @@ public class LessonSelectionFragment extends Fragment {
             //String year = viewModel.getYear();
             //String section = viewModel.getSection();
 
+            mYear = year;
+            mSection = section;
+            mTopic = topic;
             //to programmatically get the correct topics based on the bundled parameters
             String choice = "lessons_" + section + year + "_" + topic;
-            String choice2 = section + year + "_" + topic;
+            //String choice2 = section + year + "_" + topic;
             int id = resources.getIdentifier(choice,"array",context.getPackageName());
             mNames = resources.getStringArray(id);
             //mNumbers = resources.getStringArray(id);
             //mPercentages = resources.getStringArray(id);
 
-            final SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
+            /*final SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
             SharedPreferences.Editor edit = preferences.edit();
             edit.putString("url2", choice2);
-            edit.commit();
+            edit.commit();*/
 
 
 
@@ -123,18 +128,26 @@ public class LessonSelectionFragment extends Fragment {
 
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
+                public void onClick(View v) {
+                    //set up the navigation action with the parameters
+                    NavDirections action = LessonSelectionFragmentDirections.actionLessonSelectionFragmentToLessonActivity(mSection,mYear,mTopic,position+1);
+                    Navigation.findNavController(v).navigate(action);
+                }
+            });
+            /*holder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
                 public void onClick(View view) {
                     final SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
                     SharedPreferences.Editor edit = preferences.edit();
                     edit.putInt("numberpage", (position % mNames.length)+1);
                     edit.commit();
-                    holder.itemView.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_lessonSelectionFragment_to_lessonActivity, null));
-
+                    //Navigation.createNavigateOnClickListener(R.id.action_lessonSelectionFragment_to_lessonActivity, null);
+                    Navigation.findNavController(view).navigate(R.id.action_lessonSelectionFragment_to_lessonActivity);
                     //NavDirections action = LessonSelectionFragmentDirections.actionLessonSelectionFragmentToLessonActivity(mYear, mSection, mTopic, position+1);
                     //Navigation.findNavController(view).navigate(action);
 
                 }
-            });
+            });*/
         }
 
         @Override

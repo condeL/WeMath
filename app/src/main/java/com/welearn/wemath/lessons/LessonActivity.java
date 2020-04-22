@@ -1,45 +1,49 @@
 package com.welearn.wemath.lessons;
 
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.res.Resources;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.view.View;
 import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.FrameLayout;
-import android.widget.ImageView;
-import android.widget.TextView;
+import android.widget.ScrollView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.widget.NestedScrollView;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentContainerView;
 import androidx.fragment.app.FragmentManager;
 
 import com.welearn.wemath.R;
 
-import java.util.prefs.PreferenceChangeEvent;
-
 public class LessonActivity extends AppCompatActivity {
+
+    int QUESTION_ACTIVITY;
+    public static final int NEXT_REQUEST_CODE = 1;
+    public static final int PREV_REQUEST_CODE = 2;
+
 
     private Button mNextButton;
     private Button mPrevButton;
     private Button mCommentsButton;
     private FragmentContainerView mCommentsFrgament;
+    private FragmentManager mFragmentManager;
+    private Fragment mFragment;
     private WebView mWebView;
-    private int numberpage;
-    private SharedPreferences preferences;
-    String url = "file:///android_asset/";
-    String html = ".html";
+    private NestedScrollView mScrollView;
+    private FrameLayout mFrameLayout;
 
-    public static Intent newIntent(Context packageContext){
+
+    private String mYear, mSection;
+    private int mTopic, mLesson;
+
+    /*public static Intent newIntent(Context packageContext){
         Intent intent = new Intent(packageContext, LessonActivity.class);
         //intent.putExtra(EXTRA_ANSWER_IS_TRUE, answerIsTrue);
         return intent;
-    }
+    }*/
 
 
 
@@ -49,15 +53,20 @@ public class LessonActivity extends AppCompatActivity {
         setContentView(R.layout.activity_lesson);
 
 
-        mCommentsButton = findViewById(R.id.lesson_comment_link);
-        //mCommentsFrgament = findViewById(R.id.lesson_comment_fragment);
-        final SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
-        int numberpage = preferences.getInt("numberpage", 1);
-        String url2 = preferences.getString("url2", null );
+        mYear = LessonActivityArgs.fromBundle(getIntent().getExtras()).getYear();
+        mSection = LessonActivityArgs.fromBundle(getIntent().getExtras()).getSection();
+        mTopic = LessonActivityArgs.fromBundle(getIntent().getExtras()).getTopic();
+        mLesson = LessonActivityArgs.fromBundle(getIntent().getExtras()).getLesson();
 
+
+        mCommentsButton = findViewById(R.id.lesson_comment_link);
+
+        mScrollView = findViewById(R.id.lesson_activity_scrollView);
         mWebView = findViewById(R.id.lesson_webview);
         //mWebView.loadUrl("file:///android_asset/lessons_jhs1_1_1.html");
-        mWebView.loadUrl(url+url2+"."+numberpage+html);
+        //mWebView.loadUrl(url+url2+"."+numberpage+html);
+
+        mWebView.loadUrl("file:///android_asset/" + mSection + mYear + "_" + mTopic + "." + mLesson + ".html");
 
 
 
@@ -66,78 +75,101 @@ public class LessonActivity extends AppCompatActivity {
         mNextButton.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
 
-                int numberpage = preferences.getInt("numberpage", 1);
+                /*int numberpage = preferences.getInt("numberpage", 1);
                 numberpage++;
 
                 SharedPreferences.Editor edit = preferences.edit();
                 edit.putInt("numberpage", numberpage);
-                edit.commit();
-                Intent intent =  LessonQuestionActivity.newIntent(LessonActivity.this);
-                //intent.putExtra("numberpage", numberpage);
-                //startActivityForResult(intent, 100);
-                startActivity(intent);
+                edit.commit();*/
+                navigate(true);
             }
         });
 
         mPrevButton = findViewById(R.id.prev_lesson_button);
-        if (numberpage == 1){
+        if (mLesson == 1){
             mPrevButton.setVisibility(View.GONE);
         }
         mPrevButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                int numberpage = preferences.getInt("numberpage", 1);
-                if(numberpage != 1) {
-                    //numberpage--;
-                    //SharedPreferences.Editor edit = preferences.edit();
-                    //edit.putInt("numberpage", numberpage);
-                    //edit.commit();
-                    Intent intent = LessonQuestionActivity.newIntent(LessonActivity.this);
-                    startActivity(intent);
-                } else {
-                    //onBackPressed();
+                if(mLesson != 1) {
+                    navigate(false);
 
                 }
             }
         });
+
+        mFrameLayout = findViewById(R.id.lesson_comment_fragment);
+
+        mFragmentManager = getSupportFragmentManager();
+        mFragment = mFragmentManager.findFragmentById(R.id.lesson_comment_fragment);
+
 
         mCommentsButton.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
-                //Intent intent =  LessonQuestionActivity.newIntent(LessonActivity.this);
-                //startActivity(intent);
-                makeFragment();
+                if (mFrameLayout.getVisibility() == View.GONE) {
+                    mFrameLayout.setVisibility(View.VISIBLE);
+                    if (mFragment == null) { //check if it's not already there in case of an activity reopening
+                        Bundle bundle = new Bundle();
+                        bundle.putString("choice", "comments/" + mSection + "/" + mYear + "/" + mTopic + "/" + mLesson);
+                        mFragment = new CommentsFragment();
+                        mFragment.setArguments(bundle);
+                        mFragmentManager.beginTransaction().add(R.id.lesson_comment_fragment, mFragment).commit(); //chainable methods because they all return a FragTran
+                    }
+                } else {
+                    mFrameLayout.setVisibility(View.GONE);
+                }
 
             }
         });
     }
 
-    void makeFragment() {
-        FragmentManager fm = getSupportFragmentManager();
-        Fragment fragment = fm.findFragmentById(R.id.lesson_comment_fragment);
-        FrameLayout frameLayout = findViewById(R.id.lesson_comment_fragment);
-        if (frameLayout.getVisibility() == View.GONE) {
-            frameLayout.setVisibility(View.VISIBLE);
-            if (fragment == null) { //check if it's not already there in case of an activity reopening
-                fragment = new CommentsFragment();
-                fm.beginTransaction().add(R.id.lesson_comment_fragment, fragment).commit(); //chainable methods because they all return a FragTran
-            }
-        } else {
-            frameLayout.setVisibility(View.GONE);
+    void navigate (boolean next){
+        Intent intent = new Intent(getApplicationContext(),LessonQuestionActivity.class);
+        if(!next) {
+            mLesson--;
         }
+        intent.putExtra("section", mSection);
+        intent.putExtra("year", mYear);
+        intent.putExtra("topic", mTopic);
+        intent.putExtra("lesson", mLesson);
+        startActivityForResult(intent, QUESTION_ACTIVITY);
     }
 
-    /*@Override
+
+    @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        if(requestCode == 100){
-            if(resultCode == RESULT_OK){
-                int numberpage = data.getIntExtra("numberpage", 1);
-                //numberpage++;
-                if(1 != numberpage){
-                    mWebView = findViewById(R.id.lesson_webview);
-                    mWebView.loadUrl(url+numberpage+html);
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == QUESTION_ACTIVITY){
+            if(resultCode == NEXT_REQUEST_CODE){
+                mLesson++;
+                if (mLesson != 1){
+                    mPrevButton.setVisibility(View.VISIBLE);
                 }
+                mWebView.loadUrl("file:///android_asset/" + mSection + mYear + "_" + mTopic + "." + mLesson + ".html");
+                //mWebView.pageUp(true);
+                mScrollView.fullScroll(View.FOCUS_UP);
+                if(mFragmentManager.getBackStackEntryCount() > 0) {
+                    mFragmentManager.beginTransaction().detach(mFragment).commit();
+                    mFragment = null;
+                    mFrameLayout.setVisibility(View.GONE);
+                }
+
+            } else if (resultCode == PREV_REQUEST_CODE){
+                if (mLesson != 1){
+                    mPrevButton.setVisibility(View.VISIBLE);
+                } else
+                    mPrevButton.setVisibility(View.GONE);
+                mWebView.loadUrl("file:///android_asset/" + mSection + mYear + "_" + mTopic + "." + mLesson + ".html");
+                //mWebView.pageDown(true);
+                if(mFragmentManager.getBackStackEntryCount() > 0) {
+                    mFragmentManager.beginTransaction().detach(mFragment).commit();
+                    mFragment = null;
+                    mFrameLayout.setVisibility(View.GONE);
+                }
+                mScrollView.fullScroll(View.FOCUS_DOWN);
+
             }
         }
-        super.onActivityResult(requestCode, resultCode, data);
-    }*/
+    }
 }

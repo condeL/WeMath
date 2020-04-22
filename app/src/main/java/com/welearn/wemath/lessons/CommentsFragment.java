@@ -40,12 +40,6 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.welearn.wemath.R;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.IOException;
-import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
@@ -54,6 +48,8 @@ public class CommentsFragment extends Fragment {
 
     private FirebaseUser mUser;
     FirebaseFirestore mDb = FirebaseFirestore.getInstance();
+    private String mURL;
+
     private TextView mProfilePicture;
     private EditText mMessage;
     private ImageButton mSendButton;
@@ -73,7 +69,7 @@ public class CommentsFragment extends Fragment {
         View root = inflater.inflate(R.layout.fragment_comments, container, false);
 
         mUser = FirebaseAuth.getInstance().getCurrentUser();
-
+        mURL = getArguments().getString("choice");
         String name = mUser.getDisplayName();
 
         mProfilePicture = root.findViewById(R.id.comments_fragment_profile_picture);
@@ -102,7 +98,7 @@ public class CommentsFragment extends Fragment {
 
         Toast.makeText(getContext(),"Fetching comments...", Toast.LENGTH_LONG).show();
         mView = root.findViewById(R.id.comments_view);
-        mAdapter = new ContentAdapterComments(mView.getContext());
+        mAdapter = new ContentAdapterComments(mView.getContext(), mURL);
         mView.setAdapter(mAdapter);
         mView.setHasFixedSize(true);
         mView.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -124,7 +120,7 @@ public class CommentsFragment extends Fragment {
         Comment comment = new Comment(mUser.getUid(),mUser.getDisplayName(),editText.getText().toString());
         Toast.makeText(context,"Sending comment...", Toast.LENGTH_LONG).show();
 
-        mDb.collection("comments/jhs/year/topic0/lesson1").document()
+        mDb.collection(mURL).document()
                 .set(comment)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
@@ -132,7 +128,7 @@ public class CommentsFragment extends Fragment {
                         Log.d("success", "DocumentSnapshot successfully written!");
                         Toast.makeText(context,"Comment sent!", Toast.LENGTH_LONG).show();
                         editText.setText("");
-                        mAdapter = new ContentAdapterComments(getContext());
+                        mAdapter = new ContentAdapterComments(getContext(),mURL);
                         mView.setAdapter(mAdapter);
                         mAdapter.notifyDataSetChanged();
                     }
@@ -200,13 +196,15 @@ public class CommentsFragment extends Fragment {
         private final ArrayList<Pair<Comment,String>> mCommentsC;
         Context mContextC;
         FirebaseFirestore mDB = FirebaseFirestore.getInstance();
+        private String mURLC;
+
 
         //private final ProgressBar[] mProgressBars;
 
         //pass it the year and section to represent the choice of the user
-        public ContentAdapterComments(final Context context){
+        public ContentAdapterComments(final Context context, String url){
             Resources resources = context.getResources();
-
+            mURLC = url;
             mCommentsC = new ArrayList<>();
 
             mContextC = context;
@@ -214,11 +212,11 @@ public class CommentsFragment extends Fragment {
 
 
 
-            /*Query query = mDB.collection("comments/jhs/year/topic0/lesson1")
+            /*Query query = mDB.collection(mURL)
                     .orderBy("timestamp", Query.Direction.ASCENDING);*/
 
 
-            mDB.collection("comments/jhs/year/topic0/lesson1")
+            mDB.collection(mURLC)
                     .orderBy("timestamp",Query.Direction.ASCENDING)
                     .get()
                     .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -305,7 +303,7 @@ public class CommentsFragment extends Fragment {
                         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
                         Comment comment = new Comment(user.getUid(), user.getDisplayName(), holder.messageC.getText().toString());
 
-                        mDB.document("comments/jhs/year/topic0/lesson1/" + mCommentsC.get(position).second).collection("replies").document()
+                        mDB.document(mURLC + "/" + mCommentsC.get(position).second).collection("replies").document()
                                 .set(comment)
                                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                                     @Override
@@ -337,7 +335,7 @@ public class CommentsFragment extends Fragment {
                 public void onClick (View v) {
 
 
-                        mDB.document("comments/jhs/year/topic0/lesson1/" + mCommentsC.get(position).second)
+                        mDB.document(mURLC + "/" + mCommentsC.get(position).second)
                                 .update("downvotes", mCommentsC.get(position).first.getDownvotes()+1)
                                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                                     @Override
@@ -363,7 +361,7 @@ public class CommentsFragment extends Fragment {
                 public void onClick (View v) {
 
 
-                    mDB.document("comments/jhs/year/topic0/lesson1/" + mCommentsC.get(position).second)
+                    mDB.document(mURLC + "/" + mCommentsC.get(position).second)
                             .update("downvotes", mCommentsC.get(position).first.getDownvotes()+1)
                             .addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
@@ -389,7 +387,7 @@ public class CommentsFragment extends Fragment {
                 public void onClick (View v) {
 
 
-                    mDB.document("comments/jhs/year/topic0/lesson1/" + mCommentsC.get(position).second)
+                    mDB.document(mURLC + "/" + mCommentsC.get(position).second)
                             .update("upvotes", mCommentsC.get(position).first.getUpvotes()+1)
                             .addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
@@ -416,7 +414,7 @@ public class CommentsFragment extends Fragment {
                 public void onClick (View v) {
 
 
-                    mDB.document("comments/jhs/year/topic0/lesson1/" + mCommentsC.get(position).second)
+                    mDB.document(mURLC + "/" + mCommentsC.get(position).second)
                             .update("upvotes", mCommentsC.get(position).first.getUpvotes()+1)
                             .addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
@@ -439,7 +437,7 @@ public class CommentsFragment extends Fragment {
             });
 
 
-            ContentAdapterReplies adapterR = new ContentAdapterReplies(mContextC, mCommentsC.get(position).second,position, this);
+            ContentAdapterReplies adapterR = new ContentAdapterReplies(mContextC, mCommentsC.get(position).second,position, this,mURLC);
             holder.repliesRecycler.setAdapter(adapterR);
             holder.repliesRecycler.setHasFixedSize(true);
             //LinearLayoutManager linearLayoutManager = new LinearLayoutManager(mContextC,LinearLayoutManager.VERTICAL, false);
@@ -515,14 +513,16 @@ public class CommentsFragment extends Fragment {
         private final ArrayList<Pair<Comment,String>> mCommentsR;
         FirebaseFirestore mDB = FirebaseFirestore.getInstance();
         String mParentRef;
+        private String mURLR;
         int mParentPosition;
         ContentAdapterComments mParentAdapter;
 
         //private final ProgressBar[] mProgressBars;
 
         //pass it the year and section to represent the choice of the user
-        public ContentAdapterReplies(Context context, String parentRef, int parentPosition, ContentAdapterComments parentAdapter){
+        public ContentAdapterReplies(Context context, String parentRef, int parentPosition, ContentAdapterComments parentAdapter, String url){
             Resources resources = context.getResources();
+            mURLR = url;
             //String year = viewModel.getYear();
             //String section = viewModel.getSection();
             mContextR = context;
@@ -532,7 +532,7 @@ public class CommentsFragment extends Fragment {
             mParentPosition = parentPosition;
 
 
-            mDB.collection("comments/jhs/year/topic0/lesson1/" + mParentRef+"/replies")
+            mDB.collection(mURLR + "/" + mParentRef+"/replies")
                     .orderBy("timestamp",Query.Direction.ASCENDING)
                     .get()
                     .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -606,7 +606,7 @@ public class CommentsFragment extends Fragment {
                         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
                         Comment comment = new Comment(user.getUid(), user.getDisplayName(), holder.messageR.getText().toString());
 
-                        mDB.document("comments/jhs/year/topic0/lesson1/" + mParentRef).collection("replies").document()
+                        mDB.document(mURLR + "/" + mParentRef).collection("replies").document()
                                 .set(comment)
                                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                                     @Override
@@ -639,7 +639,7 @@ public class CommentsFragment extends Fragment {
                 public void onClick (View v) {
 
 
-                    mDB.document("comments/jhs/year/topic0/lesson1/" + mParentRef +"/replies/"+mCommentsR.get(position).second)
+                    mDB.document(mURLR + "/" + mParentRef +"/replies/"+mCommentsR.get(position).second)
                             .update("downvotes", mCommentsR.get(position).first.getDownvotes()+1)
                             .addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
@@ -665,7 +665,7 @@ public class CommentsFragment extends Fragment {
                 public void onClick (View v) {
 
 
-                    mDB.document("comments/jhs/year/topic0/lesson1/" + mParentRef +"/replies/"+mCommentsR.get(position).second)
+                    mDB.document(mURLR + "/" + mParentRef +"/replies/"+mCommentsR.get(position).second)
                             .update("downvotes", mCommentsR.get(position).first.getDownvotes()+1)
                             .addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
@@ -691,7 +691,7 @@ public class CommentsFragment extends Fragment {
                 public void onClick (View v) {
 
 
-                    mDB.document("comments/jhs/year/topic0/lesson1/" + mParentRef +"/replies/"+mCommentsR.get(position).second)
+                    mDB.document(mURLR + "/" + mParentRef +"/replies/"+mCommentsR.get(position).second)
                             .update("upvotes", mCommentsR.get(position).first.getUpvotes()+1)
                             .addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
@@ -717,7 +717,7 @@ public class CommentsFragment extends Fragment {
                 public void onClick (View v) {
 
 
-                    mDB.document("comments/jhs/year/topic0/lesson1/" + mParentRef +"/replies/"+mCommentsR.get(position).second)
+                    mDB.document(mURLR + "/" + mParentRef +"/replies/"+mCommentsR.get(position).second)
                             .update("upvotes", mCommentsR.get(position).first.getUpvotes()+1)
                             .addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
