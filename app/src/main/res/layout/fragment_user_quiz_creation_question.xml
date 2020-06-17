@@ -33,6 +33,30 @@
         </androidx.cardview.widget.CardView>
 
 
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/user_quiz_creation_question_pager"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/user_suiz_creation_question_tabs">
+
+        </androidx.viewpager2.widget.ViewPager2>
+
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/user_suiz_creation_question_tabs"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="32dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/user_quiz_creation_question_cardView"
+            app:tabMode="scrollable">
+        </com.google.android.material.tabs.TabLayout>
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/user_quiz_creation_question_recyclerView"
             android:layout_width="match_parent"
@@ -40,6 +64,7 @@
             android:layout_marginStart="32dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="32dp"
+            android:visibility="invisible"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/user_quiz_creation_question_cardView" />
@@ -70,7 +95,7 @@
             android:layout_marginEnd="32dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/user_quiz_creation_question_recyclerView">
+            app:layout_constraintTop_toBottomOf="@id/user_quiz_creation_question_pager">
 
             <RadioGroup
                 android:id="@+id/user_quiz_creation_question_difficulty_radioGroup"

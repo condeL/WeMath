@@ -22,7 +22,7 @@
                 android:layout_height="match_parent"
                 android:layout_marginBottom="25dp">
 
-                <com.google.android.material.card.MaterialCardView
+                <androidx.cardview.widget.CardView
                     android:id="@+id/questionTextView_card"
                     android:layout_width="325dp"
                     android:layout_height="wrap_content"
@@ -40,7 +40,7 @@
                         android:padding="24dp"
                         app:layout_constraintTop_toTopOf="parent"
                         tools:text="Question 1" />
-                </com.google.android.material.card.MaterialCardView>
+                </androidx.cardview.widget.CardView>
 
                 <Button
                     android:id="@+id/lesson_question_next_button"

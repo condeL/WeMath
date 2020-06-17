@@ -36,7 +36,7 @@
                     app:layout_constraintTop_toTopOf="parent"
                     tools:text="5:31" />
 
-                <com.google.android.material.card.MaterialCardView
+                <androidx.cardview.widget.CardView
                     android:id="@+id/user_quiz_taking_card"
                     android:layout_width="325dp"
                     android:layout_height="wrap_content"
@@ -54,7 +54,7 @@
                         android:padding="24dp"
                         app:layout_constraintTop_toTopOf="parent"
                         tools:text="Question 1" />
-                </com.google.android.material.card.MaterialCardView>
+                </androidx.cardview.widget.CardView>
 
                 <RadioGroup
                     android:id="@+id/user_quiz_taking_radio_group"
