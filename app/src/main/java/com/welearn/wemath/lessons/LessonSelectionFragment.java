@@ -26,7 +26,6 @@ import android.widget.TextView;
 
 import com.welearn.wemath.R;
 
-import static com.facebook.FacebookSdk.getApplicationContext;
 
 
 public class LessonSelectionFragment extends Fragment {
@@ -34,6 +33,8 @@ public class LessonSelectionFragment extends Fragment {
     private LessonSelectionViewModel mViewModel;
     private String mYear, mSection;
     private int mTopic;
+    private ContentAdapter mAdapter;
+    private RecyclerView mRecyclerView;
 
     public static LessonSelectionFragment newInstance() {
         return new LessonSelectionFragment();
@@ -48,11 +49,11 @@ public class LessonSelectionFragment extends Fragment {
         mSection = LessonSelectionFragmentArgs.fromBundle(getArguments()).getSection();
         mTopic = LessonSelectionFragmentArgs.fromBundle(getArguments()).getTopic();
         //get a reference to the recycler view and give it to the custom adapter
-        RecyclerView view = v.findViewById(R.id.lesson_list);
-        ContentAdapter adapter = new ContentAdapter(view.getContext(), mYear, mSection, mTopic);
-        view.setAdapter(adapter);
-        view.setHasFixedSize(true);
-        view.setLayoutManager(new LinearLayoutManager(getActivity()));
+        mRecyclerView = v.findViewById(R.id.lesson_list);
+        mAdapter = new ContentAdapter(mRecyclerView.getContext(), mYear, mSection, mTopic);
+        mRecyclerView.setAdapter(mAdapter);
+        mRecyclerView.setHasFixedSize(true);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         return v;
     }
 
@@ -64,6 +65,14 @@ public class LessonSelectionFragment extends Fragment {
         // TODO: Use the ViewModel
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        mAdapter.mClearedLesson = PreferenceManager.getDefaultSharedPreferences(getContext()).getInt(mSection+mYear+mTopic, 1);
+        mAdapter.notifyDataSetChanged();
+        mRecyclerView.setAdapter(mAdapter);
+
+    }
     //View holder that will hold references to all the views in the RecyclerView
     public static class ViewHolder extends RecyclerView.ViewHolder{
         public TextView title, number;
@@ -94,7 +103,7 @@ public class LessonSelectionFragment extends Fragment {
             mSection = section;
             mTopic = topic;
 
-            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
             String subject = mSection + mYear + mTopic;
             mClearedLesson = prefs.getInt(subject, 1);
 
