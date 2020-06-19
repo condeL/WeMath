@@ -1,9 +1,9 @@
 package com.welearn.wemath.lessons;
 
+import androidx.cardview.widget.CardView;
 import androidx.lifecycle.ViewModelProviders;
 
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.os.Bundle;
@@ -20,11 +20,13 @@ import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.welearn.wemath.R;
 
+import static com.facebook.FacebookSdk.getApplicationContext;
 
 
 public class LessonSelectionFragment extends Fragment {
@@ -32,10 +34,6 @@ public class LessonSelectionFragment extends Fragment {
     private LessonSelectionViewModel mViewModel;
     private String mYear, mSection;
     private int mTopic;
-    //holder.number.setText(mNumbers[position % mNumbers.length]);
-//holder.percentage.setText(mPercentages[position % mPercentages.length]);
-
-
 
     public static LessonSelectionFragment newInstance() {
         return new LessonSelectionFragment();
@@ -68,15 +66,15 @@ public class LessonSelectionFragment extends Fragment {
 
     //View holder that will hold references to all the views in the RecyclerView
     public static class ViewHolder extends RecyclerView.ViewHolder{
-        public TextView title, number, percentage;
-        public ProgressBar progressBar;
+        public TextView title, number;
+        public ImageView button;
+        public CardView card;
 
         public ViewHolder(LayoutInflater inflater, ViewGroup parent) {
             super(inflater.inflate(R.layout.lesson_card,parent, false));
             title = itemView.findViewById(R.id.lesson_selection_name);
-            //number = itemView.findViewById(R.id.lesson_selection_number);
-            //percentage = itemView.findViewById(R.id.lesson_selection_completed);
-
+            button = itemView.findViewById(R.id.lesson_selection_right_arrow);
+            card = itemView.findViewById(R.id.lesson_selection_card);
         }
     }
 
@@ -85,32 +83,26 @@ public class LessonSelectionFragment extends Fragment {
 
         private final String[] mNames; // mNumbers, mPercentages;
         private String mYear, mSection;
-        private int mTopic;
-        //private final ProgressBar[] mProgressBars;
+        private int mTopic, mClearedLesson;
+
 
         public ContentAdapter(Context context, String year, String section, int topic){
             //get the resource elements to put into the views
             Resources resources = context.getResources();
 
-            //String year = viewModel.getYear();
-            //String section = viewModel.getSection();
-
             mYear = year;
             mSection = section;
             mTopic = topic;
+
+            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+            String subject = mSection + mYear + mTopic;
+            mClearedLesson = prefs.getInt(subject, 1);
+
             //to programmatically get the correct topics based on the bundled parameters
             String choice = "lessons_" + section + year + "_" + topic;
             //String choice2 = section + year + "_" + topic;
             int id = resources.getIdentifier(choice,"array",context.getPackageName());
             mNames = resources.getStringArray(id);
-            //mNumbers = resources.getStringArray(id);
-            //mPercentages = resources.getStringArray(id);
-
-            /*final SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
-            SharedPreferences.Editor edit = preferences.edit();
-            edit.putString("url2", choice2);
-            edit.commit();*/
-
 
 
         }
@@ -125,29 +117,21 @@ public class LessonSelectionFragment extends Fragment {
         @Override
         public void onBindViewHolder(final ViewHolder holder, final int position) {
             holder.title.setText(mNames[position % mNames.length]);
+            if(position > mClearedLesson-1) {
+                holder.button.setImageResource(R.drawable.baseline_lock_24);
+                holder.card.setCardBackgroundColor(getResources().getColor(R.color.lockedLesson));
+            }
+            else {
+                holder.itemView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        //set up the navigation action with the parameters
+                        NavDirections action = LessonSelectionFragmentDirections.actionLessonSelectionFragmentToLessonActivity(mSection, mYear, mTopic, position + 1);
+                        Navigation.findNavController(v).navigate(action);
+                    }
+                });
+            }
 
-            holder.itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    //set up the navigation action with the parameters
-                    NavDirections action = LessonSelectionFragmentDirections.actionLessonSelectionFragmentToLessonActivity(mSection,mYear,mTopic,position+1);
-                    Navigation.findNavController(v).navigate(action);
-                }
-            });
-            /*holder.itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    final SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
-                    SharedPreferences.Editor edit = preferences.edit();
-                    edit.putInt("numberpage", (position % mNames.length)+1);
-                    edit.commit();
-                    //Navigation.createNavigateOnClickListener(R.id.action_lessonSelectionFragment_to_lessonActivity, null);
-                    Navigation.findNavController(view).navigate(R.id.action_lessonSelectionFragment_to_lessonActivity);
-                    //NavDirections action = LessonSelectionFragmentDirections.actionLessonSelectionFragmentToLessonActivity(mYear, mSection, mTopic, position+1);
-                    //Navigation.findNavController(view).navigate(action);
-
-                }
-            });*/
         }
 
         @Override

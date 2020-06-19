@@ -71,7 +71,7 @@ public class LessonTopicFragment extends Fragment {
     //View holder that will hold references to all the views in the RecyclerView
     public static class ViewHolder extends RecyclerView.ViewHolder{
         public TextView title, number, percentage;
-        public ProgressBar progressBar;
+        //public ProgressBar progressBar;
 
         public ViewHolder(LayoutInflater inflater, ViewGroup parent) {
             super(inflater.inflate(R.layout.topic_card,parent, false));
@@ -80,16 +80,7 @@ public class LessonTopicFragment extends Fragment {
             percentage = itemView.findViewById(R.id.topic_completed);
             //progressBar = itemView.findViewById(R.id.progressBar);
 
-            /*itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    //Context context = v.getContext();
-                    //Intent intent = new Intent(context, DetailActivity.class);
-                    //intent.putExtra(DetailActivity.EXTRA_POSITION, getAdapterPosition());
-                    //context.startActivity(intent);
-                }
-            });*/
-            //itemView.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_lessonTopicFragment_to_lessonSelectionFragment, null));
+
         }
     }
 

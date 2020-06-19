@@ -45,13 +45,6 @@ LessonQuestionActivity extends AppCompatActivity {
     private int mTopic, mLesson;
 
 
-    //public static Intent newIntent(Context packageContext, boolean answerIsTrue){
-    /*public static Intent newIntent(Context packageContext){
-        Intent intent = new Intent(packageContext, LessonQuestionActivity.class);
-        //intent.putExtra(EXTRA_ANSWER_IS_TRUE, answerIsTrue);
-        return intent;
-    }*/
-
     @Override
     protected void onCreate(Bundle savedInstanceState) { //called the activity is created
         super.onCreate(savedInstanceState);
@@ -118,42 +111,31 @@ LessonQuestionActivity extends AppCompatActivity {
         mNextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                    int answer;
+                    if (!mLessonQuestion.isMultipleChoice()) {
+                        if(mRadioGroup.getCheckedRadioButtonId()!=-1) {
+                            int selectedID = mRadioGroup.getCheckedRadioButtonId();
+                            RadioButton radioButton = mRadioGroup.findViewById(selectedID);
+                            answer = mRadioGroup.indexOfChild(radioButton);
+                            checkAnswer(answer);
+                        } else
+                            Toast.makeText(getBaseContext(),"Please choose an answer", Toast.LENGTH_SHORT).show();
 
-                int answer;
-                if(!mLessonQuestion.isMultipleChoice()) {
-                    int selectedID = mRadioGroup.getCheckedRadioButtonId();
-                    RadioButton radioButton = mRadioGroup.findViewById(selectedID);
-                    answer = mRadioGroup.indexOfChild(radioButton);
-                    checkAnswer(answer);
-                } else{
-                    checkAnswer(0);
+                    } else if(checkChecked()) {
+                        checkAnswer(0);
+                    }  else
+                        Toast.makeText(getBaseContext(),"Please choose an answer", Toast.LENGTH_SHORT).show();
+
                 }
 
-            }
         });
 
-        //final SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
-        //final SharedPreferences preferences1;
+
         mPrevButton = findViewById(R.id.prev_lesson_button);
         mPrevButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 navigateBack(PREV);
-                /*int numberpage = preferences.getInt("numberpage", 1);
-                if (numberpage != 1) {
-                    numberpage--;
-
-                    SharedPreferences.Editor edit = preferences.edit();
-                    edit.putInt("numberpage", numberpage);
-                    edit.commit();
-                    //preferences1 = PreferenceManager.getDefaultSharedPreferences(this);
-                    //int numberpage = preferences1.getInt("numberpage", 1);
-                    //numberpage--;
-                    Intent intent = LessonActivity.newIntent(LessonQuestionActivity.this);
-                    startActivity(intent);
-                } else {
-                    onBackPressed();
-                }*/
             }
         });
 
@@ -164,7 +146,7 @@ LessonQuestionActivity extends AppCompatActivity {
         Intent returnIntent = new Intent();
         switch (answer){
             case NEXT:
-                //returnIntent.putExtra("result",result);
+                updatePreferences();
                 setResult(LessonActivity.NEXT_REQUEST_CODE,returnIntent);
                 finish();
                 break;
@@ -177,18 +159,7 @@ LessonQuestionActivity extends AppCompatActivity {
                 finish();
                 break;
         }
-        /*if(answer){
-            Intent returnIntent = new Intent();
-            //returnIntent.putExtra("result",result);
-            setResult(LessonActivity.RESULT_OK,returnIntent);
-            finish();
-        }
-        else{
-            Intent returnIntent = new Intent();
-            //returnIntent.putExtra("result",result);
-            setResult(LessonActivity.RESULT_CANCELED,returnIntent);
-            finish();
-        }*/
+
     }
 
     //method to compute the choice of the user
@@ -230,6 +201,25 @@ LessonQuestionActivity extends AppCompatActivity {
 
     }
 
+     private void updatePreferences(){
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        SharedPreferences.Editor editor = prefs.edit();
+        String subject = mSection + mYear + mTopic;
+        int lesson = prefs.getInt(subject, 1);
 
+        if(lesson == mLesson) {
+            editor.putInt(subject, lesson+1);
+            editor.commit();
+        }
+     }
+
+    private boolean checkChecked() {
+        for (int i = 0; i < 3; i++) {
+            if (((CheckBox) mAnswers[i]).isChecked()) {
+                return true;
+            }
+        }
+        return false;
+    }
 
 }

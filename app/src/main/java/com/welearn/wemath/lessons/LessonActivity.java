@@ -39,14 +39,6 @@ public class LessonActivity extends AppCompatActivity {
     private String mYear, mSection;
     private int mTopic, mLesson;
 
-    /*public static Intent newIntent(Context packageContext){
-        Intent intent = new Intent(packageContext, LessonActivity.class);
-        //intent.putExtra(EXTRA_ANSWER_IS_TRUE, answerIsTrue);
-        return intent;
-    }*/
-
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,8 +55,6 @@ public class LessonActivity extends AppCompatActivity {
 
         mScrollView = findViewById(R.id.lesson_activity_scrollView);
         mWebView = findViewById(R.id.lesson_webview);
-        //mWebView.loadUrl("file:///android_asset/lessons_jhs1_1_1.html");
-        //mWebView.loadUrl(url+url2+"."+numberpage+html);
 
         mWebView.loadUrl("file:///android_asset/" + mSection + mYear + "_" + mTopic + "." + mLesson + ".html");
 
@@ -74,13 +64,6 @@ public class LessonActivity extends AppCompatActivity {
         mNextButton = findViewById(R.id.next_question_button);
         mNextButton.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
-
-                /*int numberpage = preferences.getInt("numberpage", 1);
-                numberpage++;
-
-                SharedPreferences.Editor edit = preferences.edit();
-                edit.putInt("numberpage", numberpage);
-                edit.commit();*/
                 navigate(true);
             }
         });
@@ -103,7 +86,6 @@ public class LessonActivity extends AppCompatActivity {
 
         mFragmentManager = getSupportFragmentManager();
         mFragment = mFragmentManager.findFragmentById(R.id.lesson_comment_fragment);
-
 
         mCommentsButton.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
@@ -161,7 +143,6 @@ public class LessonActivity extends AppCompatActivity {
                 } else
                     mPrevButton.setVisibility(View.GONE);
                 mWebView.loadUrl("file:///android_asset/" + mSection + mYear + "_" + mTopic + "." + mLesson + ".html");
-                //mWebView.pageDown(true);
                 if(mFragmentManager.getBackStackEntryCount() > 0) {
                     mFragmentManager.beginTransaction().detach(mFragment).commit();
                     mFragment = null;
