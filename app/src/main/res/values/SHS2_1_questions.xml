@@ -19,21 +19,4 @@
     </string-array>
 
 
-    <string name="question_shs2_1_2">15+15=51</string>
-    <string name="mcq_shs2_1_2">false</string>
-
-    <string-array name="answer_shs2_1_2">
-        <item>True</item>
-        <item>False</item>
-        <item>Maybe</item>
-        <item>Nah</item>
-    </string-array>
-
-    <string-array name="truth_shs2_1_2">
-        <item>false</item>
-        <item>true</item>
-        <item>false</item>
-        <item>false</item>
-    </string-array>
-
 </resources>

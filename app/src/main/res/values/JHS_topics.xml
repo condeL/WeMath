@@ -3,7 +3,6 @@
     <string-array name="topics_jhs1">
         <item>Numbers and Numerals</item>
         <item>Sets</item>
-        <item>Fractions</item>
         <item>Integers</item>
 
     </string-array>
@@ -26,11 +25,6 @@
     </string-array>
 
     <string-array name="lessons_jhs1_3">
-        <item>Lesson 1</item>
-        <item>Lesson 2</item>
-    </string-array>
-
-    <string-array name="lessons_jhs1_4">
         <item>Lesson 1</item>
         <item>Lesson 2</item>
         <item>Lesson 3</item>
