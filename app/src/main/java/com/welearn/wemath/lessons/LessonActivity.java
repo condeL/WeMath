@@ -37,7 +37,7 @@ public class LessonActivity extends AppCompatActivity {
 
 
     private String mYear, mSection;
-    private int mTopic, mLesson;
+    private int mTopic, mLesson, mMaxLesson;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,7 +49,7 @@ public class LessonActivity extends AppCompatActivity {
         mSection = LessonActivityArgs.fromBundle(getIntent().getExtras()).getSection();
         mTopic = LessonActivityArgs.fromBundle(getIntent().getExtras()).getTopic();
         mLesson = LessonActivityArgs.fromBundle(getIntent().getExtras()).getLesson();
-
+        mMaxLesson = LessonActivityArgs.fromBundle(getIntent().getExtras()).getMaxLesson();
 
         mCommentsButton = findViewById(R.id.lesson_comment_link);
 
@@ -115,6 +115,7 @@ public class LessonActivity extends AppCompatActivity {
         intent.putExtra("year", mYear);
         intent.putExtra("topic", mTopic);
         intent.putExtra("lesson", mLesson);
+
         startActivityForResult(intent, QUESTION_ACTIVITY);
     }
 
@@ -125,6 +126,9 @@ public class LessonActivity extends AppCompatActivity {
         if(requestCode == QUESTION_ACTIVITY){
             if(resultCode == NEXT_REQUEST_CODE){
                 mLesson++;
+                if(mLesson > mMaxLesson){
+                    finish();
+                }
                 if (mLesson != 1){
                     mPrevButton.setVisibility(View.VISIBLE);
                 }

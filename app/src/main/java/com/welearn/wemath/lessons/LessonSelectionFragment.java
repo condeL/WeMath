@@ -135,7 +135,7 @@ public class LessonSelectionFragment extends Fragment {
                     @Override
                     public void onClick(View v) {
                         //set up the navigation action with the parameters
-                        NavDirections action = LessonSelectionFragmentDirections.actionLessonSelectionFragmentToLessonActivity(mSection, mYear, mTopic, position + 1);
+                        NavDirections action = LessonSelectionFragmentDirections.actionLessonSelectionFragmentToLessonActivity(mSection, mYear, mTopic, position + 1, getItemCount());
                         Navigation.findNavController(v).navigate(action);
                     }
                 });

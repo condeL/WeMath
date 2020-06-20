@@ -93,6 +93,9 @@
         <argument
             android:name="lesson"
             app:argType="integer" />
+        <argument
+            android:name="maxLesson"
+            app:argType="integer" />
     </activity>
     <fragment
         android:id="@+id/adminQuizSelection"
