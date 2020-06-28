@@ -15,7 +15,9 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Toast;
 
+import com.welearn.wemath.LoginActivity;
 import com.welearn.wemath.R;
 
 /**
@@ -25,7 +27,7 @@ public class UserQuizCreationFragment extends Fragment {
 
     private EditText mTitle;
     private RadioGroup mSection, mYear;
-    private CheckBox[] mTopics;
+    //private CheckBox[] mTopics;
     private Button mNextButton;
 
     public UserQuizCreationFragment() {
@@ -43,40 +45,43 @@ public class UserQuizCreationFragment extends Fragment {
         mTitle = root.findViewById(R.id.user_quiz_creation_editname);
         mSection = root.findViewById(R.id.user_quiz_creation_sectionGroup);
         mYear = root.findViewById(R.id.user_quiz_creation_yearGroup);
-        mTopics = new CheckBox[5];
+        /*mTopics = new CheckBox[5];
 
         mTopics[0] = root.findViewById(R.id.user_quiz_creation_topic1_button);
         mTopics[1] = root.findViewById(R.id.user_quiz_creation_topic2_button);
         mTopics[2] = root.findViewById(R.id.user_quiz_creation_topic3_button);
         mTopics[3] = root.findViewById(R.id.user_quiz_creation_topic4_button);
-        mTopics[4] = root.findViewById(R.id.user_quiz_creation_topic5_button);
+        mTopics[4] = root.findViewById(R.id.user_quiz_creation_topic5_button);*/
 
 
         mNextButton = root.findViewById(R.id.user_quiz_creation_next_button);
         mNextButton.setOnClickListener(new View.OnClickListener(){
-            public void onClick(View v){
+            public void onClick(View v) {
+                if (mTitle.getText().toString().trim().length() != 0) {
+                    String title = mTitle.getText().toString();
 
-                String title = mTitle.getText().toString();
+                    int selectedSectionID = mSection.getCheckedRadioButtonId();
+                    RadioButton selectedSectionRadio = (RadioButton) mSection.findViewById(selectedSectionID);
+                    String section = selectedSectionRadio.getText().toString().toLowerCase();
 
-                int selectedSectionID = mSection.getCheckedRadioButtonId();
-                RadioButton selectedSectionRadio = (RadioButton) mSection.findViewById(selectedSectionID);
-                String section = selectedSectionRadio.getText().toString().toLowerCase();
+                    int selectedYearID = mYear.getCheckedRadioButtonId();
+                    RadioButton selectedYearRadio = (RadioButton) mYear.findViewById(selectedYearID);
+                    String year = String.valueOf(selectedYearRadio.getText().toString().charAt(5));
 
-                int selectedYearID = mYear.getCheckedRadioButtonId();
-                RadioButton selectedYearRadio = (RadioButton) mYear.findViewById(selectedYearID);
-                String year = String.valueOf(selectedYearRadio.getText().toString().charAt(5));
-
-                String[] topics = new String[5];
-                for(int i=0; i<5;i++){
+                    String[] topics = new String[5];
+                /*for(int i=0; i<5;i++){
                     if(mTopics[i].isChecked()){
                         topics[i] = mTopics[i].getText().toString();
                     }
-                }
+                }*/
 
-                //set up the navigation action with the parameters
-                NavDirections action = UserQuizCreationFragmentDirections.actionUserQuizCreationFragmentToUserQuizCreationQuestionFragment(title, section, year, topics);
-                Navigation.findNavController(v).navigate(action);
+                    //set up the navigation action with the parameters
+                    NavDirections action = UserQuizCreationFragmentDirections.actionUserQuizCreationFragmentToUserQuizCreationQuestionFragment(title, section, year, topics);
+                    Navigation.findNavController(v).navigate(action);
 
+                }else {
+                    Toast.makeText(getContext(), "Please enter a name", Toast.LENGTH_SHORT).show();
+                    }
             }
         });
 

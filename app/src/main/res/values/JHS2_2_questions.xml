@@ -1,32 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="question_jhs2_2_1">15+15=51</string>
+    <string name="question_jhs2_2_1">Calculus is?</string>
     <string name="mcq_jhs2_2_1">false</string>
 
     <string-array name="answer_jhs2_2_1">
-        <item>True</item>
-        <item>False</item>
-        <item>Maybe</item>
-        <item>Nah</item>
+        <item>Static</item>
+        <item>Dynamic</item>
     </string-array>
 
     <string-array name="truth_jhs2_2_1">
         <item>false</item>
         <item>true</item>
-        <item>false</item>
-        <item>false</item>
     </string-array>
 
 
-    <string name="question_jhs2_2_2">15+15=51</string>
+    <string name="question_jhs2_2_2">The central concept of differential calculus is the?</string>
     <string name="mcq_jhs2_2_2">false</string>
 
     <string-array name="answer_jhs2_2_2">
-        <item>True</item>
-        <item>False</item>
-        <item>Maybe</item>
-        <item>Nah</item>
+        <item>Cumulatives</item>
+        <item>Derivatives</item>
+        <item>Differences</item>
+        <item>Suppletives</item>
     </string-array>
 
     <string-array name="truth_jhs2_2_2">
@@ -36,36 +32,36 @@
         <item>false</item>
     </string-array>
 
-    <string name="question_jhs2_2_3">15+15=51</string>
-    <string name="mcq_jhs2_2_3">false</string>
+    <string name="question_jhs2_2_3">Which are differential operators</string>
+    <string name="mcq_jhs2_2_3">true</string>
 
     <string-array name="answer_jhs2_2_3">
-        <item>True</item>
-        <item>False</item>
-        <item>Maybe</item>
-        <item>Nah</item>
+        <item>f(x)</item>
+        <item>y</item>
+        <item>D</item>
+        <item>d/dx</item>
     </string-array>
 
     <string-array name="truth_jhs2_2_3">
         <item>false</item>
+        <item>false</item>
         <item>true</item>
-        <item>false</item>
-        <item>false</item>
+        <item>true</item>
     </string-array>
 
-    <string name="question_jhs2_2_4">15+15=51</string>
+    <string name="question_jhs2_2_4">How do we find the formula of a tangent to a function?</string>
     <string name="mcq_jhs2_2_4">false</string>
 
     <string-array name="answer_jhs2_2_4">
-        <item>True</item>
-        <item>False</item>
-        <item>Maybe</item>
-        <item>Nah</item>
+        <item>Differentiation</item>
+        <item>Tangentation</item>
+        <item>Formulasation</item>
+        <item>Functioning</item>
     </string-array>
 
     <string-array name="truth_jhs2_2_4">
-        <item>false</item>
         <item>true</item>
+        <item>false</item>
         <item>false</item>
         <item>false</item>
     </string-array>

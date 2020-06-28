@@ -8,6 +8,7 @@ import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ScrollView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -127,6 +128,7 @@ public class LessonActivity extends AppCompatActivity {
             if(resultCode == NEXT_REQUEST_CODE){
                 mLesson++;
                 if(mLesson > mMaxLesson){
+                    Toast.makeText(getBaseContext(),"Congratulations, topic finished!", Toast.LENGTH_LONG).show();
                     finish();
                 }
                 if (mLesson != 1){

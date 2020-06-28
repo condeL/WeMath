@@ -123,9 +123,11 @@
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="10dp"
                     android:layout_marginBottom="10dp"
+                    android:visibility="gone"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/user_quiz_creation_yearGroup">
+                    app:layout_constraintTop_toBottomOf="@id/user_quiz_creation_yearGroup"
+                    tools:visibility="visible">
 
                     <LinearLayout
                         android:layout_width="wrap_content"

@@ -1,89 +1,81 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="question_shs1_1_1">15+15=51</string>
-    <string name="mcq_shs1_1_1">false</string>
+    <string name="question_shs1_1_1">{0, 2, 4, 6, 8, 10,...} represents the set of ?</string>
+    <string name="mcq_shs1_1_1">true</string>
 
     <string-array name="answer_shs1_1_1">
-        <item>True</item>
-        <item>False</item>
-        <item>Maybe</item>
-        <item>Nah</item>
+        <item>Even numbers</item>
+        <item>Odd numbers</item>
+        <item>Numbers leaving reminders when divided by 2</item>
+        <item>Numbers not leaving reminders when divided by 2</item>
     </string-array>
 
     <string-array name="truth_shs1_1_1">
-        <item>false</item>
         <item>true</item>
         <item>false</item>
         <item>false</item>
+        <item>true</item>
     </string-array>
 
 
-    <string name="question_shs1_1_2">15+15=51</string>
+    <string name="question_shs1_1_2">List the elements of the following set: {x: x is a multiple of 4 less than 20}</string>
     <string name="mcq_shs1_1_2">false</string>
 
     <string-array name="answer_shs1_1_2">
-        <item>True</item>
-        <item>False</item>
-        <item>Maybe</item>
-        <item>Nah</item>
+        <item>{0, 2, 4, 8}</item>
+        <item>{5, 10, 15, 20}</item>
+        <item>{4, 8, 12, 16}</item>
+        <item>{20, 16, 14, 10}</item>
     </string-array>
 
     <string-array name="truth_shs1_1_2">
         <item>false</item>
-        <item>true</item>
         <item>false</item>
+        <item>true</item>
         <item>false</item>
     </string-array>
 
-    <string name="question_shs1_1_3">15+15=51</string>
+    <string name="question_shs1_1_3">An empty {} set is a set having no elements.</string>
     <string name="mcq_shs1_1_3">false</string>
 
     <string-array name="answer_shs1_1_3">
         <item>True</item>
         <item>False</item>
-        <item>Maybe</item>
-        <item>Nah</item>
     </string-array>
 
     <string-array name="truth_shs1_1_3">
-        <item>false</item>
         <item>true</item>
-        <item>false</item>
         <item>false</item>
     </string-array>
 
-    <string name="question_shs1_1_4">15+15=51</string>
+    <string name="question_shs1_1_4">A venn diagram is used to show the relationship between sets.</string>
     <string name="mcq_shs1_1_4">false</string>
 
     <string-array name="answer_shs1_1_4">
         <item>True</item>
         <item>False</item>
-        <item>Maybe</item>
-        <item>Nah</item>
     </string-array>
 
     <string-array name="truth_shs1_1_4">
-        <item>false</item>
         <item>true</item>
-        <item>false</item>
         <item>false</item>
     </string-array>
 
-    <string name="question_shs1_1_5">15+15=51</string>
+    <string name="question_shs1_1_5">The power set of {1,2} is?</string>
     <string name="mcq_shs1_1_5">false</string>
 
     <string-array name="answer_shs1_1_5">
-        <item>True</item>
-        <item>False</item>
-        <item>Maybe</item>
-        <item>Nah</item>
+        <item>{{1},{2},{1,2}}</item>
+        <item>{{}, {1},{2},{1,2}, {2,1}}</item>
+        <item>{{}, {1},{2},{1,2}}</item>
+        <item>{{1},{2}}</item>
     </string-array>
 
     <string-array name="truth_shs1_1_5">
         <item>false</item>
-        <item>true</item>
         <item>false</item>
+        <item>true</item>
         <item>false</item>
     </string-array>
 

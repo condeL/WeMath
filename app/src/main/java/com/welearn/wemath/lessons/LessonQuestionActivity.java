@@ -38,12 +38,13 @@ LessonQuestionActivity extends AppCompatActivity {
     private RadioGroup mRadioGroup;
     private Button mNextButton;
     private Button mPrevButton;
+    private Button mSkipButton;
     private TextView mQuestionTextView;
     private Button[] mAnswers; //generic button to hold the radio or checkboxes
 
-    private String mYear, mSection;
-    private int mTopic, mLesson;
-
+    private String mYear, mSection, mSubject;
+    private int mTopic, mLesson, mClearedLesson;
+    SharedPreferences mPrefs;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) { //called the activity is created
@@ -55,6 +56,8 @@ LessonQuestionActivity extends AppCompatActivity {
         mTopic = getIntent().getIntExtra("topic",1);
         mLesson = getIntent().getIntExtra("lesson",1);
 
+
+
         String choice = "_" + mSection + mYear+ "_" + mTopic + "_" + mLesson;
 
         int questionID = getResources().getIdentifier("question" + choice , "string", getPackageName());
@@ -62,19 +65,23 @@ LessonQuestionActivity extends AppCompatActivity {
         int truthID = getResources().getIdentifier("truth" + choice, "array", getPackageName());
         int mcqID = getResources().getIdentifier("mcq"+ choice, "string", getPackageName());
 
+        mSubject = mSection + mYear + mTopic;
+
+        mPrefs = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+        mClearedLesson = mPrefs.getInt(mSubject, 1);
 
         String[] answers = getResources().getStringArray(answerID);
         String[] truths = getResources().getStringArray(truthID);
 
+
+        ArrayList<Pair<String, Boolean>> answerTruths = new ArrayList<>();
+
+        for (int i = 0; i<answers.length;i++){
+            answerTruths.add(new Pair<>(answers[i], Boolean.parseBoolean(truths[i])));
+        }
+
         //instantiating the LessonQuestion object
-         mLessonQuestion = new LessonQuestion(
-                getResources().getString(questionID),
-                new ArrayList<Pair<String, Boolean>>(Arrays.asList(
-                        new Pair<>(answers[0], Boolean.parseBoolean(truths[0])),
-                        new Pair<>(answers[1], Boolean.parseBoolean(truths[1])),
-                        new Pair<>(answers[2], Boolean.parseBoolean(truths[2])),
-                        new Pair<>(answers[3], Boolean.parseBoolean(truths[3])))),
-                parseBoolean(getResources().getString(mcqID)));
+         mLessonQuestion = new LessonQuestion(getResources().getString(questionID), answerTruths, parseBoolean(getResources().getString(mcqID)));
 
         mQuestionTextView = findViewById(R.id.question_text_view); //link the reference to the actual widget item
         mQuestionTextView.setText(mLessonQuestion.getProblem()); //set the text to the problem
@@ -139,6 +146,16 @@ LessonQuestionActivity extends AppCompatActivity {
             }
         });
 
+        if(mClearedLesson > mLesson) {
+            mSkipButton = findViewById(R.id.lesson_question_skip_button);
+            mSkipButton.setVisibility(View.VISIBLE);
+            mSkipButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    navigateBack(NEXT);
+                }
+            });
+        }
     }
 
 
@@ -202,13 +219,10 @@ LessonQuestionActivity extends AppCompatActivity {
     }
 
      private void updatePreferences(){
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-        SharedPreferences.Editor editor = prefs.edit();
-        String subject = mSection + mYear + mTopic;
-        int lesson = prefs.getInt(subject, 1);
+        SharedPreferences.Editor editor = mPrefs.edit();
 
-        if(lesson == mLesson) {
-            editor.putInt(subject, lesson+1);
+        if(mClearedLesson == mLesson) {
+            editor.putInt(mSubject, mClearedLesson+1);
             editor.commit();
         }
      }

@@ -1,39 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="question_shs3_2_1">15+15=51</string>
+    <string name="question_shs3_2_1">What are the next three terms in {-5,-3,-1,1,3}? </string>
     <string name="mcq_shs3_2_1">false</string>
 
     <string-array name="answer_shs3_2_1">
-        <item>True</item>
-        <item>False</item>
-        <item>Maybe</item>
-        <item>Nah</item>
+        <item>5,6,7</item>
+        <item>2,4,6</item>
+        <item>5,7,9</item>
+        <item>-5,5,10</item>
     </string-array>
 
     <string-array name="truth_shs3_2_1">
         <item>false</item>
-        <item>true</item>
         <item>false</item>
+        <item>true</item>
         <item>false</item>
     </string-array>
 
 
-    <string name="question_shs3_2_2">15+15=51</string>
+    <string name="question_shs3_2_2">In a(n-1) + d; d is used to represent a dynamic number</string>
     <string name="mcq_shs3_2_2">false</string>
 
     <string-array name="answer_shs3_2_2">
         <item>True</item>
         <item>False</item>
-        <item>Maybe</item>
-        <item>Nah</item>
     </string-array>
 
     <string-array name="truth_shs3_2_2">
         <item>false</item>
         <item>true</item>
-        <item>false</item>
-        <item>false</item>
     </string-array>
 
 </resources>

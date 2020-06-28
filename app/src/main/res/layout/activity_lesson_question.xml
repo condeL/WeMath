@@ -52,7 +52,6 @@
                     android:drawablePadding="4dp"
                     android:text="@string/next_button"
                     android:textColor="#FFFFFF"
-                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/answers_radio_group" />
 
@@ -64,17 +63,30 @@
                     android:layout_marginTop="50dp"
                     android:drawablePadding="4dp"
                     android:text="Prev"
-                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/answers_radio_group" />
+
+                <Button
+                    android:id="@+id/lesson_question_skip_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="25dp"
+                    android:layout_marginBottom="25dp"
+                    android:background="@color/colorPrimaryDark"
+                    android:text="Skip"
+                    android:textColor="#FFFFFF"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/lesson_question_next_button"
+                    tools:visibility="visible" />
 
                 <RadioGroup
                     android:id="@+id/answers_radio_group"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
                     android:layout_marginTop="100dp"
-                    android:layout_marginEnd="8dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="@id/questionTextView_card">
@@ -154,6 +166,8 @@
 
                 </RadioGroup>
             </androidx.constraintlayout.widget.ConstraintLayout>
+
+
         </LinearLayout>
     </ScrollView>
 

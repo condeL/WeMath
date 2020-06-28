@@ -20,7 +20,7 @@ public class QuizTakingMenuFragment extends Fragment {
 
     private ImageButton mAdminButton;
     private ImageButton mUserButton;
-    private ImageButton mResultsButton;
+    //private ImageButton mResultsButton;
 
     public QuizTakingMenuFragment() {
         // Required empty public constructor
@@ -35,7 +35,7 @@ public class QuizTakingMenuFragment extends Fragment {
 
         mAdminButton = root.findViewById(R.id.quiz_taking_admin_quiz_image);
         mUserButton = root.findViewById(R.id.quiz_taking_user_quiz_image);
-        mResultsButton = root.findViewById(R.id.quiz_taking_past_reults_image);
+        //mResultsButton = root.findViewById(R.id.quiz_taking_past_reults_image);
 
         mAdminButton.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_quizTakingMenuFragment_to_adminQuizSelection, null));
         mUserButton.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_quizTakingMenuFragment_to_userQuizSelection, null));
