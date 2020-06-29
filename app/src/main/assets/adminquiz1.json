@@ -1,7 +1,6 @@
-
-    {
-      "name": "quiz 1",
-      "section": "SHS",
+ {
+      "name": "JHS1 Quiz",
+      "section": "JHS",
       "year": "1",
       "topic": "Equations",
       "author": "Lanciné",
@@ -9,6 +8,7 @@
         {
           "problem": "1+1 = ?",
           "multiple": "false",
+          "explanation": "",
           "choices" : [
             {
               "label": "1",
@@ -31,6 +31,7 @@
         {
           "problem": "1+10 = ?",
           "multiple": "false",
+          "explanation": "",
           "choices" : [
             {
               "label": "11",
@@ -53,6 +54,7 @@
         {
           "problem": "12+1 = ?",
           "multiple": "false",
+          "explanation": "",
           "choices" : [
             {
               "label": "11",
@@ -75,6 +77,7 @@
         {
           "problem": "1+19 = ?",
           "multiple": "true",
+          "explanation": "",
           "choices" : [
             {
               "label": "10",
@@ -97,6 +100,7 @@
         {
           "problem": "1-1 = ?",
           "multiple": "false",
+          "explanation": "",
           "choices" : [
             {
               "label": "1",
@@ -119,6 +123,7 @@
         {
           "problem": "10*5 = ?",
           "multiple": "true",
+          "explanation": "",
           "choices" : [
             {
               "label": "10",
@@ -141,6 +146,7 @@
         {
           "problem": "100/20 = ?",
           "multiple": "true",
+          "explanation": "",
           "choices" : [
             {
               "label": "5",
@@ -163,6 +169,7 @@
         {
           "problem": "75 = ?",
           "multiple": "true",
+          "explanation": "",
           "choices" : [
             {
               "label": "50+26",
@@ -185,6 +192,7 @@
         {
           "problem": "1+100 = ?",
           "multiple": "false",
+          "explanation": "",
           "choices" : [
             {
               "label": "101",
@@ -207,6 +215,7 @@
         {
           "problem": "11-1 = ?",
           "multiple": "false",
+          "explanation": "",
           "choices" : [
             {
               "label": "1",

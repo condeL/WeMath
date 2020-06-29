@@ -87,7 +87,7 @@ public class LessonTopicFragment extends Fragment {
     //the contentR adapter where the views are binded together
     public static class ContentAdapter extends RecyclerView.Adapter<ViewHolder>{
 
-        private final String[] mNames, mNumbers, mPercentages;
+        private final String[] mNames;
         //private final ProgressBar[] mProgressBars;
         String mYear, mSection;
         Context mContext;
@@ -106,8 +106,6 @@ public class LessonTopicFragment extends Fragment {
             int id = resources.getIdentifier(choice,"array",context.getPackageName());
 
             mNames = resources.getStringArray(id);
-            mNumbers = resources.getStringArray(id);
-            mPercentages = resources.getStringArray(id);
         }
 
         @Override
