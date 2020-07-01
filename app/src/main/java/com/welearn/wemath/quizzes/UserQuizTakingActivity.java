@@ -175,6 +175,11 @@ public class UserQuizTakingActivity extends AppCompatActivity {
         mQuestionTextView.setText(currentQuestion.getProblem());
         mQuestionNumber.setText("Question " + (mCurrentIndex+1) + "/10");
 
+        for(int i = 0; i<4; i++){
+            mAnswersChoice[i].setVisibility(View.GONE);
+            mAnswersRadio[i].setVisibility(View.GONE);
+        }
+
         if(!currentQuestion.isMultipleChoice()) {
             for(int i = 0; i<currentQuestion.getChoices().size();i++){
                 mAnswersChoice[i].setVisibility(View.GONE);

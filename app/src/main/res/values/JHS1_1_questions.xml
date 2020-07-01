@@ -55,7 +55,7 @@
     <string-array name="answer_jhs1_1_4">
         <item>x + y + z</item>
         <item>x - y - z</item>
-        <item>x × y × z</item>
+        <item>x * y * z</item>
         <item>x ÷ y ÷ z</item>
     </string-array>
 

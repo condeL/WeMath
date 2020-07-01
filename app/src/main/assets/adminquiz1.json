@@ -1,52 +1,36 @@
- {
+{
       "name": "JHS1 Quiz",
       "section": "JHS",
       "year": "1",
-      "topic": "Equations",
+      "topic": " ",
       "author": "Lanciné",
       "questions": [
         {
-          "problem": "1+1 = ?",
+          "problem": "Two equivalent sets have?",
           "multiple": "false",
           "explanation": "",
           "choices" : [
             {
-              "label": "1",
-              "truth": "false"
-            },
-            {
-              "label": "2",
+              "label": "The same number of items",
               "truth": "true"
             },
             {
-              "label": "3",
-              "truth": "false"
-            },
-            {
-              "label": "4",
+              "label": "The same items",
               "truth": "false"
             }
           ]
         },
         {
-          "problem": "1+10 = ?",
+          "problem": "The order in which you write the numbers matter for subtractions?",
           "multiple": "false",
           "explanation": "",
           "choices" : [
             {
-              "label": "11",
+              "label": "True",
               "truth": "true"
             },
             {
-              "label": "12",
-              "truth": "false"
-            },
-            {
-              "label": "30",
-              "truth": "false"
-            },
-            {
-              "label": "45",
+              "label": "False",
               "truth": "false"
             }
           ]
@@ -75,48 +59,48 @@
           ]
         },
         {
-          "problem": "1+19 = ?",
+          "problem": "Which of the following are empty sets?",
           "multiple": "true",
           "explanation": "",
           "choices" : [
             {
-              "label": "10",
+              "label": "{Circular circles}",
               "truth": "false"
             },
             {
-              "label": "20",
+              "label": "{Rectangular circles}",
+              "truth": "false"
+            },
+            {
+              "label": "{Square circles}",
               "truth": "true"
             },
             {
-              "label": "36",
-              "truth": "false"
-            },
-            {
-              "label": "10+10",
+              "label": "{Triangular circles}",
               "truth": "true"
             }
           ]
         },
         {
-          "problem": "1-1 = ?",
+          "problem": "Multiplying a negative number by a negative number gives?",
           "multiple": "false",
           "explanation": "",
           "choices" : [
             {
-              "label": "1",
+              "label": "A negative number",
               "truth": "false"
             },
             {
-              "label": "2",
-              "truth": "false"
-            },
-            {
-              "label": "3",
-              "truth": "false"
-            },
-            {
-              "label": "0",
+              "label": "A positive number",
               "truth": "true"
+            },
+            {
+              "label": "A neutral number",
+              "truth": "false"
+            },
+            {
+              "label": "A zero",
+              "truth": "false"
             }
           ]
         },
@@ -144,94 +128,74 @@
           ]
         },
         {
-          "problem": "100/20 = ?",
+          "problem": "Which numbers are part of \"the set of numbers superior to 0\"?",
           "multiple": "true",
-          "explanation": "",
+          "explanation": "0 is not superior to 0",
           "choices" : [
             {
-              "label": "5",
-              "truth": "true"
-            },
-            {
-              "label": "2+3",
-              "truth": "true"
-            },
-            {
-              "label": "50",
+              "label": "-10",
               "truth": "false"
             },
             {
-              "label": "100",
-              "truth": "false"
-            }
-          ]
-        },
-        {
-          "problem": "75 = ?",
-          "multiple": "true",
-          "explanation": "",
-          "choices" : [
-            {
-              "label": "50+26",
-              "truth": "false"
-            },
-            {
-              "label": "80-8",
-              "truth": "false"
-            },
-            {
-              "label": "50+25",
-              "truth": "true"
-            },
-            {
-              "label": "80-5",
-              "truth": "true"
-            }
-          ]
-        },
-        {
-          "problem": "1+100 = ?",
-          "multiple": "false",
-          "explanation": "",
-          "choices" : [
-            {
-              "label": "101",
-              "truth": "true"
-            },
-            {
-              "label": "2",
-              "truth": "true"
-            },
-            {
-              "label": "3",
-              "truth": "false"
-            },
-            {
-              "label": "4",
-              "truth": "false"
-            }
-          ]
-        },
-        {
-          "problem": "11-1 = ?",
-          "multiple": "false",
-          "explanation": "",
-          "choices" : [
-            {
-              "label": "1",
+              "label": "0",
               "truth": "false"
             },
             {
               "label": "10",
               "truth": "true"
-            },
+            }
+          ]
+        },
+        {
+          "problem": "xyz stands for?",
+          "multiple": "false",
+          "explanation": "",
+          "choices" : [
             {
-              "label": "30",
+              "label": "x + y + z",
               "truth": "false"
             },
             {
-              "label": "85",
+              "label": "x - y - z",
               "truth": "false"
+            },
+            {
+              "label": "x * y * z",
+              "truth": "true"
+            },
+            {
+              "label": "x ÷ y ÷ z",
+              "truth": "false"
+            }
+          ]
+        },
+        {
+          "problem": "+15 a natural number.",
+          "multiple": "false",
+          "explanation": "",
+          "choices" : [
+            {
+              "label": "True",
+              "truth": "true"
+            },
+            {
+              "label": "False",
+              "truth": "false"
+            }
+          ]
+        },
+        {
+          "problem": "-151 greater than 100.",
+          "multiple": "false",
+          "explanation": "",
+          "choices" : [
+            {
+              "label": "True",
+              "truth": "false"
+            },
+            {
+              "label": "False",
+              "truth": "true"
             }
           ]
         }

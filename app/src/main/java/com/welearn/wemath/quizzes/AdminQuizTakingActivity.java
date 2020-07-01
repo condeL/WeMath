@@ -75,7 +75,7 @@ public class AdminQuizTakingActivity extends AppCompatActivity {
 
         mQuizQuestions = new ArrayList<>();
         getJSONQuiz(quiz_id);
-       
+
         mNextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -207,6 +207,12 @@ public class AdminQuizTakingActivity extends AppCompatActivity {
         mQuestionTextView.setText(currentQuestion.getProblem());
         mQuestionNumber.setText("Question " + (mCurrentIndex+1) + "/10");
 
+        for(int i = 0; i<4; i++){
+            mAnswersChoice[i].setVisibility(View.GONE);
+            mAnswersRadio[i].setVisibility(View.GONE);
+
+        }
+
         if(!currentQuestion.isMultipleChoice()) {
             for(int i = 0; i<currentQuestion.getChoices().size();i++){
                 mAnswersChoice[i].setVisibility(View.GONE);
@@ -214,7 +220,6 @@ public class AdminQuizTakingActivity extends AppCompatActivity {
                 mAnswersRadio[i].setText(currentQuestion.getChoices().get(i));
                 mAnswersRadio[i].setChecked(mMemory[mCurrentIndex][i]);
             }
-
         }
         else{
             for(int i = 0; i<currentQuestion.getChoices().size();i++){
@@ -222,7 +227,6 @@ public class AdminQuizTakingActivity extends AppCompatActivity {
                 mAnswersChoice[i].setVisibility(View.VISIBLE);
                 mAnswersChoice[i].setText(currentQuestion.getChoices().get(i));
                 mAnswersChoice[i].setChecked(mMemory[mCurrentIndex][i]);
-
             }
         }
 

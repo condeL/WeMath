@@ -5,7 +5,7 @@
     <string name="mcq_jhs3_3_1">false</string>
 
     <string-array name="answer_jhs3_3_1">
-        <item>information written in numbers</item>
+        <item>Information written in numbers</item>
         <item>Information not written in numbers</item>
         <item>Raw data</item>
     </string-array>
