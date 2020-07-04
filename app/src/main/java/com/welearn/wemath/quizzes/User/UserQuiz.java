@@ -1,6 +1,10 @@
-package com.welearn.wemath.quizzes;
+package com.welearn.wemath.quizzes.User;
 
-import com.welearn.wemath.Quiz;
+/*Adds a rating, a state for admin approval and a timestanmp*/
+
+
+import com.welearn.wemath.quizzes.Quiz;
+import com.welearn.wemath.quizzes.QuizQuestion;
 
 import java.sql.Timestamp;
 import java.util.Date;

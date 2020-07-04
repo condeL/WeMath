@@ -17,17 +17,17 @@
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".LoginRegisterActivity"
+            android:name=".login.LoginRegisterActivity"
             android:label="Register"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".quizzes.UserQuizTakingActivity"
+            android:name=".quizzes.User.UserQuizTakingActivity"
             android:configChanges="orientation|keyboardHidden"
             android:label="User Quiz"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".quizzes.AdminQuizTakingActivity"
+            android:name=".quizzes.Admin.AdminQuizTakingActivity"
             android:configChanges="orientation|keyboardHidden"
             android:label="Admin Quiz"
             android:screenOrientation="portrait" />
@@ -43,7 +43,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".LoginActivity"
+            android:name=".login.LoginActivity"
             android:configChanges="orientation|keyboardHidden"
             android:label="Login"
             android:screenOrientation="portrait" />

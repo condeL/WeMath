@@ -1,5 +1,7 @@
 package com.welearn.wemath.lessons;
 
+/*fragment for selecting the lesson topic*/
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProviders;
@@ -27,12 +29,7 @@ import com.welearn.wemath.R;
 
 public class LessonTopicFragment extends Fragment {
 
-    //not used yet
-    private LessonTopicViewModel mViewModel;
-    //Strings to get represent the selection of the user
     private String mYear, mSection;
-
-
 
     public static LessonTopicFragment newInstance() {
         return new LessonTopicFragment();
@@ -43,14 +40,12 @@ public class LessonTopicFragment extends Fragment {
                              @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.lesson_topic_fragment, container, false);
 
-        //retrieve the parameters from the bundle
         mYear = LessonTopicFragmentArgs.fromBundle(getArguments()).getYear();
         mSection = LessonTopicFragmentArgs.fromBundle(getArguments()).getSection();
-        //mViewModel = new LessonTopicViewModel(mYear, mSection);
 
         //set the title of the actionbar
         ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle(mSection.toUpperCase() + " Year " + mYear);
-        //get a reference to the recycler view and give it to the custom adapter
+
         RecyclerView view = v.findViewById(R.id.topic_list);
         ContentAdapter adapter = new ContentAdapter(view.getContext(), mYear, mSection);
         view.setAdapter(adapter);
@@ -59,14 +54,6 @@ public class LessonTopicFragment extends Fragment {
         return v;
     }
 
-    //useless for now
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        //mViewModel = ViewModelProviders.of(this).get(LessonTopicViewModel.class);
-        //mViewModel = new LessonTopicViewModel(mYear, mSection);
-        // TODO: Use the ViewModel
-    }
 
     //View holder that will hold references to all the views in the RecyclerView
     public static class ViewHolder extends RecyclerView.ViewHolder{
@@ -84,7 +71,6 @@ public class LessonTopicFragment extends Fragment {
         }
     }
 
-    //the contentR adapter where the views are binded together
     public static class ContentAdapter extends RecyclerView.Adapter<ViewHolder>{
 
         private final String[] mNames;
@@ -95,8 +81,6 @@ public class LessonTopicFragment extends Fragment {
         //pass it the year and section to represent the choice of the user
         public ContentAdapter(Context context, String year, String section){
             Resources resources = context.getResources();
-            //String year = viewModel.getYear();
-            //String section = viewModel.getSection();
             mYear = year;
             mSection = section;
             mContext = context;
@@ -104,7 +88,6 @@ public class LessonTopicFragment extends Fragment {
             //to programmatically get the correct topics based on the bundled parameters
             String choice = "topics_" + section + year;
             int id = resources.getIdentifier(choice,"array",context.getPackageName());
-
             mNames = resources.getStringArray(id);
         }
 
@@ -113,7 +96,6 @@ public class LessonTopicFragment extends Fragment {
             return new ViewHolder(LayoutInflater.from(parent.getContext()), parent);
         }
 
-        //put the resource elements in the views using the ViewHolder
         @Override
         public void onBindViewHolder(ViewHolder holder, final int position) {
             holder.title.setText(mNames[position % mNames.length]);

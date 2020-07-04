@@ -1,9 +1,10 @@
-package com.welearn.wemath.quizzes;
+package com.welearn.wemath.quizzes.Admin;
+
+/*activity for taking local quizzes stored in JSON format*/
 
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.util.Pair;
 import android.view.View;
 import android.widget.Button;
@@ -17,6 +18,8 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.welearn.wemath.R;
+import com.welearn.wemath.quizzes.QuizQuestion;
+import com.welearn.wemath.quizzes.QuizResultActivity;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -30,10 +33,10 @@ import java.util.List;
 public class AdminQuizTakingActivity extends AppCompatActivity {
 
     private ArrayList<QuizQuestion> mQuizQuestions;
-    private AdminQuiz mAdminQuiz;
+    //private AdminQuiz mAdminQuiz;
     private int mCurrentIndex;
-    private boolean[] mResults;
-    private boolean[][] mMemory;
+    private boolean[] mResults; //to store the scores
+    private boolean[][] mMemory; //to remember the answers the user has selected
 
     //references to the various widgets on the activity
     private RadioGroup mRadioGroup;
@@ -45,7 +48,6 @@ public class AdminQuizTakingActivity extends AppCompatActivity {
     private RadioButton[] mAnswersRadio; //=button to hold the radio or checkboxes
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,12 +56,11 @@ public class AdminQuizTakingActivity extends AppCompatActivity {
         mResults = new boolean[10];
         mMemory = new boolean[10][4];
 
-        //retrieve the section from the bundle
         Intent intent = this.getIntent();
         int quiz_id = intent.getIntExtra("quiz_id",0);
 
-        mQuestionTextView = findViewById(R.id.admin_quiz_taking_problem); //link the reference to the actual widget item
-        mRadioGroup = findViewById(R.id.admin_quiz_taking_radio_group); //link the reference to the radiogroup widget
+        mQuestionTextView = findViewById(R.id.admin_quiz_taking_problem);
+        mRadioGroup = findViewById(R.id.admin_quiz_taking_radio_group);
         mNextButton = findViewById(R.id.admin_quiz_taking_next_question);
         mPrevButton = findViewById(R.id.admin_quiz_taking_previous_question);
         mFinishButton = findViewById(R.id.admin_quiz_taking_finish_button);
@@ -76,84 +77,53 @@ public class AdminQuizTakingActivity extends AppCompatActivity {
         mQuizQuestions = new ArrayList<>();
         getJSONQuiz(quiz_id);
 
-        mNextButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                if (mRadioGroup.getCheckedRadioButtonId()!=-1 || checkChecked()) {
-                    updateAswer();
-                }
-                if (mCurrentIndex >= 0) {
-                    mCurrentIndex = Math.abs((mCurrentIndex + 1) % 10);
-                    setup(mQuizQuestions);
-                } else {
-                    mCurrentIndex = Math.abs((mCurrentIndex + 1) % 10);
-                    setup(mQuizQuestions);
-                }
-
-                /*}
-                else
-                    Toast.makeText(getBaseContext(), "Please select an answer", Toast.LENGTH_SHORT).show();*/
+        mNextButton.setOnClickListener(v -> {
+            //check if an answer is selected
+            if (mRadioGroup.getCheckedRadioButtonId()!=-1 || checkChecked()) {
+                updateAswer();
             }
+
+            mCurrentIndex = Math.abs((mCurrentIndex + 1) % 10);
+            setup(mQuizQuestions);
         });
 
-        mPrevButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-
-                if (mRadioGroup.getCheckedRadioButtonId()!=-1 || checkChecked()) {
-
-                    updateAswer();
-                }
-                if (mCurrentIndex == 0) {
-                    mCurrentIndex = 9;
-                    setup(mQuizQuestions);
-                } else {
-                    mCurrentIndex = Math.abs((mCurrentIndex - 1) % 10);
-                    setup(mQuizQuestions);
-                }
-                /*}
-                else
-                    Toast.makeText(getBaseContext(), "Please select an answer", Toast.LENGTH_SHORT).show();*/
-
+        mPrevButton.setOnClickListener(v -> {
+            if (mRadioGroup.getCheckedRadioButtonId()!=-1 || checkChecked()) {
+                updateAswer();
             }
+            if (mCurrentIndex == 0) {
+                mCurrentIndex = 9;
+            } else {
+                mCurrentIndex = Math.abs((mCurrentIndex - 1) % 10);
+            }
+            setup(mQuizQuestions);
         });
 
-        mFinishButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                if (mRadioGroup.getCheckedRadioButtonId()!=-1 || checkChecked()) {
-
-                    updateAswer();
-                }
-
-                Intent intent = new Intent(getApplicationContext(), QuizResultActivity.class);
-                intent.putExtra("results", mResults);
-                String[] explanation = new String[10];
-                for(int i=0;i<10;i++){
-                    explanation[i] = mQuizQuestions.get(i).getExplanation();
-                }
-                intent.putExtra("explanations", explanation);
-                startActivity(intent);
-                finish();
-
+        mFinishButton.setOnClickListener(v -> {
+            if (mRadioGroup.getCheckedRadioButtonId()!=-1 || checkChecked()) {
+                updateAswer();
             }
+
+            Intent intent1 = new Intent(getApplicationContext(), QuizResultActivity.class);
+            intent1.putExtra("results", mResults);
+            String[] explanation = new String[10];
+            for(int i=0;i<10;i++){
+                explanation[i] = mQuizQuestions.get(i).getExplanation();
+            }
+            intent1.putExtra("explanations", explanation);
+            startActivity(intent1);
+            finish();
         });
 
     }
 
-
+    //get the quizquestions from the JSON file
     void getJSONQuiz(int id){
         try {
-            // get JSONObject from JSON file
             JSONObject quiz = new JSONObject(loadJSONFromAsset(getBaseContext(),id));
-            // fetch JSONArray named users
             JSONArray questions = quiz.getJSONArray("questions");
-            // implement for loop for getting users list data
+
             for (int i = 0; i < questions.length(); i++) {
-                // create a JSONObject for fetching single user data
                 JSONObject question = questions.getJSONObject(i);
 
                 String problem, explanation;
@@ -171,10 +141,8 @@ public class AdminQuizTakingActivity extends AppCompatActivity {
                     boolean truth = choice.getBoolean("truth");
                     answers.add(new Pair<>(label,truth));
                 }
-
                 QuizQuestion quizQuestion = new QuizQuestion(problem,answers,multiple,explanation);
                 mQuizQuestions.add(quizQuestion);
-
             }
             setup(mQuizQuestions);
         } catch (JSONException e) {
@@ -199,8 +167,7 @@ public class AdminQuizTakingActivity extends AppCompatActivity {
         return json;
     }
 
-
-
+    //sets up the answer choices based on the current index
     void setup(ArrayList<QuizQuestion> questions){
         //setting up the answer choices
         QuizQuestion currentQuestion = questions.get(mCurrentIndex);
@@ -288,10 +255,9 @@ public class AdminQuizTakingActivity extends AppCompatActivity {
             clearChecked();
 
         }
-        //little message indicating if it's correct or not
-        Toast.makeText(this, String.valueOf(result), Toast.LENGTH_SHORT).show();
+        //little message indicating if it's correct or not for debugging purposes
+        //Toast.makeText(this, String.valueOf(result), Toast.LENGTH_SHORT).show();
         mResults[mCurrentIndex] = result;
-
     }
 
     private boolean checkChecked(){
@@ -309,6 +275,7 @@ public class AdminQuizTakingActivity extends AppCompatActivity {
         }
     }
 
+    //prevents the user from exiting the quiz
     @Override
     public void onBackPressed() {
     }

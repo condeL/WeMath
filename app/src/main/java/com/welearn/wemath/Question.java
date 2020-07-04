@@ -5,7 +5,7 @@ import android.util.Pair;
 import java.util.ArrayList;
 import java.util.List;
 
-/*Question interface for both LessongQuestion and QuizQuestion*/
+/*Question base class for both LessonQuestion and QuizQuestion*/
 public abstract class Question {
 
     private String mProblem = "";

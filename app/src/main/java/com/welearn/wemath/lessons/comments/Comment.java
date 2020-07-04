@@ -1,6 +1,7 @@
-package com.welearn.wemath.lessons;
+package com.welearn.wemath.lessons.comments;
 
-/*Custom class for the comments*/
+/*Custom class for the comments
+* Used to send and retrieve comments from Firebase*/
 
 import java.sql.Timestamp;
 import java.util.Date;
@@ -16,7 +17,6 @@ public class Comment {
     boolean mState;
 
     Comment(){
-
     }
 
     Comment(String uUid, String name, String message){

@@ -20,13 +20,13 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.welearn.wemath.login.LoginActivity;
 
 /* The main menu activity that hosts all the navigation fragments*/
 
 public class MainActivity extends AppCompatActivity {
 
     AppBarConfiguration appBarConfiguration;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,35 +53,28 @@ public class MainActivity extends AppCompatActivity {
         TextView signInButton = header.findViewById(R.id.header_sign_in);
         signInButton.setText("Sign out");
 
-        signInButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick (View v){
+        signInButton.setOnClickListener(v -> {
 
-                Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
-                startActivity(intent);
+            Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+            startActivity(intent);
 
 
-            }
         });
 
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
 
 
-        // Passing each menu ID as a set of Ids because each
-        // menu should be considered as top level destinations.
         appBarConfiguration = new AppBarConfiguration.Builder(
                 R.id.navigation_lesson_section, R.id.navigation_home, R.id.navigation_quiz_main)
                 .setDrawerLayout(drawerLayout)
                 .build();
 
         //add the burger drawer
-
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(navView, navController);
         NavigationUI.setupWithNavController(drawerNavView,navController);
 
-
-        //https://stackoverflow.com/questions/4207880/android-how-do-i-prevent-the-soft-keyboard-from-pushing-my-view-up
+        //prevent keyboard from pushing views up
         drawerLayout.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             @Override
             public void onGlobalLayout() {
@@ -89,14 +82,11 @@ public class MainActivity extends AppCompatActivity {
                 drawerLayout.getWindowVisibleDisplayFrame(r);
                 int heightDiff = drawerLayout.getRootView().getHeight() - (r.bottom - r.top);
 
-                if (heightDiff > 200) { // if more than 100 pixels, its probably a keyboard...
-                    //ok now we know the keyboard is up...
+                if (heightDiff > 200) { // if more than 100 pixels we know it's the keyboard
                     navView.setVisibility(View.GONE);
 
                 }else{
-                    //ok now we know the keyboard is down...
                     navView.setVisibility(View.VISIBLE);
-
                 }
             }
         });

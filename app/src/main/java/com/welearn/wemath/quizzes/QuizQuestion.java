@@ -1,5 +1,7 @@
 package com.welearn.wemath.quizzes;
 
+/*Adds an explanation compared to normal questions*/
+
 import android.util.Pair;
 
 import com.welearn.wemath.Question;

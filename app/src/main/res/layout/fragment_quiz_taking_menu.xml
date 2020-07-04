@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".QuizMainFragment">
+    tools:context=".quizzes.QuizMainFragment">
 
     <!-- TODO: Update blank fragment layout -->
 
@@ -59,7 +59,8 @@
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent">
+                        android:layout_height="match_parent"
+                        android:clickable="false">
 
                         <ImageButton
                             android:id="@+id/quiz_taking_admin_quiz_image"
@@ -69,6 +70,7 @@
                             android:layout_marginEnd="24dp"
                             android:layout_marginBottom="30dp"
                             android:background="@drawable/teacher_desk"
+                            android:clickable="false"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
@@ -114,6 +116,7 @@
                             android:layout_marginEnd="24dp"
                             android:layout_marginBottom="30dp"
                             android:background="@drawable/homework"
+                            android:clickable="false"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
@@ -161,6 +164,7 @@
                             android:layout_marginEnd="24dp"
                             android:layout_marginBottom="30dp"
                             android:background="@drawable/test"
+                            android:clickable="false"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"

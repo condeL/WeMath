@@ -1,4 +1,4 @@
-package com.welearn.wemath;
+package com.welearn.wemath.quizzes;
 
 import com.welearn.wemath.quizzes.QuizQuestion;
 

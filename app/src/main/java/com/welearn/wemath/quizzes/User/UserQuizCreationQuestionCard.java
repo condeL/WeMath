@@ -1,4 +1,6 @@
-package com.welearn.wemath;
+package com.welearn.wemath.quizzes.User;
+
+/*fragment for the quiz creation viewpager*/
 
 import android.os.Bundle;
 
@@ -8,12 +10,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+
+import com.welearn.wemath.R;
 
 
 public class UserQuizCreationQuestionCard extends Fragment {
@@ -28,11 +31,9 @@ public class UserQuizCreationQuestionCard extends Fragment {
     public LinearLayout mTruthCheckBoxGroup;
 
     public UserQuizCreationQuestionCard() {
-        // Required empty public constructor
     }
 
 
-    // TODO: Rename and change types and number of parameters
    public static UserQuizCreationQuestionCard newInstance(int position) {
         UserQuizCreationQuestionCard fragment = new UserQuizCreationQuestionCard();
         Bundle args = new Bundle(position);
@@ -84,20 +85,17 @@ public class UserQuizCreationQuestionCard extends Fragment {
         mTruthCheckBoxGroup = root.findViewById(R.id.user_quiz_creation_card_checkboxGroup);
         mExplanation = root.findViewById(R.id.user_quiz_creation_card_explanation);
 
-        mMultiple.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                                                       @Override
-                                                       public void onCheckedChanged(CompoundButton buttonView,boolean isChecked) {
-                                                           if (buttonView.isChecked()) {
-                                                               mTruthRadioGroup.setVisibility(View.GONE);
-                                                               mTruthCheckBoxGroup.setVisibility(View.VISIBLE);
-                                                           }
-                                                           else
-                                                           {
-                                                               mTruthCheckBoxGroup.setVisibility(View.GONE);
-                                                               mTruthRadioGroup.setVisibility(View.VISIBLE);
-                                                           }
-                                                       }
-                                                   }
+        mMultiple.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if (buttonView.isChecked()) {
+                mTruthRadioGroup.setVisibility(View.GONE);
+                mTruthCheckBoxGroup.setVisibility(View.VISIBLE);
+            }
+            else
+            {
+                mTruthCheckBoxGroup.setVisibility(View.GONE);
+                mTruthRadioGroup.setVisibility(View.VISIBLE);
+            }
+        }
         );
         return root;
     }

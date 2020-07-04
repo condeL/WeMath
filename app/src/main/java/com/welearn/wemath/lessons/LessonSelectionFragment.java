@@ -1,7 +1,9 @@
 package com.welearn.wemath.lessons;
 
+/*fragment for selecting the lesson*/
+
+
 import androidx.cardview.widget.CardView;
-import androidx.lifecycle.ViewModelProviders;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -21,24 +23,18 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.welearn.wemath.R;
 
 
-
 public class LessonSelectionFragment extends Fragment {
 
-    private LessonSelectionViewModel mViewModel;
     private String mYear, mSection;
     private int mTopic;
     private ContentAdapter mAdapter;
     private RecyclerView mRecyclerView;
 
-    public static LessonSelectionFragment newInstance() {
-        return new LessonSelectionFragment();
-    }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
@@ -48,7 +44,7 @@ public class LessonSelectionFragment extends Fragment {
         mYear = LessonSelectionFragmentArgs.fromBundle(getArguments()).getYear();
         mSection = LessonSelectionFragmentArgs.fromBundle(getArguments()).getSection();
         mTopic = LessonSelectionFragmentArgs.fromBundle(getArguments()).getTopic();
-        //get a reference to the recycler view and give it to the custom adapter
+
         mRecyclerView = v.findViewById(R.id.lesson_list);
         mAdapter = new ContentAdapter(mRecyclerView.getContext(), mYear, mSection, mTopic);
         mRecyclerView.setAdapter(mAdapter);
@@ -57,23 +53,17 @@ public class LessonSelectionFragment extends Fragment {
         return v;
     }
 
-    //useless for now
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        mViewModel = ViewModelProviders.of(this).get(LessonSelectionViewModel.class);
-        // TODO: Use the ViewModel
-    }
 
     @Override
     public void onResume() {
+        //in case the user has cleared new lessons
         super.onResume();
         mAdapter.mClearedLesson = PreferenceManager.getDefaultSharedPreferences(getContext()).getInt(mSection+mYear+mTopic, 1);
         mAdapter.notifyDataSetChanged();
         mRecyclerView.setAdapter(mAdapter);
 
     }
-    //View holder that will hold references to all the views in the RecyclerView
+
     public static class ViewHolder extends RecyclerView.ViewHolder{
         public TextView title, number;
         public ImageView button;
@@ -87,7 +77,6 @@ public class LessonSelectionFragment extends Fragment {
         }
     }
 
-    //the contentR adapter where the views are binded together
     public class ContentAdapter extends RecyclerView.Adapter<ViewHolder>{
 
         private final String[] mNames; // mNumbers, mPercentages;
@@ -96,7 +85,6 @@ public class LessonSelectionFragment extends Fragment {
 
 
         public ContentAdapter(Context context, String year, String section, int topic){
-            //get the resource elements to put into the views
             Resources resources = context.getResources();
 
             mYear = year;
@@ -109,7 +97,6 @@ public class LessonSelectionFragment extends Fragment {
 
             //to programmatically get the correct topics based on the bundled parameters
             String choice = "lessons_" + section + year + "_" + topic;
-            //String choice2 = section + year + "_" + topic;
             int id = resources.getIdentifier(choice,"array",context.getPackageName());
             mNames = resources.getStringArray(id);
 
@@ -121,8 +108,6 @@ public class LessonSelectionFragment extends Fragment {
             return new ViewHolder(LayoutInflater.from(parent.getContext()), parent);
         }
 
-        //put the resource elements in the views using the ViewHolder
-
         @Override
         public void onBindViewHolder(final ViewHolder holder, final int position) {
             holder.title.setText(mNames[position % mNames.length]);
@@ -131,23 +116,17 @@ public class LessonSelectionFragment extends Fragment {
                 holder.card.setCardBackgroundColor(getResources().getColor(R.color.lockedLesson));
             }
             else {
-                holder.itemView.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        //set up the navigation action with the parameters
-                        NavDirections action = LessonSelectionFragmentDirections.actionLessonSelectionFragmentToLessonActivity(mSection, mYear, mTopic, position + 1, getItemCount());
-                        Navigation.findNavController(v).navigate(action);
-                    }
+                holder.itemView.setOnClickListener(v -> {
+                    //set up the navigation action with the parameters
+                    NavDirections action = LessonSelectionFragmentDirections.actionLessonSelectionFragmentToLessonActivity(mSection, mYear, mTopic, position + 1, getItemCount());
+                    Navigation.findNavController(v).navigate(action);
                 });
             }
-
         }
 
         @Override
         public int getItemCount() {
             return mNames.length;
         }
-
     }
-
 }

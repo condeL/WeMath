@@ -1,11 +1,8 @@
 package com.welearn.wemath;
 
+/*the first screen a logged-in user will see*/
 
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.ColorFilter;
 import android.graphics.Paint;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
@@ -16,16 +13,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.welearn.wemath.login.LoginActivity;
 
 
-/**
- * A simple {@link Fragment} subclass.
- */
 public class HomeScreenFragment extends Fragment {
 
     private FirebaseUser mUser;
@@ -33,14 +27,13 @@ public class HomeScreenFragment extends Fragment {
     private Button mProfileButton;
 
     public HomeScreenFragment() {
-        // Required empty public constructor
     }
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+
         View root = inflater.inflate(R.layout.fragment_home_screen, container, false);
         mUser = FirebaseAuth.getInstance().getCurrentUser();
 
@@ -57,17 +50,12 @@ public class HomeScreenFragment extends Fragment {
         mProfileImage.getBackground().setColorFilter(paint.getColor(), PorterDuff.Mode.ADD);
 
         mProfileButton = root.findViewById(R.id.profile_button_main);
-        mProfileButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick (View v){
+        mProfileButton.setOnClickListener(v -> {
 
-                Intent intent = new Intent(getContext(), LoginActivity.class);
-                startActivity(intent);
+            Intent intent = new Intent(getContext(), LoginActivity.class);
+            startActivity(intent);
 
-            }
         });
-
-
 
         return root;
     }

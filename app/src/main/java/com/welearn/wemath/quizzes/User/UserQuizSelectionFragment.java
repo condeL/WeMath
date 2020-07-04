@@ -1,4 +1,4 @@
-package com.welearn.wemath.quizzes;
+package com.welearn.wemath.quizzes.User;
 
 
 import android.app.Activity;
@@ -8,8 +8,6 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.navigation.NavDirections;
-import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -32,22 +30,19 @@ import com.welearn.wemath.R;
 
 import java.util.ArrayList;
 
-/**
- * A simple {@link Fragment} subclass.
- */
+
 public class UserQuizSelectionFragment extends Fragment {
 
     private RecyclerView mQuizRecycler;
 
     public UserQuizSelectionFragment() {
-        // Required empty public constructor
     }
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+
         View root =  inflater.inflate(R.layout.fragment_user_quiz_selection, container, false);
 
         mQuizRecycler = root.findViewById(R.id.user_quiz_selection_recycle);
@@ -73,12 +68,9 @@ public class UserQuizSelectionFragment extends Fragment {
             author = itemView.findViewById(R.id.user_quiz_card_author);
             difficulty = itemView.findViewById(R.id.user_quiz_card_difficulty);
             rating = itemView.findViewById(R.id.user_quiz_card_rating);
-
-            //itemView.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_lessonTopicFragment_to_lessonSelectionFragment, null));
         }
     }
 
-    //the contentR adapter where the views are binded together
     public static class ContentAdapter extends RecyclerView.Adapter<ViewHolder>{
 
         private final ArrayList<Pair<UserQuiz,String>> mUserQuizzes;
@@ -103,12 +95,10 @@ public class UserQuizSelectionFragment extends Fragment {
 
                                     Toast.makeText(mContext,"Fetching successful!", Toast.LENGTH_LONG).show();
                                     notifyDataSetChanged();
-
                                 }
                             } else {
                                 Log.d("GETTING", "Error getting documents: ", task.getException());
                                 Toast.makeText(mContext,"Fetching failed", Toast.LENGTH_LONG).show();
-
                             }
                         }
                     });
@@ -119,7 +109,6 @@ public class UserQuizSelectionFragment extends Fragment {
             return new ViewHolder(LayoutInflater.from(parent.getContext()), parent);
         }
 
-        //put the resource elements in the views using the ViewHolder
         @Override
         public void onBindViewHolder(ViewHolder holder,final int position) {
             holder.title.setText(mUserQuizzes.get(position).first.getTitle());
@@ -128,31 +117,20 @@ public class UserQuizSelectionFragment extends Fragment {
             holder.difficulty.setText("Difficulty: " + mUserQuizzes.get(position).first.getDifficulty());
             holder.rating.setRating((int)(mUserQuizzes.get(position).first.getRating()));
 
+           holder.itemView.setOnClickListener(v -> {
+               String quiz_id = mUserQuizzes.get(position).second;
+               Toast.makeText(mContext,"Setting up quiz...", Toast.LENGTH_LONG).show();
 
-
-
-
-           holder.itemView.setOnClickListener(new View.OnClickListener(){
-               public void onClick(View v){
-                   String quiz_id = mUserQuizzes.get(position).second;
-                   //NavDirections action = UserQuizSelectionFragmentDirections.actionUserQuizSelectionToUserQuizTakingActivity(false, quiz_id);
-                   Toast.makeText(mContext,"Setting up quiz...", Toast.LENGTH_LONG).show();
-                  // Navigation.findNavController(v).navigate(action);
-
-                   Intent intent = new Intent(mContext, UserQuizTakingActivity.class);
-                   intent.putExtra("quiz_id", quiz_id);
-                   mContext.startActivity(intent);
-                   mActivity.finish();
-
-               }
+               Intent intent = new Intent(mContext, UserQuizTakingActivity.class);
+               intent.putExtra("quiz_id", quiz_id);
+               mContext.startActivity(intent);
+               mActivity.finish();
            });
-
         }
 
         @Override
         public int getItemCount() {
             return mUserQuizzes.size();
         }
-
     }
 }
