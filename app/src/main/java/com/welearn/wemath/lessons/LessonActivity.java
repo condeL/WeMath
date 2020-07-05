@@ -44,7 +44,6 @@ public class LessonActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lesson);
 
-
         mYear = LessonActivityArgs.fromBundle(getIntent().getExtras()).getYear();
         mSection = LessonActivityArgs.fromBundle(getIntent().getExtras()).getSection();
         mTopic = LessonActivityArgs.fromBundle(getIntent().getExtras()).getTopic();
@@ -55,6 +54,8 @@ public class LessonActivity extends AppCompatActivity {
 
         mScrollView = findViewById(R.id.lesson_activity_scrollView);
         mWebView = findViewById(R.id.lesson_webview);
+
+        this.setTitle("Lesson " + mLesson);
 
         mWebView.loadUrl("file:///android_asset/" + mSection + mYear + "_" + mTopic + "." + mLesson + ".html");
 
@@ -132,6 +133,7 @@ public class LessonActivity extends AppCompatActivity {
                 mScrollView.fullScroll(View.FOCUS_DOWN);
             }
 
+            this.setTitle("Lesson " + mLesson);
             //close the comments fragments if it is open
             if(mFragmentManager.getFragments().size()> 0) {
                 mFragmentManager.beginTransaction().detach(mFragment).commit();

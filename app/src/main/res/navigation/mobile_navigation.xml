@@ -75,6 +75,9 @@
         <argument
             android:name="topic"
             app:argType="integer" />
+        <argument
+            android:name="topicName"
+            app:argType="string" />
     </fragment>
     <activity
         android:id="@+id/lessonActivity"

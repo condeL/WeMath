@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProviders;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.os.Bundle;
 
@@ -18,6 +19,7 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,6 +32,7 @@ import com.welearn.wemath.R;
 public class LessonTopicFragment extends Fragment {
 
     private String mYear, mSection;
+
 
     public static LessonTopicFragment newInstance() {
         return new LessonTopicFragment();
@@ -58,14 +61,14 @@ public class LessonTopicFragment extends Fragment {
     //View holder that will hold references to all the views in the RecyclerView
     public static class ViewHolder extends RecyclerView.ViewHolder{
         public TextView title, number, percentage;
-        //public ProgressBar progressBar;
+        public ProgressBar progressBar;
 
         public ViewHolder(LayoutInflater inflater, ViewGroup parent) {
             super(inflater.inflate(R.layout.topic_card,parent, false));
             title = itemView.findViewById(R.id.topic_name);
             number = itemView.findViewById(R.id.topic_lessons_number);
             percentage = itemView.findViewById(R.id.topic_completed);
-            //progressBar = itemView.findViewById(R.id.progressBar);
+            progressBar = itemView.findViewById(R.id.topic_progressBar);
 
 
         }
@@ -74,9 +77,10 @@ public class LessonTopicFragment extends Fragment {
     public static class ContentAdapter extends RecyclerView.Adapter<ViewHolder>{
 
         private final String[] mNames;
-        //private final ProgressBar[] mProgressBars;
+        ProgressBar mProgressBar;
         String mYear, mSection;
         Context mContext;
+        SharedPreferences mPrefs;
 
         //pass it the year and section to represent the choice of the user
         public ContentAdapter(Context context, String year, String section){
@@ -89,6 +93,9 @@ public class LessonTopicFragment extends Fragment {
             String choice = "topics_" + section + year;
             int id = resources.getIdentifier(choice,"array",context.getPackageName());
             mNames = resources.getStringArray(id);
+
+            mPrefs = PreferenceManager.getDefaultSharedPreferences((mContext));
+
         }
 
         @Override
@@ -105,17 +112,20 @@ public class LessonTopicFragment extends Fragment {
             int id = resources.getIdentifier(choice,"array",mContext.getPackageName());
 
             String[] lessons = resources.getStringArray(id);
-            holder.number.setText(lessons.length + " lessons");
-            //holder.percentage.setText(mPercentages[position % mPercentages.length]);
-            //holder.percentage.setText("50%");
+            int lessonSize = lessons.length;
+            holder.number.setText(lessonSize + " lessons");
 
-            holder.itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    //set up the navigation action with the parameters
-                    NavDirections action = LessonTopicFragmentDirections.actionLessonTopicFragmentToLessonSelectionFragment(mYear, mSection, position+1);
-                    Navigation.findNavController(v).navigate(action);
-                }
+            String subject = mSection + mYear + (position+1);
+            int cleared = mPrefs.getInt(subject, 1);
+            holder.progressBar.setMax(lessonSize);
+            holder.progressBar.setProgress(cleared-1);
+            float progressPercent = (((float)cleared-1)/(float)lessonSize)*100;
+            holder.percentage.setText((int)progressPercent + "%");
+
+            holder.itemView.setOnClickListener(v -> {
+                //set up the navigation action with the parameters
+                NavDirections action = LessonTopicFragmentDirections.actionLessonTopicFragmentToLessonSelectionFragment(mYear, mSection, position+1, mNames[position % mNames.length]);
+                Navigation.findNavController(v).navigate(action);
             });
         }
 

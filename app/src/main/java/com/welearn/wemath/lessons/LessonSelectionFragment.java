@@ -3,6 +3,7 @@ package com.welearn.wemath.lessons;
 /*fragment for selecting the lesson*/
 
 
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
 import android.content.Context;
@@ -30,7 +31,7 @@ import com.welearn.wemath.R;
 
 public class LessonSelectionFragment extends Fragment {
 
-    private String mYear, mSection;
+    private String mYear, mSection, mTopicName;
     private int mTopic;
     private ContentAdapter mAdapter;
     private RecyclerView mRecyclerView;
@@ -44,6 +45,10 @@ public class LessonSelectionFragment extends Fragment {
         mYear = LessonSelectionFragmentArgs.fromBundle(getArguments()).getYear();
         mSection = LessonSelectionFragmentArgs.fromBundle(getArguments()).getSection();
         mTopic = LessonSelectionFragmentArgs.fromBundle(getArguments()).getTopic();
+        mTopicName = LessonSelectionFragmentArgs.fromBundle(getArguments()).getTopicName();
+
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle(mTopicName);
+
 
         mRecyclerView = v.findViewById(R.id.lesson_list);
         mAdapter = new ContentAdapter(mRecyclerView.getContext(), mYear, mSection, mTopic);
