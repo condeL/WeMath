@@ -5,7 +5,7 @@ import android.util.Pair;
 import java.util.ArrayList;
 import java.util.List;
 
-/*Question interface for both LessongQuestion and QuizQuestion*/
+/*Question base class for both LessonQuestion and QuizQuestion*/
 public abstract class Question {
 
     private String mProblem = "";
@@ -35,10 +35,10 @@ public abstract class Question {
 
         mTruths = new ArrayList<>();
         mChoices = new ArrayList<>();
-        for (int i = 0; i < 4; i++) {
+        for (int i = 0; i < mAnswers.size(); i++) {
             mTruths.add(mAnswers.get(i).second);
         }
-        for (int i = 0; i < 4; i++) {
+        for (int i = 0; i < mAnswers.size(); i++) {
             mChoices.add(mAnswers.get(i).first);
         }
     }

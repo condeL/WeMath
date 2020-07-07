@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="question_jhs3_1_1">A scalene triangle has?</string>
+    <string name="mcq_jhs3_1_1">true</string>
+
+    <string-array name="answer_jhs3_1_1">
+        <item>Similar sides lengths</item>
+        <item>Different side lengths</item>
+        <item>Similar angles</item>
+        <item>Different angles</item>
+    </string-array>
+
+    <string-array name="truth_jhs3_1_1">
+        <item>false</item>
+        <item>true</item>
+        <item>false</item>
+        <item>true</item>
+    </string-array>
+
+
+    <string name="question_jhs3_1_2">A square has 4 equal sides</string>
+    <string name="mcq_jhs3_1_2">false</string>
+
+    <string-array name="answer_jhs3_1_2">
+        <item>True</item>
+        <item>False</item>
+    </string-array>
+
+    <string-array name="truth_jhs3_1_2">
+        <item>true</item>
+        <item>false</item>
+    </string-array>
+
+    <string name="question_jhs3_1_3">The hypotenuse of a right triangle is the side opposite to the right angle.</string>
+    <string name="mcq_jhs3_1_3">false</string>
+
+    <string-array name="answer_jhs3_1_3">
+        <item>True</item>
+        <item>False</item>
+    </string-array>
+
+    <string-array name="truth_jhs3_1_3">
+        <item>true</item>
+        <item>false</item>
+    </string-array>
+
+
+</resources>

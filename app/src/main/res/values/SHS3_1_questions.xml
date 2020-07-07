@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="question_shs3_1_1">Write the following out in words: log10 (14)</string>
+    <string name="mcq_shs3_1_1">false</string>
+
+    <string-array name="answer_shs3_1_1">
+        <item>log to the base 14 of 14</item>
+        <item>log to the base 14 of 10</item>
+        <item>log to the base 10 of 14</item>
+        <item>log to the base 10 of 10</item>
+    </string-array>
+
+    <string-array name="truth_shs3_1_1">
+        <item>false</item>
+        <item>false</item>
+        <item>true</item>
+        <item>false</item>
+    </string-array>
+
+
+    <string name="question_shs3_1_2">What is the common logarithmic base?</string>
+    <string name="mcq_shs3_1_2">false</string>
+
+    <string-array name="answer_shs3_1_2">
+        <item>Base 1</item>
+        <item>Base 2</item>
+        <item>Base 8</item>
+        <item>Base 10</item>
+    </string-array>
+
+    <string-array name="truth_shs3_1_2">
+        <item>false</item>
+        <item>false</item>
+        <item>false</item>
+        <item>true</item>
+    </string-array>
+
+
+    <string name="question_shs3_1_3">log10 (10) = 10</string>
+    <string name="mcq_shs3_1_3">false</string>
+
+    <string-array name="answer_shs3_1_3">
+        <item>True</item>
+        <item>False</item>
+    </string-array>
+
+    <string-array name="truth_shs3_1_3">
+        <item>false</item>
+        <item>true</item>
+    </string-array>
+</resources>

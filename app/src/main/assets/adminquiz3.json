@@ -1,0 +1,215 @@
+{
+  "name": "SHS3 Quiz",
+  "section": "SHS",
+  "year": "3",
+  "topic": " ",
+  "author": "Lanciné",
+  "questions": [
+    {
+      "problem": "An empty {} set is a set having no elements.",
+      "multiple": "false",
+      "explanation": "",
+      "choices" : [
+        {
+          "label": "True",
+          "truth": "true"
+        },
+        {
+          "label": "False",
+          "truth": "false"
+        }
+      ]
+    },
+    {
+      "problem": "{0, 2, 4, 6, 8, 10,...} represents the set of ?",
+      "multiple": "true",
+      "explanation": "",
+      "choices" : [
+        {
+          "label": "Even numbers",
+          "truth": "true"
+        },
+        {
+          "label": "Odd numbers",
+          "truth": "false"
+        },
+        {
+          "label": "Numbers leaving reminders when divided by 2",
+          "truth": "false"
+        },
+        {
+          "label": "Numbers not leaving reminders when divided by 2",
+          "truth": "true"
+        }
+      ]
+    },
+    {
+      "problem": "The power set of {1,2} is?",
+      "multiple": "false",
+      "explanation": "",
+      "choices" : [
+        {
+          "label": "{{1},{2},{1,2}}",
+          "truth": "false"
+        },
+        {
+          "label": "{{}, {1},{2},{1,2}, {2,1}}",
+          "truth": "false"
+        },
+        {
+          "label": "{{}, {1},{2},{1,2}}",
+          "truth": "true"
+        },
+        {
+          "label": "{{1},{2}}",
+          "truth": "false"
+        }
+      ]
+    },
+    {
+      "problem": "9/4 is a?",
+      "multiple": "false",
+      "explanation": "",
+      "choices" : [
+        {
+          "label": "Proper fraction",
+          "truth": "false"
+        },
+        {
+          "label": "Improper fraction",
+          "truth": "true"
+        },
+        {
+          "label": "Mixed fraction",
+          "truth": "false"
+        },
+        {
+          "label": "Unlike fraction",
+          "truth": "false"
+        }
+      ]
+    },
+    {
+      "problem": "20% = ?",
+      "multiple": "false",
+      "explanation": "",
+      "choices" : [
+        {
+          "label": "2",
+          "truth": "false"
+        },
+        {
+          "label": "5/1",
+          "truth": "false"
+        },
+        {
+          "label": "1/5",
+          "truth": "true"
+        },
+        {
+          "label": "20",
+          "truth": "false"
+        }
+      ]
+    },
+    {
+      "problem": "√45 =?",
+      "multiple": "false",
+      "explanation": "",
+      "choices" : [
+        {
+          "label": "9√3",
+          "truth": "false"
+        },
+        {
+          "label": "3√9",
+          "truth": "false"
+        },
+        {
+          "label": "3√5",
+          "truth": "true"
+        },
+        {
+          "label": "5√3",
+          "truth": "false"
+        }
+      ]
+    },
+    {
+      "problem": "What is the common logarithmic base?",
+      "multiple": "false",
+      "explanation": "",
+      "choices" : [
+        {
+          "label": "Base 1",
+          "truth": "false"
+        },
+        {
+          "label": "Base 2",
+          "truth": "false"
+        },
+        {
+          "label": "Base 8",
+          "truth": "false"
+        },
+        {
+          "label": "Base 10",
+          "truth": "true"
+        }
+      ]
+    },
+    {
+      "problem": "Write the following out in words: log2 (10)",
+      "multiple": "false",
+      "explanation": "",
+      "choices" : [
+        {
+          "label": "log to the base 10 of 2",
+          "truth": "false"
+        },
+        {
+          "label": "log to the base 2 of 10",
+          "truth": "true"
+        },
+        {
+          "label": "log to the base 2 of 2",
+          "truth": "false"
+        },
+        {
+          "label": "log to the base 10 of 10",
+          "truth": "false"
+        }
+      ]
+    },
+    {
+      "problem": "log10 (10) = 10",
+      "multiple": "false",
+      "explanation": "log10 (10) = 1",
+      "choices" : [
+        {
+          "label": "True",
+          "truth": "false"
+        },
+        {
+          "label": "False",
+          "truth": "true"
+        }
+      ]
+    },
+    {
+      "problem": "In x(n-1) + d; d is used to represent a dynamic number",
+      "multiple": "false",
+      "explanation": "",
+      "choices" : [
+        {
+          "label": "True",
+          "truth": "false"
+        },
+        {
+          "label": "False",
+          "truth": "true"
+        }
+      ]
+    }
+  ]
+}

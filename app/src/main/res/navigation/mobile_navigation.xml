@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/navigation_lesson_section"
-        android:name="com.welearn.wemath.LessonSectionFragment"
+        android:name="com.welearn.wemath.lessons.LessonSectionFragment"
         android:label="Section Selection"
         tools:layout="@layout/fragment_lesson_section">
         <action
@@ -21,7 +21,7 @@
         tools:layout="@layout/fragment_home_screen" />
     <fragment
         android:id="@+id/navigation_quiz_main"
-        android:name="com.welearn.wemath.QuizMainFragment"
+        android:name="com.welearn.wemath.quizzes.QuizMainFragment"
         android:label="Quiz Home"
         tools:layout="@layout/fragment_quiz_main">
         <action
@@ -75,6 +75,9 @@
         <argument
             android:name="topic"
             app:argType="integer" />
+        <argument
+            android:name="topicName"
+            app:argType="string" />
     </fragment>
     <activity
         android:id="@+id/lessonActivity"
@@ -93,11 +96,14 @@
         <argument
             android:name="lesson"
             app:argType="integer" />
+        <argument
+            android:name="maxLesson"
+            app:argType="integer" />
     </activity>
     <fragment
         android:id="@+id/adminQuizSelection"
-        android:name="com.welearn.wemath.quizzes.AdminQuizSelectionFragment"
-        android:label="Admin Quizzes"
+        android:name="com.welearn.wemath.quizzes.Admin.AdminQuizSelectionFragment"
+        android:label="Admin Quiz"
         tools:layout="@layout/fragment_admin_quiz_selection">
         <action
             android:id="@+id/action_adminQuizSelection_to_quizQuestionActivity"
@@ -105,7 +111,7 @@
     </fragment>
     <activity
         android:id="@+id/activityuserquiztaking"
-        android:name="com.welearn.wemath.quizzes.UserQuizTakingActivity"
+        android:name="com.welearn.wemath.quizzes.User.UserQuizTakingActivity"
         android:label="User Quiz"
         tools:layout="@layout/activity_user_quiz_taking">
         <argument
@@ -129,8 +135,8 @@
     </fragment>
     <fragment
         android:id="@+id/userQuizSelection"
-        android:name="com.welearn.wemath.quizzes.UserQuizSelectionFragment"
-        android:label="User Quizzes"
+        android:name="com.welearn.wemath.quizzes.User.UserQuizSelectionFragment"
+        android:label="User Quiz"
         tools:layout="@layout/fragment_user_quiz_selection">
         <action
             android:id="@+id/action_userQuizSelection_to_userQuizTakingActivity"
@@ -138,18 +144,18 @@
     </fragment>
     <fragment
         android:id="@+id/userQuizCreationFragment"
-        android:name="com.welearn.wemath.quizzes.UserQuizCreationFragment"
-        android:label="fragment_user_quiz_creation"
-        tools:layout="@layout/fragment_user_quiz_creation" >
+        android:name="com.welearn.wemath.quizzes.User.UserQuizCreationFragment"
+        android:label="Quiz Creation"
+        tools:layout="@layout/fragment_user_quiz_creation">
         <action
             android:id="@+id/action_userQuizCreationFragment_to_userQuizCreationQuestionFragment"
             app:destination="@id/userQuizCreationQuestionFragment" />
     </fragment>
     <fragment
         android:id="@+id/userQuizCreationQuestionFragment"
-        android:name="com.welearn.wemath.quizzes.UserQuizCreationQuestionFragment"
-        android:label="fragment_user_quiz_creation_question"
-        tools:layout="@layout/fragment_user_quiz_creation_question" >
+        android:name="com.welearn.wemath.quizzes.User.UserQuizCreationQuestionFragment"
+        android:label="Question Creation"
+        tools:layout="@layout/fragment_user_quiz_creation_question">
         <argument
             android:name="title"
             app:argType="string" />

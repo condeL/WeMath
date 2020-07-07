@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string-array name="Question" >
-        <item>15+15</item>
-        <item>37+65</item>
-        <item>75+12</item>
-    </string-array>
-</resources>

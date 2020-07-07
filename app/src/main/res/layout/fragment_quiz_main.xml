@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".QuizMainFragment">
+    tools:context=".quizzes.QuizMainFragment">
 
     <!-- TODO: Update blank fragment layout -->
 
@@ -63,6 +63,7 @@
                     android:layout_marginTop="10dp"
                     android:layout_marginEnd="24dp"
                     android:background="@drawable/desk_chair"
+                    android:clickable="false"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -109,6 +110,7 @@
                     android:layout_marginTop="10dp"
                     android:layout_marginEnd="25dp"
                     android:background="@drawable/pencil"
+                    android:clickable="false"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />

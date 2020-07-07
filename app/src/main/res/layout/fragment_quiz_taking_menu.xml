@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".QuizMainFragment">
+    tools:context=".quizzes.QuizMainFragment">
 
     <!-- TODO: Update blank fragment layout -->
 
@@ -59,7 +59,8 @@
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent">
+                        android:layout_height="match_parent"
+                        android:clickable="false">
 
                         <ImageButton
                             android:id="@+id/quiz_taking_admin_quiz_image"
@@ -69,6 +70,7 @@
                             android:layout_marginEnd="24dp"
                             android:layout_marginBottom="30dp"
                             android:background="@drawable/teacher_desk"
+                            android:clickable="false"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
@@ -114,6 +116,7 @@
                             android:layout_marginEnd="24dp"
                             android:layout_marginBottom="30dp"
                             android:background="@drawable/homework"
+                            android:clickable="false"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
@@ -126,7 +129,7 @@
                             android:layout_marginStart="50dp"
                             android:layout_marginTop="10dp"
                             android:layout_marginEnd="50dp"
-                            android:text="User quizzes"
+                            android:text="User quiz"
                             android:textSize="20sp"
                             android:textStyle="bold"
                             app:layout_constraintEnd_toEndOf="parent"
@@ -143,9 +146,11 @@
                     android:layout_marginStart="50dp"
                     android:layout_marginTop="40dp"
                     android:layout_marginEnd="50dp"
+                    android:visibility="gone"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/quiz_taking_admin_quiz_card">
+                    app:layout_constraintTop_toBottomOf="@id/quiz_taking_admin_quiz_card"
+                    tools:visibility="visible">
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
@@ -159,6 +164,7 @@
                             android:layout_marginEnd="24dp"
                             android:layout_marginBottom="30dp"
                             android:background="@drawable/test"
+                            android:clickable="false"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"

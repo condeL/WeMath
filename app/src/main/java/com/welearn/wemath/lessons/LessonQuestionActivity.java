@@ -1,6 +1,5 @@
 package com.welearn.wemath.lessons;
 
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -20,7 +19,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.welearn.wemath.R;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 import static java.lang.Boolean.parseBoolean;
 
@@ -28,57 +26,56 @@ import static java.lang.Boolean.parseBoolean;
 public class
 LessonQuestionActivity extends AppCompatActivity {
 
-    //the LessonQuestion object
-    private LessonQuestion mLessonQuestion;
 
-    //references to the various widgets on the activity
+    final int NEXT = 1;
+    final int PREV = 2;
+
     private RadioGroup mRadioGroup;
     private Button mNextButton;
     private Button mPrevButton;
+    private Button mSkipButton;
     private TextView mQuestionTextView;
     private Button[] mAnswers; //generic button to hold the radio or checkboxes
 
+    private LessonQuestion mLessonQuestion;
 
-    //public static Intent newIntent(Context packageContext, boolean answerIsTrue){
-    public static Intent newIntent(Context packageContext){
-        Intent intent = new Intent(packageContext, LessonQuestionActivity.class);
-        //intent.putExtra(EXTRA_ANSWER_IS_TRUE, answerIsTrue);
-        return intent;
-    }
+    private String mYear, mSection, mSubject;
+    private int mTopic, mLesson, mClearedLesson;
+    SharedPreferences mPrefs;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) { //called the activity is created
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_lesson_question); //deflating the activity
-        final SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
-        String q = "question";
-        String answer = "answer";
-        String a = "a";
-        int n = preferences.getInt("numberpage", 1);
-        n--;
+        setContentView(R.layout.activity_lesson_question);
 
-        int id = getResources().getIdentifier(q+n, "string", getPackageName());
-        int id1 = getResources().getIdentifier(answer+n+"_"+1, "string", getPackageName());
-        int id2 = getResources().getIdentifier(answer+n+"_"+2, "string", getPackageName());
-        int id3 = getResources().getIdentifier(answer+n+"_"+3, "string", getPackageName());
-        int id4 = getResources().getIdentifier(answer+n+"_"+4, "string", getPackageName());
+        mYear = getIntent().getStringExtra("year");
+        mSection = getIntent().getStringExtra("section");
+        mTopic = getIntent().getIntExtra("topic",1);
+        mLesson = getIntent().getIntExtra("lesson",1);
 
-        int b1 = getResources().getIdentifier(a+n+"_1", "string", getPackageName());
-        int b2 = getResources().getIdentifier(a+n+"_2", "string", getPackageName());
-        int b3 = getResources().getIdentifier(a+n+"_3", "string", getPackageName());
-        int b4 = getResources().getIdentifier(a+n+"_4", "string", getPackageName());
+        String choice = "_" + mSection + mYear+ "_" + mTopic + "_" + mLesson;
 
-        int mcq = getResources().getIdentifier("mcq"+n, "string", getPackageName());
+        int questionID = getResources().getIdentifier("question" + choice , "string", getPackageName());
+        int answerID = getResources().getIdentifier("answer" + choice, "array", getPackageName());
+        int truthID = getResources().getIdentifier("truth" + choice, "array", getPackageName());
+        int mcqID = getResources().getIdentifier("mcq"+ choice, "string", getPackageName());
+
+        mSubject = mSection + mYear + mTopic;
+
+        mPrefs = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+        mClearedLesson = mPrefs.getInt(mSubject, 1);
+
+        String[] answers = getResources().getStringArray(answerID);
+        String[] truths = getResources().getStringArray(truthID);
+
+        ArrayList<Pair<String, Boolean>> answerTruths = new ArrayList<>();
+
+        for (int i = 0; i<answers.length;i++){
+            answerTruths.add(new Pair<>(answers[i], Boolean.parseBoolean(truths[i])));
+        }
 
         //instantiating the LessonQuestion object
-         mLessonQuestion = new LessonQuestion(
-                getResources().getString(id),
-                new ArrayList<Pair<String, Boolean>>(Arrays.asList(
-                        new Pair<>(getResources().getString(id1), parseBoolean(getResources().getString(b1))),
-                        new Pair<>(getResources().getString(id2), parseBoolean(getResources().getString(b2))),
-                        new Pair<>(getResources().getString(id3), parseBoolean(getResources().getString(b3))),
-                        new Pair<>(getResources().getString(id4), parseBoolean(getResources().getString(b4))))),
-                parseBoolean(getResources().getString(mcq)));
+         mLessonQuestion = new LessonQuestion(getResources().getString(questionID), answerTruths, parseBoolean(getResources().getString(mcqID)));
 
         mQuestionTextView = findViewById(R.id.question_text_view); //link the reference to the actual widget item
         mQuestionTextView.setText(mLessonQuestion.getProblem()); //set the text to the problem
@@ -107,65 +104,65 @@ LessonQuestionActivity extends AppCompatActivity {
             }
         }
 
-
-
-
-        //setting up the behaviour of the Next button
         mNextButton = findViewById(R.id.lesson_question_next_button);
-        mNextButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
+        mNextButton.setOnClickListener(v -> {
                 int answer;
-                if(!mLessonQuestion.isMultipleChoice()) {
-                    int selectedID = mRadioGroup.getCheckedRadioButtonId();
-                    RadioButton radioButton = mRadioGroup.findViewById(selectedID);
-                    answer = mRadioGroup.indexOfChild(radioButton);
-                    checkAnswer(answer);
-                } else{
+                if (!mLessonQuestion.isMultipleChoice()) {
+                    if(mRadioGroup.getCheckedRadioButtonId()!=-1) {
+                        int selectedID = mRadioGroup.getCheckedRadioButtonId();
+                        RadioButton radioButton = mRadioGroup.findViewById(selectedID);
+                        answer = mRadioGroup.indexOfChild(radioButton);
+                        checkAnswer(answer);
+                    } else
+                        Toast.makeText(getBaseContext(),"Please choose an answer", Toast.LENGTH_SHORT).show();
+
+                } else if(checkChecked()) {
                     checkAnswer(0);
-                }
-                Intent intent = LessonActivity.newIntent(LessonQuestionActivity.this);
-                startActivity(intent);
+                }  else
+                    Toast.makeText(getBaseContext(),"Please choose an answer", Toast.LENGTH_SHORT).show();
 
-            }
-        });
+            });
 
-        //final SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
-        //final SharedPreferences preferences1;
+
         mPrevButton = findViewById(R.id.prev_lesson_button);
-        mPrevButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v2) {
-                int numberpage = preferences.getInt("numberpage", 1);
-                if (numberpage != 1) {
-                    numberpage--;
+        mPrevButton.setOnClickListener(v -> navigateBack(PREV));
 
-                    SharedPreferences.Editor edit = preferences.edit();
-                    edit.putInt("numberpage", numberpage);
-                    edit.commit();
-                    //preferences1 = PreferenceManager.getDefaultSharedPreferences(this);
-                    //int numberpage = preferences1.getInt("numberpage", 1);
-                    //numberpage--;
-                    Intent intent = LessonActivity.newIntent(LessonQuestionActivity.this);
-                    startActivity(intent);
-                } else {
-                    onBackPressed();
-                }
-            }
-        });
-
+        if(mClearedLesson > mLesson) {
+            mSkipButton = findViewById(R.id.lesson_question_skip_button);
+            mSkipButton.setVisibility(View.VISIBLE);
+            mSkipButton.setOnClickListener(v -> navigateBack(NEXT));
+        }
     }
 
+    void navigateBack(int answer){
+        Intent returnIntent = new Intent();
+        switch (answer){
+            case NEXT:
+                updatePreferences();
+                setResult(LessonActivity.NEXT_REQUEST_CODE,returnIntent);
+                finish();
+                break;
+            case PREV:
+                setResult(LessonActivity.PREV_REQUEST_CODE,returnIntent);
+                finish();
+                break;
+            default:
+                setResult(LessonActivity.RESULT_CANCELED,returnIntent);
+                finish();
+                break;
+        }
+    }
 
-    //method to compute the choice of the user
+    //method to compute the answer of the user
     private void checkAnswer(int answerNumber){
 
         int messageResId = 0;
+        int correct = 0;
 
         if(!mLessonQuestion.isMultipleChoice()) {
             if (mLessonQuestion.getAnswerValue(answerNumber)) {
                 messageResId = R.string.correct_toast;
+                correct = NEXT;
             } else {
                 messageResId = R.string.incorrect_toast;
             }
@@ -184,15 +181,31 @@ LessonQuestionActivity extends AppCompatActivity {
             }
             if(score == mLessonQuestion.getNbCorrectAnswers()){
                 messageResId = R.string.correct_toast;
+                correct = NEXT;
             } else {
                 messageResId = R.string.incorrect_toast;
             }
         }
-        //little message indicating if it's correct or not
         Toast.makeText(this, messageResId, Toast.LENGTH_SHORT).show();
+        navigateBack(correct);
 
     }
 
+     private void updatePreferences(){
+        SharedPreferences.Editor editor = mPrefs.edit();
 
+        if(mClearedLesson == mLesson) {
+            editor.putInt(mSubject, mClearedLesson+1);
+            editor.commit();
+        }
+     }
 
+    private boolean checkChecked() {
+        for (int i = 0; i < mLessonQuestion.getAnswersSize(); i++) {
+            if (((CheckBox) mAnswers[i]).isChecked()) {
+                return true;
+            }
+        }
+        return false;
+    }
 }

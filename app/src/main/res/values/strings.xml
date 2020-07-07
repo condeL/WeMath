@@ -6,54 +6,15 @@
 
     <string name="title_activity_lesson_question">LessonQuestionActivity</string>
 
-
-    <string name="next_button">Next</string>
-    <string name="correct_toast">Correct</string>
-    <string name="incorrect_toast">False</string>
-
-    <string name="question1">15+15=51</string>
-    <string name="question2">53+47=100</string>
-    <string name="answer1_1">True</string>
-    <string name="answer1_2">False</string>
-    <string name="answer1_3">Maybe</string>
-    <string name="answer1_4">Nah</string>
     <string name="navigation_home">Home</string>
     <string name="navigation_lesson">Lessons</string>
     <string name="navigation_quiz">Quizzes</string>
 
-    <string name="answer2_1">XX</string>
-    <string name="answer2_2">YY</string>
-    <string name="answer2_3">ZZ</string>
-    <string name="answer2_4">false</string>
-
-    <string name="a1_1">false</string>
-    <string name="a1_2">true</string>
-    <string name="a1_3">false</string>
-    <string name="a1_4">false</string>
-
-    <string name="mcq1">false</string>
-    <string name="mcq2">false</string>
-    <string name="mcq3">false</string>
-
-    <string name="a2_1">false</string>
-    <string name="a2_2">false</string>
-    <string name="a2_3">false</string>
-    <string name="a2_4">true</string>
-
-    <string name="a3_1">false</string>
-    <string name="a3_2">false</string>
-    <string name="a3_3">false</string>
-    <string name="a3_4">true</string>
-
-    <string name="answer3_1">Orange</string>
-    <string name="answer3_2">Fanta</string>
-    <string name="answer3_3">Grape</string>
-    <string name="answer3_4">Govhinda</string>
-
-    <string name="question3">Who is teaching Advanced Programming?</string>
-
-
+    <string name="next_button">Next</string>
+    <string name="correct_toast">Correct</string>
+    <string name="incorrect_toast">False</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
 
 </resources>

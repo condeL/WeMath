@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="question_shs1_2_1">9/4 is a?</string>
+    <string name="mcq_shs1_2_1">false</string>
+
+    <string-array name="answer_shs1_2_1">
+        <item>Proper fraction</item>
+        <item>Improper fraction</item>
+        <item>Mixed fraction</item>
+        <item>Unlike fraction</item>
+    </string-array>
+
+    <string-array name="truth_shs1_2_1">
+        <item>false</item>
+        <item>true</item>
+        <item>false</item>
+        <item>false</item>
+    </string-array>
+
+
+    <string name="question_shs1_2_2">4/9 = ?</string>
+    <string name="mcq_shs1_2_2">false</string>
+
+    <string-array name="answer_shs1_2_2">
+        <item>0.4</item>
+        <item>0.25</item>
+        <item>2.25</item>
+        <item>2.4</item>
+    </string-array>
+
+    <string-array name="truth_shs1_2_2">
+        <item>true</item>
+        <item>false</item>
+        <item>false</item>
+        <item>false</item>
+    </string-array>
+
+    <string name="question_shs1_2_3">20% = ?</string>
+    <string name="mcq_shs1_2_3">false</string>
+
+    <string-array name="answer_shs1_2_3">
+        <item>2</item>
+        <item>5/1</item>
+        <item>1/5</item>
+        <item>20</item>
+    </string-array>
+
+    <string-array name="truth_shs1_2_3">
+        <item>false</item>
+        <item>false</item>
+        <item>true</item>
+        <item>false</item>
+    </string-array>
+
+</resources>

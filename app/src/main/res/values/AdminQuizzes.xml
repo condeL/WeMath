@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="admin_quiz_titles">
+        <item>JHS 1 Quiz</item>
+        <item>JHS 3 Quiz</item>
+        <item>SHS 3 Quiz</item>
+    </string-array>
+
+    <integer-array name="admin_quiz_ids">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+    </integer-array>
+
+    <string-array name="admin_quiz_details">
+        <item>JHS/1</item>
+        <item>JHS/3</item>
+        <item>SHS/3</item>
+    </string-array>
+
+    <string-array name="admin_quiz_difficulties">
+        <item>Easy</item>
+        <item>Medium</item>
+        <item>Hard</item>
+    </string-array>
+</resources>

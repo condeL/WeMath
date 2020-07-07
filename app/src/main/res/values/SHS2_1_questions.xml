@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="question_shs2_1_1">√45 =?</string>
+    <string name="mcq_shs2_1_1">false</string>
+
+    <string-array name="answer_shs2_1_1">
+        <item>9√3</item>
+        <item>3√9</item>
+        <item>3√5</item>
+        <item>5√3</item>
+    </string-array>
+
+    <string-array name="truth_shs2_1_1">
+        <item>false</item>
+        <item>false</item>
+        <item>true</item>
+        <item>false</item>
+    </string-array>
+
+
+</resources>

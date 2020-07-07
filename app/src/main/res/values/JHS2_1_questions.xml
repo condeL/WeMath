@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="question_jhs2_1_1">Optimization problems are used to for?</string>
+    <string name="mcq_jhs2_1_1">false</string>
+
+    <string-array name="answer_jhs2_1_1">
+        <item>Solve functions</item>
+        <item>Finding the maximum or minimum of a function</item>
+    </string-array>
+
+    <string-array name="truth_jhs2_1_1">
+        <item>false</item>
+        <item>true</item>
+    </string-array>
+
+
+    <string name="question_jhs2_1_2">As we move, it is a general property of linear functions to?</string>
+    <string name="mcq_jhs2_1_2">false</string>
+
+    <string-array name="answer_jhs2_1_2">
+        <item>Stagnate</item>
+        <item>Increase and Decrease</item>
+    </string-array>
+
+    <string-array name="truth_jhs2_1_2">
+        <item>false</item>
+        <item>true</item>
+    </string-array>
+
+    <string name="question_jhs2_1_3">How many fields of wheat can the farmer plant?</string>
+    <string name="mcq_jhs2_1_3">false</string>
+
+    <string-array name="answer_jhs2_1_3">
+        <item>5</item>
+        <item>10</item>
+        <item>15</item>
+        <item>20</item>
+    </string-array>
+
+    <string-array name="truth_jhs2_1_3">
+        <item>false</item>
+        <item>false</item>
+        <item>true</item>
+        <item>false</item>
+    </string-array>
+
+
+</resources>

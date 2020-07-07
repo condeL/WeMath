@@ -8,11 +8,11 @@ import android.os.Handler;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.welearn.wemath.login.LoginActivity;
 
 public class SplashActivity extends AppCompatActivity {
 
     FirebaseUser mUser;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

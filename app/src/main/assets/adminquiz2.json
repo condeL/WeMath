@@ -1,0 +1,215 @@
+{
+  "name": "JHS3 Quiz",
+  "section": "JHS",
+  "year": "3",
+  "topic": " ",
+  "author": "Lanciné",
+  "questions": [
+    {
+      "problem": "As we move up the x axis, it is a general property of linear functions to?",
+      "multiple": "false",
+      "explanation": "",
+      "choices" : [
+        {
+          "label": "Stagnate",
+          "truth": "false"
+        },
+        {
+          "label": "Increase",
+          "truth": "false"
+        },
+        {
+          "label": "Decrease",
+          "truth": "false"
+        },
+        {
+          "label": "Increase and Decrease",
+          "truth": "true"
+        }
+      ]
+    },
+    {
+      "problem": "A scalene triangle has?",
+      "multiple": "true",
+      "explanation": "",
+      "choices" : [
+        {
+          "label": "Similar sides lengths",
+          "truth": "false"
+        },
+        {
+          "label": "Different side lengths",
+          "truth": "true"
+        },
+        {
+          "label": "Similar angles",
+          "truth": "false"
+        },
+        {
+          "label": "Different angles",
+          "truth": "true"
+        }
+      ]
+    },
+    {
+      "problem": "The hypotenuse of a right triangle is the side opposite to the right angle.",
+      "multiple": "false",
+      "explanation": "",
+      "choices" : [
+        {
+          "label": "True",
+          "truth": "true"
+        },
+        {
+          "label": "False",
+          "truth": "false"
+        }
+      ]
+    },
+    {
+      "problem": "In statistics, quantitative data is?",
+      "multiple": "false",
+      "explanation": "",
+      "choices" : [
+        {
+          "label": "Information written in numbers",
+          "truth": "true"
+        },
+        {
+          "label": "Information not written in numbers",
+          "truth": "false"
+        },
+        {
+          "label": "Raw data",
+          "truth": "false"
+        }
+      ]
+    },
+    {
+      "problem": "Which one is not a proper method of collection?",
+      "multiple": "false",
+      "explanation": "",
+      "choices" : [
+        {
+          "label": "Surveys",
+          "truth": "false"
+        },
+        {
+          "label": "Experiments",
+          "truth": "false"
+        },
+        {
+          "label": "Interviews",
+          "truth": "false"
+        },
+        {
+          "label": "Your personal opinion",
+          "truth": "true"
+        }
+      ]
+    },
+    {
+      "problem": "Can 10000 coin tosses be a data set?",
+      "multiple": "false",
+      "explanation": "",
+      "choices" : [
+        {
+          "label": "True",
+          "truth": "true"
+        },
+        {
+          "label": "False",
+          "truth": "false"
+        }
+      ]
+    },
+    {
+      "problem": "The mean of a data set is the data value in central position.",
+      "multiple": "false",
+      "explanation": "",
+      "choices" : [
+        {
+          "label": "True",
+          "truth": "false"
+        },
+        {
+          "label": "False",
+          "truth": "true"
+        },
+        {
+          "label": "50",
+          "truth": "false"
+        }
+      ]
+    },
+    {
+      "problem": "Find the range in {0, 2, 4, 6}",
+      "multiple": "false",
+      "explanation": "",
+      "choices" : [
+        {
+          "label": "0",
+          "truth": "false"
+        },
+        {
+          "label": "3",
+          "truth": "false"
+        },
+        {
+          "label": "4",
+          "truth": "false"
+        },
+        {
+          "label": "6",
+          "truth": "true"
+        }
+      ]
+    },
+    {
+      "problem": "What do we use to find the formula of a tangent to a function?",
+      "multiple": "false",
+      "explanation": "",
+      "choices" : [
+        {
+          "label": "Differentiation",
+          "truth": "true"
+        },
+        {
+          "label": "Tangentation",
+          "truth": "false"
+        },
+        {
+          "label": "Formulasation",
+          "truth": "false"
+        },
+        {
+          "label": "Functioning",
+          "truth": "false"
+        }
+      ]
+    },
+    {
+      "problem": "The central concept of differential calculus is the?",
+      "multiple": "false",
+      "explanation": "",
+      "choices" : [
+        {
+          "label": "Cumulatives",
+          "truth": "false"
+        },
+        {
+          "label": "Derivatives",
+          "truth": "true"
+        },
+        {
+          "label": "Differences",
+          "truth": "false"
+        },
+        {
+          "label": "Suppletives",
+          "truth": "false"
+        }
+      ]
+    }
+  ]
+}

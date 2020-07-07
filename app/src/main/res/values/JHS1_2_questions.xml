@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="question_jhs1_2_1">Which numbers are part of "the set of numbers superior to 0"? </string>
+    <string name="mcq_jhs1_2_1">true</string>
+
+    <string-array name="answer_jhs1_2_1">
+        <item>77</item>
+        <item>151</item>
+        <item>-77</item>
+        <item>-151</item>
+    </string-array>
+
+    <string-array name="truth_jhs1_2_1">
+        <item>true</item>
+        <item>true</item>
+        <item>false</item>
+        <item>false</item>
+    </string-array>
+
+
+    <string name="question_jhs1_2_2">List all the elements of the following set: "Prime numbers greater than 2 but less than 24"</string>
+    <string name="mcq_jhs1_2_2">false</string>
+
+    <string-array name="answer_jhs1_2_2">
+        <item>{1, 2, 3, 4, 5, 6, 7, 8, 9}</item>
+        <item>{3, 5, 7, 11, 13, 17, 19, 23}</item>
+        <item>{-3, -5, -7, -11, -13, -17, -19, -23}</item>
+        <item>{-1, -2, -3, -4, -5, -6, -7, -8, -9}</item>
+    </string-array>
+
+    <string-array name="truth_jhs1_2_2">
+        <item>false</item>
+        <item>true</item>
+        <item>false</item>
+        <item>false</item>
+    </string-array>
+
+    <string name="question_jhs1_2_3">Which of the following are empty sets?</string>
+    <string name="mcq_jhs1_2_3">true</string>
+
+    <string-array name="answer_jhs1_2_3">
+        <item>{Circular circles}</item>
+        <item>{Rectangular circles}</item>
+        <item>{Square circles}</item>
+        <item>{Triangular circles}</item>
+    </string-array>
+
+    <string-array name="truth_jhs1_2_3">
+        <item>false</item>
+        <item>false</item>
+        <item>true</item>
+        <item>true</item>
+    </string-array>
+
+    <string name="question_jhs1_2_4">Two equivalent sets have?</string>
+    <string name="mcq_jhs1_2_4">false</string>
+
+    <string-array name="answer_jhs1_2_4">
+        <item>The same number of items</item>
+        <item>The same items</item>
+    </string-array>
+
+    <string-array name="truth_jhs1_2_4">
+        <item>true</item>
+        <item>false</item>
+    </string-array>
+
+    <string name="question_jhs1_2_5">A = {x: x is a person}, B = {y: y is a girl}</string>
+    <string name="mcq_jhs1_2_5">false</string>
+
+    <string-array name="answer_jhs1_2_5">
+        <item>A = B</item>
+        <item>A c B</item>
+        <item>B c A</item>
+        <item>B = A</item>
+    </string-array>
+
+    <string-array name="truth_jhs1_2_5">
+        <item>false</item>
+        <item>false</item>
+        <item>true</item>
+        <item>false</item>
+    </string-array>
+
+
+
+
+</resources>

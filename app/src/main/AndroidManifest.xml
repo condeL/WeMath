@@ -2,6 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.welearn.wemath">
 
+
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
@@ -11,18 +12,22 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".quizzes.QuizResultActivity"></activity>
-        <activity
-            android:name=".LoginRegisterActivity"
+        <activity android:name=".quizzes.QuizResultActivity"
+            android:label="Quiz Result"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".quizzes.UserQuizTakingActivity"
+            android:name=".login.LoginRegisterActivity"
+            android:label="Register"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".quizzes.User.UserQuizTakingActivity"
             android:configChanges="orientation|keyboardHidden"
             android:label="User Quiz"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".quizzes.AdminQuizTakingActivity"
+            android:name=".quizzes.Admin.AdminQuizTakingActivity"
             android:configChanges="orientation|keyboardHidden"
             android:label="Admin Quiz"
             android:screenOrientation="portrait" />
@@ -38,7 +43,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".LoginActivity"
+            android:name=".login.LoginActivity"
             android:configChanges="orientation|keyboardHidden"
             android:label="Login"
             android:screenOrientation="portrait" />
