@@ -6,13 +6,6 @@ package com.welearn.wemath.quizzes.User;
 
 import android.content.Context;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.viewpager2.adapter.FragmentStateAdapter;
-import androidx.viewpager2.widget.ViewPager2;
-
 import android.util.Log;
 import android.util.Pair;
 import android.view.LayoutInflater;
@@ -22,6 +15,12 @@ import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
+
+import androidx.fragment.app.Fragment;
+import androidx.navigation.NavDirections;
+import androidx.navigation.Navigation;
+import androidx.viewpager2.adapter.FragmentStateAdapter;
+import androidx.viewpager2.widget.ViewPager2;
 
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
@@ -79,19 +78,23 @@ public class UserQuizCreationQuestionFragment extends Fragment {
             FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
             FirebaseFirestore db = FirebaseFirestore.getInstance();
 
-            UserQuiz quiz = new UserQuiz(user.getUid(), user.getDisplayName(),mTitle,mSection,mYear,Arrays.asList(mTopics),getDifficulty(), pagerAdapter.submit());
+            if(pagerAdapter.submit()) {
+                List<QuizQuestion> quizQuestion = pagerAdapter.mQuizQuestions;
+                UserQuiz quiz = new UserQuiz(user.getUid(), user.getDisplayName(), mTitle, mSection, mYear, Arrays.asList(mTopics), getDifficulty(), quizQuestion);
 
-            db.collection("quiz").document(quiz.getTitle())
-                    .set(quiz)
-                    .addOnSuccessListener(aVoid -> {
-                        Log.d("success", "DocumentSnapshot successfully written!");
-                        Toast.makeText(getContext(),"Quiz sent!", Toast.LENGTH_LONG).show();
-                    })
-                    .addOnFailureListener(e -> {
-                        Log.w("failure", "Error writing document", e);
-                        Toast.makeText(getContext(),"Error sending comment", Toast.LENGTH_LONG).show();
-
-                    });
+                db.collection("quiz").document(quiz.getTitle())
+                        .set(quiz)
+                        .addOnSuccessListener(aVoid -> {
+                            Log.d("success", "DocumentSnapshot successfully written!");
+                            Toast.makeText(getContext(), "Quiz sent!", Toast.LENGTH_LONG).show();
+                            NavDirections action = UserQuizCreationQuestionFragmentDirections.actionUserQuizCreationQuestionFragmentToNavigationQuizMain();
+                            Navigation.findNavController(v).navigate(action);
+                        })
+                        .addOnFailureListener(e -> {
+                            Log.w("failure", "Error writing document", e);
+                            Toast.makeText(getContext(), "Error sending quiz.\nPlease check your connection and try again", Toast.LENGTH_LONG).show();
+                        });
+            }
         });
         return root;
     }
@@ -131,34 +134,71 @@ public class UserQuizCreationQuestionFragment extends Fragment {
            return card_list.get(position);
        }
 
-       public List<QuizQuestion> submit(){
-           for(int i = 0; i<10;i++){
-               String problem = getCard(i).mProblem.getText().toString();
+       public boolean submit(){
+            try {
+                for (int i = 0; i < 10; i++) {
+                    String problem ="";
+                    if (getCard(i).mProblem.getText().toString().trim().length() !=0) { //no empty problem statements
+                        problem = getCard(i).mProblem.getText().toString();
+                    } else {
+                        Toast.makeText(getContext(),"Question statements must be provided for each questions", Toast.LENGTH_LONG).show();
+                        return false;
+                    }
 
-               boolean multipleChoice = getCard(i).mMultiple.isChecked();
+                    boolean multipleChoice = getCard(i).mMultiple.isChecked();
 
-               List<Pair<String, Boolean>> answers = new ArrayList<>();
+                    List<Pair<String, Boolean>> answers = new ArrayList<>();
 
-               if(multipleChoice) {
-                   for (int y = 0; y < 4; y++) {
-                       answers.add(new Pair<>(getCard(i).mAnswer[y].getText().toString(), getCard(i).mTruthCheckboxes[y].isChecked()));
-                   }
-               } else{
-                   for (int y = 0; y < 4; y++) {
-                       int selectedID = getCard(i).mTruthRadioGroup.getCheckedRadioButtonId();
-                       RadioButton selectedSectionRadio = (getCard(i).mTruthRadioGroup.findViewById(selectedID));
-                       answers.add(new Pair<>(getCard(i).mAnswer[y].getText().toString(), getCard(i).mTruthRadios[y].isChecked()));
-                   }
-               }
+                    if (multipleChoice) {
+                        for (int y = 0; y < 4; y++) {
+                            if (getCard(i).mAnswer[y].getText().toString().trim().length() != 0) {
+                                answers.add(new Pair<>(getCard(i).mAnswer[y].getText().toString(), getCard(i).mTruthCheckboxes[y].isChecked()));
+                            } else {
+                                if (y < 2) { //at least 2 answers are needed
+                                    Toast.makeText(getContext(),"At least 2 answers must be provided for each questions", Toast.LENGTH_LONG).show();
+                                    return false;
+                                }
+                            }
+                        }
+                    } else {
+                        for (int y = 0; y < 4; y++) {
+                            if (getCard(i).mAnswer[y].getText().toString().trim().length() != 0) {
+                                answers.add(new Pair<>(getCard(i).mAnswer[y].getText().toString(), getCard(i).mTruthRadios[y].isChecked()));
+                            }else {
+                                if (y < 2) { //at least 2 answers are needed
+                                    Toast.makeText(getContext(),"At least 2 answers must be provided for each questions", Toast.LENGTH_LONG).show();
+                                    return false;
+                                }
+                            }
+                        }
+                    }
 
-               String explanation;
-               if(!getCard(i).mExplanation.getText().toString().isEmpty())
-                   explanation = getCard(i).mExplanation.getText().toString();
-               else
-                   explanation = " ";
-               mQuizQuestions.add(new QuizQuestion(problem, answers, multipleChoice, explanation));
-           }
-           return mQuizQuestions;
+                    for(int z = answers.size()-1; z>=0; z--){ //at least 1 answer must be true
+                        if(answers.get(z).second == true) {
+                            break;
+                        } else{
+                            if(z ==0){
+                                Toast.makeText(getContext(),"At least 1 correct answer must be provided for each questions", Toast.LENGTH_LONG).show();
+                                return false;
+                            }
+                        }
+                    }
+                    String explanation;
+                    if (!getCard(i).mExplanation.getText().toString().isEmpty())
+                        explanation = getCard(i).mExplanation.getText().toString();
+                    else
+                        explanation = " ";
+                    mQuizQuestions.add(i, new QuizQuestion(problem, answers, multipleChoice, explanation));
+                }
+
+            }catch (IndexOutOfBoundsException e){
+                Toast.makeText(getContext(),"Please create 10 questions", Toast.LENGTH_LONG).show();
+                return false;
+            }catch (Exception e){
+                Toast.makeText(getContext(),"Error sending quiz.\nPlease review and try again", Toast.LENGTH_LONG).show();
+                return false;
+            }
+           return true;
        }
     }
 }

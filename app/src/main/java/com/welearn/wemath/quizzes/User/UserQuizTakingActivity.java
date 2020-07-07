@@ -133,7 +133,7 @@ public class UserQuizTakingActivity extends AppCompatActivity {
             Intent intent1 = new Intent(getApplicationContext(), QuizResultActivity.class);
             intent1.putExtra("results", mResults);
             String[] explanation = new String[10];
-            for(int i=0;i<10;i++){
+            for(int i=0;i<mQuizQuestions.size();i++){
                 explanation[i] = mQuizQuestions.get(i).getExplanation();
             }
             intent1.putExtra("explanations", explanation);

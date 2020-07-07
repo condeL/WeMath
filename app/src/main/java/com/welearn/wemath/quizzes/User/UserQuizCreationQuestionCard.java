@@ -60,7 +60,7 @@ public class UserQuizCreationQuestionCard extends Fragment {
         mProblem = root.findViewById(R.id.user_quiz_creation_card_problem);
         mMultiple = root.findViewById(R.id.user_quiz_creation_card_multipleChoiceBox);
 
-        mNumber.setText("Problem " +(mPosition+1));
+        mNumber.setText("Question " +(mPosition+1));
 
         mAnswer = new EditText[4];
         mAnswer[0] = root.findViewById(R.id.user_quiz_creation_card_answer1);

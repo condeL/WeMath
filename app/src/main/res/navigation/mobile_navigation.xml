@@ -168,6 +168,9 @@
         <argument
             android:name="topics"
             app:argType="string[]" />
+        <action
+            android:id="@+id/action_userQuizCreationQuestionFragment_to_navigation_quiz_main"
+            app:destination="@id/navigation_quiz_main" />
     </fragment>
 
 </navigation>
