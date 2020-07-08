@@ -23,6 +23,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.EmailAuthProvider;
 import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -37,11 +38,14 @@ public class LoginActivity extends AppCompatActivity {
     private static final String TAG = "EmailPassword";
 
     private FirebaseAuth mAuth;
-    private Button mRegisterButton, mSignInButton, mSignOutButton;
+    private Button mRegisterButton, mSignInButton;
     private TextView mAnonymousButton;
     private EditText mEmail, mPassword;
     private CallbackManager mCallbackManager;
     private LoginButton mFacebookloginButton;
+    private FirebaseUser mCurrentUser;
+
+    private boolean mAnonymous;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,20 +53,28 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
 
-        mAuth = FirebaseAuth.getInstance();
 
         mRegisterButton = findViewById(R.id.login_activity_register_button);
         mSignInButton = findViewById(R.id.login_activity_signin_button);
-        mSignOutButton = findViewById(R.id.login_activity_signout_button);
         mAnonymousButton = findViewById(R.id.login_activity_anonymous);
         mEmail = findViewById(R.id.login_activity_email);
         mPassword = findViewById(R.id.login_activity_password);
         mFacebookloginButton = findViewById(R.id.login_activity_facebook_button);
 
 
-        // Check if user is signed in (non-null) and update UI accordingly.
-        FirebaseUser currentUser = mAuth.getCurrentUser();
-        updateUI(currentUser);
+        // Check if user is anonymous and update UI accordingly.
+        mAuth = FirebaseAuth.getInstance();
+        mCurrentUser = mAuth.getCurrentUser();
+
+        if(mCurrentUser == null) {
+            mAnonymousButton.setVisibility(View.VISIBLE);
+        }
+        else {
+            if(mCurrentUser.isAnonymous()) {
+                mAnonymousButton.setVisibility(View.GONE);
+                mAnonymous = true;
+            }
+        }
 
         mRegisterButton.setOnClickListener(v -> {
             if (mEmail.getText().toString().trim().length() != 0 && mPassword.getText().toString().trim().length() != 0 ) {
@@ -91,27 +103,6 @@ public class LoginActivity extends AppCompatActivity {
         mAnonymousButton.setOnClickListener(v -> {
             Toast.makeText(LoginActivity.this, "Logging in...", Toast.LENGTH_SHORT).show();
             signInAnon();
-
-        });
-
-        mSignOutButton.setOnClickListener(v -> {
-            if(mAuth.getCurrentUser().isAnonymous()){
-                mAuth.signOut();
-                updateUI(null);
-            }else {
-                UserInfo profile = mAuth.getCurrentUser().getProviderData().get(1);
-                if (profile.getProviderId().equalsIgnoreCase("facebook.com")) {
-                    mAuth.signOut();
-                    LoginManager.getInstance().logOut();
-                    updateUI(null);
-                } else {
-                    mAuth.signOut();
-                    updateUI(null);
-                }
-            }
-            Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-            startActivity(intent);
 
         });
 
@@ -151,36 +142,11 @@ public class LoginActivity extends AppCompatActivity {
         super.onStart();
     }
 
-    public void updateUI(FirebaseUser user){
-        if(user != null){
-                mEmail.setVisibility(View.GONE);
-                mPassword.setVisibility(View.GONE);
-                mSignInButton.setVisibility(View.GONE);
-                mRegisterButton.setVisibility(View.GONE);
-                mFacebookloginButton.setVisibility(View.GONE);
-                mAnonymousButton.setVisibility(View.GONE);
-                mSignOutButton.setVisibility((View.VISIBLE));
-
-        } else{
-            mSignOutButton.setVisibility((View.GONE));
-            mEmail.setVisibility(View.VISIBLE);
-            mPassword.setVisibility(View.VISIBLE);
-            mSignInButton.setVisibility(View.VISIBLE);
-            mRegisterButton.setVisibility(View.VISIBLE);
-            mFacebookloginButton.setVisibility(View.VISIBLE);
-            mAnonymousButton.setVisibility(View.VISIBLE);
-
-        }
-
-    }
 
     public void createUser(String email, String password){
-        mAuth.createUserWithEmailAndPassword(email, password)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
+            mAuth.createUserWithEmailAndPassword(email, password)
+                    .addOnCompleteListener(this, task -> {
                         if (task.isSuccessful()) {
-                            // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "createUserWithEmail:success");
 
                             createPlaceholderName();
@@ -188,26 +154,25 @@ public class LoginActivity extends AppCompatActivity {
                             Toast.makeText(LoginActivity.this, "Success!",
                                     Toast.LENGTH_SHORT).show();
 
-                            Intent intent = new Intent(getApplicationContext(), LoginRegisterActivity.class);
+                            Intent intent = new Intent(getBaseContext(), LoginRegisterActivity.class);
+                            intent.putExtra("wasAnonymous", mAnonymous);
                             startActivity(intent);
                             finish();
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "createUserWithEmail:failure", task.getException());
-                            Toast.makeText(LoginActivity.this, "Invalid email",
+                            Toast.makeText(LoginActivity.this, "Invalid email or password",
                                     Toast.LENGTH_SHORT).show();
-                            updateUI(null);
                         }
-                    }
-                });
+                    });
     }
 
     public void createPlaceholderName(){
         UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
                 .setDisplayName("NoName")
                 .build();
-        FirebaseUser user = mAuth.getCurrentUser();
-        user.updateProfile(profileUpdates)
+        mCurrentUser = mAuth.getCurrentUser();
+        mCurrentUser.updateProfile(profileUpdates)
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
                         Log.d("Profile update", "User profile updated.");
@@ -216,24 +181,24 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void signInUser(String email, String password){
-        mAuth.signInWithEmailAndPassword(email, password)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            // Sign in success, update UI with the signed-in user's information
-                            Log.d(TAG, "signInWithEmail:success");
-                            Toast.makeText(LoginActivity.this, "Sign-in successful.",
-                                    Toast.LENGTH_SHORT).show();
-                            redirect();
-                        } else {
-                            // If sign in fails, display a message to the user.
-                            Log.w(TAG, "signInWithEmail:failure", task.getException());
-                            Toast.makeText(LoginActivity.this, "Sign-in failed.", Toast.LENGTH_SHORT).show();
-                            updateUI(null);
+            mAuth.signInWithEmailAndPassword(email, password)
+                    .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            if (task.isSuccessful()) {
+                                Log.d(TAG, "signInWithEmail:success");
+                                Toast.makeText(LoginActivity.this, "Sign-in successful.",
+                                        Toast.LENGTH_SHORT).show();
+                                redirect();
+                            } else {
+                                // If sign in fails, display a message to the user.
+                                Log.w(TAG, "signInWithEmail:failure", task.getException());
+                                Toast.makeText(LoginActivity.this, "Sign-in failed.", Toast.LENGTH_SHORT).show();
+                            }
                         }
-                    }
-                });
+                    });
+
+
     }
 
     public void signInAnon(){
@@ -242,7 +207,6 @@ public class LoginActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInAnonymously:success");
                             createAnonUser();
                         } else {
@@ -250,7 +214,6 @@ public class LoginActivity extends AppCompatActivity {
                             Log.w(TAG, "signInAnonymously:failure", task.getException());
                             Toast.makeText(LoginActivity.this, "Please check your internet connection",
                                     Toast.LENGTH_SHORT).show();
-                            updateUI(null);
                         }
                     }
                 });
@@ -279,33 +242,33 @@ public class LoginActivity extends AppCompatActivity {
         Log.d(TAG, "handleFacebookAccessToken:" + token);
 
         AuthCredential credential = FacebookAuthProvider.getCredential(token.getToken());
-        mAuth.signInWithCredential(credential)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            // Sign in success, update UI with the signed-in user's information
-                            Log.d(TAG, "signInWithCredential:success");
-                            Toast.makeText(LoginActivity.this, "Authentication successful.",
-                                    Toast.LENGTH_SHORT).show();
-                            FirebaseUser user = mAuth.getCurrentUser();
-                            updateUI(user);
-                            redirect();
-                        } else {
-                            // If sign in fails, display a message to the user.
-                            Log.w(TAG, "signInWithCredential:failure", task.getException());
-                            Toast.makeText(LoginActivity.this, "Authentication failed.",
-                                    Toast.LENGTH_SHORT).show();
-                            updateUI(null);
-                        }
+            mAuth.signInWithCredential(credential)
+                    .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            if (task.isSuccessful()) {
+                                Log.d(TAG, "signInWithCredential:success");
+                                Toast.makeText(LoginActivity.this, "Authentication successful.",
+                                        Toast.LENGTH_SHORT).show();
+                                redirect();
+                            } else {
+                                Log.w(TAG, "signInWithCredential:failure", task.getException());
+                                Toast.makeText(LoginActivity.this, "Authentication failed.",
+                                        Toast.LENGTH_SHORT).show();
+                            }
 
-                    }
-                });
+                        }
+                    });
     }
 
     public void redirect(){
-        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-        startActivity(intent);
-        finish();
+        if(mAnonymous){ //close the activity and return to normal if entered as anonymous
+            finish();
+        }
+        else {
+            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+            startActivity(intent);
+            finish();
+        }
     }
 }

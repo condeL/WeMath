@@ -31,8 +31,6 @@ public class AdminQuizSelectionFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View root = inflater.inflate(R.layout.fragment_admin_quiz_selection, container, false);
-        //((AppCompatActivity) getActivity()).getSupportActionBar().setTitle(mSection.toUpperCase() + " Year " + mYear);
-        //((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Admin Quiz");
 
         //get a reference to the recycler view and give it to the custom adapter
         RecyclerView view = root.findViewById(R.id.admin_quiz_list);
@@ -69,11 +67,7 @@ public class AdminQuizSelectionFragment extends Fragment {
 
             mContext = context;
             mActivity = activity;
-            /*to programmatically get the correct topics based on the bundled parameters
-            String choice = "topics_" + section + year;
-            int id = resources.getIdentifier(choice,"array",context.getPackageName());*/
 
-            //st.replaceAll("\\s+","") and st.replaceAll("\\s","") produce the same thing
             mTitles = resources.getStringArray(R.array.admin_quiz_titles);
             mDetails = resources.getStringArray(R.array.admin_quiz_details);
             mDifficulty = resources.getStringArray(R.array.admin_quiz_difficulties);
@@ -97,7 +91,7 @@ public class AdminQuizSelectionFragment extends Fragment {
                 public void onClick(View v) {
                     int quiz_id = mIds[position];
                     //NavDirections action = UserQuizSelectionFragmentDirections.actionUserQuizSelectionToUserQuizTakingActivity(false, quiz_id);
-                    Toast.makeText(mContext,"Setting up quiz...", Toast.LENGTH_LONG).show();
+                    Toast.makeText(mContext,"Setting up quiz...", Toast.LENGTH_SHORT).show();
                     // Navigation.findNavController(v).navigate(action);
 
                     Intent intent = new Intent(mContext, AdminQuizTakingActivity.class);

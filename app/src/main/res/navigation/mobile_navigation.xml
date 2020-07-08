@@ -12,7 +12,8 @@
         tools:layout="@layout/fragment_lesson_section">
         <action
             android:id="@+id/action_navigation_lesson_section_to_lessonYearFragment"
-            app:destination="@id/lessonYearFragment" />
+            app:destination="@id/lessonYearFragment"
+            app:enterAnim="@anim/fragment_open_enter" />
     </fragment>
     <fragment
         android:id="@+id/navigation_home"
@@ -26,10 +27,15 @@
         tools:layout="@layout/fragment_quiz_main">
         <action
             android:id="@+id/action_navigation_quiz_main_to_quizTakingMenuFragment"
-            app:destination="@id/quizTakingMenuFragment" />
+            app:destination="@id/quizTakingMenuFragment"
+            app:enterAnim="@anim/fragment_open_enter" />
         <action
             android:id="@+id/action_navigation_quiz_main_to_userQuizCreationFragment"
-            app:destination="@id/userQuizCreationFragment" />
+            app:destination="@id/userQuizCreationFragment"
+            app:enterAnim="@anim/fragment_open_enter" />
+        <action
+            android:id="@+id/action_navigation_quiz_main_to_loginActivity"
+            app:destination="@id/loginActivity" />
     </fragment>
     <fragment
         android:id="@+id/lessonYearFragment"
@@ -38,7 +44,8 @@
         tools:layout="@layout/lesson_year_fragment">
         <action
             android:id="@+id/action_lessonYearFragment_to_lessonTopicFragment"
-            app:destination="@id/lessonTopicFragment" />
+            app:destination="@id/lessonTopicFragment"
+            app:enterAnim="@anim/fragment_open_enter" />
         <argument
             android:name="section"
             app:argType="string" />
@@ -50,7 +57,8 @@
         tools:layout="@layout/lesson_topic_fragment">
         <action
             android:id="@+id/action_lessonTopicFragment_to_lessonSelectionFragment"
-            app:destination="@id/lessonSelectionFragment" />
+            app:destination="@id/lessonSelectionFragment"
+            app:enterAnim="@anim/fragment_open_enter" />
         <argument
             android:name="year"
             app:argType="string" />
@@ -104,23 +112,7 @@
         android:id="@+id/adminQuizSelection"
         android:name="com.welearn.wemath.quizzes.Admin.AdminQuizSelectionFragment"
         android:label="Admin Quiz"
-        tools:layout="@layout/fragment_admin_quiz_selection">
-        <action
-            android:id="@+id/action_adminQuizSelection_to_quizQuestionActivity"
-            app:destination="@id/activityuserquiztaking" />
-    </fragment>
-    <activity
-        android:id="@+id/activityuserquiztaking"
-        android:name="com.welearn.wemath.quizzes.User.UserQuizTakingActivity"
-        android:label="User Quiz"
-        tools:layout="@layout/activity_user_quiz_taking">
-        <argument
-            android:name="admins"
-            app:argType="boolean" />
-        <argument
-            android:name="quiz_id"
-            app:argType="string" />
-    </activity>
+        tools:layout="@layout/fragment_admin_quiz_selection"/>
     <fragment
         android:id="@+id/quizTakingMenuFragment"
         android:name="com.welearn.wemath.quizzes.QuizTakingMenuFragment"
@@ -128,20 +120,18 @@
         tools:layout="@layout/fragment_quiz_taking_menu">
         <action
             android:id="@+id/action_quizTakingMenuFragment_to_adminQuizSelection"
-            app:destination="@id/adminQuizSelection" />
+            app:destination="@id/adminQuizSelection"
+            app:enterAnim="@anim/fragment_open_enter" />
         <action
             android:id="@+id/action_quizTakingMenuFragment_to_userQuizSelection"
-            app:destination="@id/userQuizSelection" />
+            app:destination="@id/userQuizSelection"
+            app:enterAnim="@anim/fragment_open_enter" />
     </fragment>
     <fragment
         android:id="@+id/userQuizSelection"
         android:name="com.welearn.wemath.quizzes.User.UserQuizSelectionFragment"
         android:label="User Quiz"
-        tools:layout="@layout/fragment_user_quiz_selection">
-        <action
-            android:id="@+id/action_userQuizSelection_to_userQuizTakingActivity"
-            app:destination="@id/activityuserquiztaking" />
-    </fragment>
+        tools:layout="@layout/fragment_user_quiz_selection"/>
     <fragment
         android:id="@+id/userQuizCreationFragment"
         android:name="com.welearn.wemath.quizzes.User.UserQuizCreationFragment"
@@ -149,7 +139,8 @@
         tools:layout="@layout/fragment_user_quiz_creation">
         <action
             android:id="@+id/action_userQuizCreationFragment_to_userQuizCreationQuestionFragment"
-            app:destination="@id/userQuizCreationQuestionFragment" />
+            app:destination="@id/userQuizCreationQuestionFragment"
+            app:enterAnim="@anim/fragment_open_enter" />
     </fragment>
     <fragment
         android:id="@+id/userQuizCreationQuestionFragment"
@@ -170,7 +161,13 @@
             app:argType="string[]" />
         <action
             android:id="@+id/action_userQuizCreationQuestionFragment_to_navigation_quiz_main"
-            app:destination="@id/navigation_quiz_main" />
+            app:destination="@id/navigation_quiz_main"
+            app:enterAnim="@android:anim/slide_in_left" />
     </fragment>
+    <activity
+        android:id="@+id/loginActivity"
+        android:name="com.welearn.wemath.login.LoginActivity"
+        android:label="activity_login"
+        tools:layout="@layout/activity_login" />
 
 </navigation>

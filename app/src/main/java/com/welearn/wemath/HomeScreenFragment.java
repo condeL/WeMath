@@ -17,7 +17,7 @@ import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.welearn.wemath.login.LoginActivity;
+import com.welearn.wemath.login.LogoutActivity;
 
 
 public class HomeScreenFragment extends Fragment {
@@ -52,7 +52,7 @@ public class HomeScreenFragment extends Fragment {
         mProfileButton = root.findViewById(R.id.profile_button_main);
         mProfileButton.setOnClickListener(v -> {
 
-            Intent intent = new Intent(getContext(), LoginActivity.class);
+            Intent intent = new Intent(getContext(), LogoutActivity.class);
             startActivity(intent);
 
         });

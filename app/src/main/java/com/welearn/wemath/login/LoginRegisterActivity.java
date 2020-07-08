@@ -23,6 +23,7 @@ public class LoginRegisterActivity extends AppCompatActivity {
     private EditText mNameEditText;
     private Button mRegisterButton;
 
+    private Boolean mAnonymous;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +31,9 @@ public class LoginRegisterActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login_register);
 
         final FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+
+        Intent intent = this.getIntent();
+        mAnonymous = intent.getBooleanExtra("wasAnonymous", false);
 
         mNameEditText = findViewById(R.id.login_register_editname);
         mRegisterButton = findViewById(R.id.login_register_button);
@@ -48,9 +52,14 @@ public class LoginRegisterActivity extends AppCompatActivity {
                                 if (task.isSuccessful()) {
                                     Log.d("Profile update", "User profile updated.");
                                     Toast.makeText(LoginRegisterActivity.this, "Registration successful!", Toast.LENGTH_LONG).show();
-                                    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                                    startActivity(intent);
-                                    finish();
+                                    if(mAnonymous){
+                                        finish();
+                                    }
+                                    else {
+                                        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                                        startActivity(intent);
+                                        finish();
+                                    }
                                 }
                             }
                         });

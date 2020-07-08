@@ -144,6 +144,7 @@ public class AdminQuizTakingActivity extends AppCompatActivity {
                 QuizQuestion quizQuestion = new QuizQuestion(problem,answers,multiple,explanation);
                 mQuizQuestions.add(quizQuestion);
             }
+            Toast.makeText(getBaseContext(),"Good luck!", Toast.LENGTH_LONG).show();
             setup(mQuizQuestions);
         } catch (JSONException e) {
             e.printStackTrace();

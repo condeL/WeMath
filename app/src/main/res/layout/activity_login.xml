@@ -80,21 +80,6 @@
             android:textColor="#FFFFFF" />
     </LinearLayout>
 
-    <Button
-        android:id="@+id/login_activity_signout_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="50dp"
-        android:layout_marginEnd="32dp"
-        android:layout_marginBottom="200dp"
-        android:text="Sign out"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/login_logo" />
-
     <com.facebook.login.widget.LoginButton
         android:id="@+id/login_activity_facebook_button"
         android:layout_width="wrap_content"
@@ -128,7 +113,7 @@
         android:layout_marginStart="32dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="32dp"
-        android:text="Log in anonymously"
+        android:text="Sign in anonymously"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/login_activity_buttons_container" />

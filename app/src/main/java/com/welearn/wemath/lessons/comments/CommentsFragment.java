@@ -5,6 +5,7 @@ package com.welearn.wemath.lessons.comments;
 * Comments are stored and retrieved from Firebase Firestore*/
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Paint;
 import android.graphics.PorterDuff;
@@ -43,6 +44,7 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.welearn.wemath.R;
 import com.welearn.wemath.lessons.comments.Comment;
+import com.welearn.wemath.login.LoginActivity;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -60,6 +62,12 @@ public class CommentsFragment extends Fragment {
     private ContentAdapterComments mAdapter;
     private RecyclerView mView;
 
+
+    private static void anonSignInRedirect(Context context){
+        Toast.makeText(context, "Please sign-in to post comments", Toast.LENGTH_LONG).show();
+        Intent intent = new Intent(context, LoginActivity.class);
+        context.startActivity(intent);
+    }
 
     public CommentsFragment() {
     }
@@ -87,10 +95,14 @@ public class CommentsFragment extends Fragment {
         mProfilePicture.getBackground().setColorFilter(paint.getColor(), PorterDuff.Mode.ADD);
 
         mSendButton.setOnClickListener(v -> {
-            if(!TextUtils.isEmpty(mMessage.getText()))
-                postComment(getContext(), mMessage);
-            else
-                Toast.makeText(getContext(), "Please enter a comment", Toast.LENGTH_LONG).show();
+            if(mUser.isAnonymous()) {
+                anonSignInRedirect(getContext());
+            } else{
+                if (!TextUtils.isEmpty(mMessage.getText()))
+                    postComment(getContext(), mMessage);
+                else
+                    Toast.makeText(getContext(), "Please enter a comment", Toast.LENGTH_LONG).show();
+            }
         });
 
         Toast.makeText(getContext(),"Fetching comments...", Toast.LENGTH_LONG).show();
@@ -242,55 +254,76 @@ public class CommentsFragment extends Fragment {
             });
 
             holder.sendButtonC.setOnClickListener(v -> {
-                if (!TextUtils.isEmpty(holder.messageC.getText())) {
-                    Toast.makeText(mContextC, "Sending reply...", Toast.LENGTH_LONG).show();
-                    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-                    Comment comment = new Comment(user.getUid(), user.getDisplayName(), holder.messageC.getText().toString());
+                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                if(user.isAnonymous()){
+                    CommentsFragment.anonSignInRedirect(mContextC);
+                }
+                else {
+                    if (!TextUtils.isEmpty(holder.messageC.getText())) {
+                        Toast.makeText(mContextC, "Sending reply...", Toast.LENGTH_LONG).show();
+                        Comment comment = new Comment(user.getUid(), user.getDisplayName(), holder.messageC.getText().toString());
 
-                    mDB.document(mURLC + "/" + mCommentsC.get(position).second).collection("replies").document()
-                            .set(comment)
-                            .addOnSuccessListener(aVoid -> {
-                                Log.d("success", "DocumentSnapshot successfully written!");
-                                Toast.makeText(mContextC, "Reply sent!", Toast.LENGTH_LONG).show();
-                                holder.messageC.setText("");
-                                notifyItemChanged(position);
-                            })
-                            .addOnFailureListener(e -> {
-                                Log.w("failure", "Error writing document", e);
-                                Toast.makeText(mContextC, "Error sending reply", Toast.LENGTH_LONG).show();
-                            });
+                        mDB.document(mURLC + "/" + mCommentsC.get(position).second).collection("replies").document()
+                                .set(comment)
+                                .addOnSuccessListener(aVoid -> {
+                                    Log.d("success", "DocumentSnapshot successfully written!");
+                                    Toast.makeText(mContextC, "Reply sent!", Toast.LENGTH_LONG).show();
+                                    holder.messageC.setText("");
+                                    notifyItemChanged(position);
+                                })
+                                .addOnFailureListener(e -> {
+                                    Log.w("failure", "Error writing document", e);
+                                    Toast.makeText(mContextC, "Error sending reply", Toast.LENGTH_LONG).show();
+                                });
 
-                } else {
-                    Toast.makeText(mContextC, "Please enter a reply", Toast.LENGTH_LONG).show();
+                    } else {
+                        Toast.makeText(mContextC, "Please enter a reply", Toast.LENGTH_LONG).show();
+                    }
                 }
             });
 
 
-            holder.downvotesCardC.setOnClickListener(v -> mDB.document(mURLC + "/" + mCommentsC.get(position).second)
-                    .update("downvotes", mCommentsC.get(position).first.getDownvotes()+1)
-                    .addOnSuccessListener(aVoid -> {
-                        Log.d("success", "DocumentSnapshot successfully written!");
-                        Toast.makeText(mContextC, "Downvoted", Toast.LENGTH_LONG).show();
-                        notifyItemChanged(position);
-                    })
-                    .addOnFailureListener(e -> {
-                        Log.w("failure", "Error writing document", e);
-                        Toast.makeText(mContextC, "Error", Toast.LENGTH_SHORT).show();
-                    }));
+            holder.downvotesCardC.setOnClickListener(v -> {
+                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                if(user.isAnonymous()){
+                    CommentsFragment.anonSignInRedirect(mContextC);
+                }
+                else {
+                    mDB.document(mURLC + "/" + mCommentsC.get(position).second)
+                            .update("downvotes", mCommentsC.get(position).first.getDownvotes() + 1)
+                            .addOnSuccessListener(aVoid -> {
+                                Log.d("success", "DocumentSnapshot successfully written!");
+                                Toast.makeText(mContextC, "Downvoted", Toast.LENGTH_LONG).show();
+                                notifyItemChanged(position);
+                            })
+                            .addOnFailureListener(e -> {
+                                Log.w("failure", "Error writing document", e);
+                                Toast.makeText(mContextC, "Error", Toast.LENGTH_SHORT).show();
+                            });
+                }
+            });
 
 
-            holder.upvotesCardC.setOnClickListener(v -> mDB.document(mURLC + "/" + mCommentsC.get(position).second)
-                    .update("upvotes", mCommentsC.get(position).first.getUpvotes()+1)
-                    .addOnSuccessListener(aVoid -> {
-                        Log.d("success", "DocumentSnapshot successfully written!");
-                        Toast.makeText(mContextC, "Upvoted", Toast.LENGTH_LONG).show();
-                        notifyItemChanged(position);
+            holder.upvotesCardC.setOnClickListener(v -> {
+                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                if(user.isAnonymous()){
+                    CommentsFragment.anonSignInRedirect(mContextC);
+                }
+                else {
+                    mDB.document(mURLC + "/" + mCommentsC.get(position).second)
+                            .update("upvotes", mCommentsC.get(position).first.getUpvotes() + 1)
+                            .addOnSuccessListener(aVoid -> {
+                                Log.d("success", "DocumentSnapshot successfully written!");
+                                Toast.makeText(mContextC, "Upvoted", Toast.LENGTH_LONG).show();
+                                notifyItemChanged(position);
 
-                    })
-                    .addOnFailureListener(e -> {
-                        Log.w("failure", "Error writing document", e);
-                        Toast.makeText(mContextC, "Error", Toast.LENGTH_SHORT).show();
-                    }));
+                            })
+                            .addOnFailureListener(e -> {
+                                Log.w("failure", "Error writing document", e);
+                                Toast.makeText(mContextC, "Error", Toast.LENGTH_SHORT).show();
+                            });
+                }
+            });
 
 
             ContentAdapterReplies adapterR = new ContentAdapterReplies(mContextC, mCommentsC.get(position).second,position, this,mURLC);
@@ -435,61 +468,81 @@ public class CommentsFragment extends Fragment {
             });
 
             holder.sendButtonR.setOnClickListener(v -> {
+                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                if(user.isAnonymous()){
+                    CommentsFragment.anonSignInRedirect(mContextR);
+                }
+                else {
+                    if (!TextUtils.isEmpty(holder.messageR.getText())) {
 
-                if (!TextUtils.isEmpty(holder.messageR.getText())) {
+                        Toast.makeText(mContextR, "Sending reply...", Toast.LENGTH_LONG).show();
 
-                    Toast.makeText(mContextR, "Sending reply...", Toast.LENGTH_LONG).show();
+                        Comment comment = new Comment(user.getUid(), user.getDisplayName(), holder.messageR.getText().toString());
 
-                    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-                    Comment comment = new Comment(user.getUid(), user.getDisplayName(), holder.messageR.getText().toString());
+                        mDB.document(mURLR + "/" + mParentRef).collection("replies").document()
+                                .set(comment)
+                                .addOnSuccessListener(aVoid -> {
+                                    Log.d("success", "DocumentSnapshot successfully written!");
+                                    Toast.makeText(mContextR, "Reply sent!", Toast.LENGTH_LONG).show();
+                                    holder.messageR.setText("");
+                                    mParentAdapter.notifyItemChanged(mParentPosition);
 
-                    mDB.document(mURLR + "/" + mParentRef).collection("replies").document()
-                            .set(comment)
-                            .addOnSuccessListener(aVoid -> {
-                                Log.d("success", "DocumentSnapshot successfully written!");
-                                Toast.makeText(mContextR, "Reply sent!", Toast.LENGTH_LONG).show();
-                                holder.messageR.setText("");
-                                mParentAdapter.notifyItemChanged(mParentPosition);
+                                })
+                                .addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                        Log.w("failure", "Error writing document", e);
+                                        Toast.makeText(mContextR, "Error sending reply", Toast.LENGTH_LONG).show();
 
-                            })
-                            .addOnFailureListener(new OnFailureListener() {
-                                @Override
-                                public void onFailure(@NonNull Exception e) {
-                                    Log.w("failure", "Error writing document", e);
-                                    Toast.makeText(mContextR, "Error sending reply", Toast.LENGTH_LONG).show();
+                                    }
+                                });
 
-                                }
-                            });
-
-                } else{
-                    Toast.makeText(mContextR, "Please enter a reply", Toast.LENGTH_LONG).show();
+                    } else {
+                        Toast.makeText(mContextR, "Please enter a reply", Toast.LENGTH_LONG).show();
+                    }
                 }
             });
 
 
-            holder.downvotesCardR.setOnClickListener(v -> mDB.document(mURLR + "/" + mParentRef +"/replies/"+mCommentsR.get(position).second)
-                    .update("downvotes", mCommentsR.get(position).first.getDownvotes()+1)
-                    .addOnSuccessListener(aVoid -> {
-                        Log.d("success", "DocumentSnapshot successfully written!");
-                        Toast.makeText(mContextR, "Downvoted", Toast.LENGTH_LONG).show();
-                        notifyItemChanged(position);
-                    })
-                    .addOnFailureListener(e -> {
-                        Log.w("failure", "Error writing document", e);
-                        Toast.makeText(mContextR, "Error", Toast.LENGTH_SHORT).show();
-                    }));
+            holder.downvotesCardR.setOnClickListener(v -> {
+                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                if(user.isAnonymous()){
+                    CommentsFragment.anonSignInRedirect(mContextR);
+                }
+                else {
+                    mDB.document(mURLR + "/" + mParentRef + "/replies/" + mCommentsR.get(position).second)
+                            .update("downvotes", mCommentsR.get(position).first.getDownvotes() + 1)
+                            .addOnSuccessListener(aVoid -> {
+                                Log.d("success", "DocumentSnapshot successfully written!");
+                                Toast.makeText(mContextR, "Downvoted", Toast.LENGTH_LONG).show();
+                                notifyItemChanged(position);
+                            })
+                            .addOnFailureListener(e -> {
+                                Log.w("failure", "Error writing document", e);
+                                Toast.makeText(mContextR, "Error", Toast.LENGTH_SHORT).show();
+                            });
+                }
+            });
 
-            holder.upvotesCardR.setOnClickListener(v -> mDB.document(mURLR + "/" + mParentRef +"/replies/"+mCommentsR.get(position).second)
-                    .update("upvotes", mCommentsR.get(position).first.getUpvotes()+1)
-                    .addOnSuccessListener(aVoid -> {
-                        Log.d("success", "DocumentSnapshot successfully written!");
-                        Toast.makeText(mContextR, "Upvoted", Toast.LENGTH_LONG).show();
-                        notifyItemChanged(position);
-                    })
-                    .addOnFailureListener(e -> {
-                        Log.w("failure", "Error writing document", e);
-                        Toast.makeText(mContextR, "Error", Toast.LENGTH_SHORT).show();
-                    }));
+            holder.upvotesCardR.setOnClickListener(v -> {
+                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                if(user.isAnonymous()){
+                    CommentsFragment.anonSignInRedirect(mContextR);
+                }
+                else {
+                    mDB.document(mURLR + "/" + mParentRef + "/replies/" + mCommentsR.get(position).second)
+                            .update("upvotes", mCommentsR.get(position).first.getUpvotes() + 1)
+                            .addOnSuccessListener(aVoid -> {
+                                Log.d("success", "DocumentSnapshot successfully written!");
+                                Toast.makeText(mContextR, "Upvoted", Toast.LENGTH_LONG).show();
+                                notifyItemChanged(position);
+                            })
+                            .addOnFailureListener(e -> {
+                                Log.w("failure", "Error writing document", e);
+                                Toast.makeText(mContextR, "Error", Toast.LENGTH_SHORT).show();
+                            });
+                }
+            });
         }
 
         @Override

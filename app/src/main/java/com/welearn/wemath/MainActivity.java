@@ -20,7 +20,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.welearn.wemath.login.LoginActivity;
+import com.welearn.wemath.login.LogoutActivity;
 
 /* The main menu activity that hosts all the navigation fragments*/
 
@@ -55,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
 
         signInButton.setOnClickListener(v -> {
 
-            Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+            Intent intent = new Intent(getApplicationContext(), LogoutActivity.class);
             startActivity(intent);
 
 
