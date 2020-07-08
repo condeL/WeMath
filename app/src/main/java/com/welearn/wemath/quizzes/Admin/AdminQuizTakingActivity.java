@@ -43,7 +43,8 @@ public class AdminQuizTakingActivity extends AppCompatActivity {
     private ImageView mNextButton;
     private ImageView mPrevButton;
     private Button mFinishButton;
-    private TextView mQuestionTextView, mQuestionNumber, mTimer;
+    private TextView mQuestionTextView, mQuestionNumber;
+    //private TextView mTimer;
     private CheckBox[] mAnswersChoice; //button to hold the radio or checkboxes
     private RadioButton[] mAnswersRadio; //=button to hold the radio or checkboxes
 
@@ -58,6 +59,8 @@ public class AdminQuizTakingActivity extends AppCompatActivity {
 
         Intent intent = this.getIntent();
         int quiz_id = intent.getIntExtra("quiz_id",0);
+        String title = intent.getStringExtra("quiz_title");
+        this.setTitle(title);
 
         mQuestionTextView = findViewById(R.id.admin_quiz_taking_problem);
         mRadioGroup = findViewById(R.id.admin_quiz_taking_radio_group);
@@ -65,7 +68,7 @@ public class AdminQuizTakingActivity extends AppCompatActivity {
         mPrevButton = findViewById(R.id.admin_quiz_taking_previous_question);
         mFinishButton = findViewById(R.id.admin_quiz_taking_finish_button);
         mQuestionNumber = findViewById(R.id.admin_quiz_taking_question_number);
-        mTimer = findViewById(R.id.admin_quiz_taking_timer);
+        //mTimer = findViewById(R.id.admin_quiz_taking_timer);
 
         mAnswersRadio = new RadioButton[4];
         mAnswersChoice = new CheckBox[4];

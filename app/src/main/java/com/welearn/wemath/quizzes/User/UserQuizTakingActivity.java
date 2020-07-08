@@ -62,6 +62,8 @@ public class UserQuizTakingActivity extends AppCompatActivity {
 
         Intent intent = this.getIntent();
         String quiz_id = intent.getStringExtra("quiz_id");
+        String title = intent.getStringExtra("quiz_title");
+        this.setTitle(title);
 
         mQuestionTextView = findViewById(R.id.user_quiz_taking_problem);
         mRadioGroup = findViewById(R.id.user_quiz_taking_radio_group);

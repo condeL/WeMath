@@ -90,12 +90,14 @@ public class AdminQuizSelectionFragment extends Fragment {
                 @Override
                 public void onClick(View v) {
                     int quiz_id = mIds[position];
+                    String title = mTitles[position % mTitles.length];
                     //NavDirections action = UserQuizSelectionFragmentDirections.actionUserQuizSelectionToUserQuizTakingActivity(false, quiz_id);
                     Toast.makeText(mContext,"Setting up quiz...", Toast.LENGTH_SHORT).show();
                     // Navigation.findNavController(v).navigate(action);
 
                     Intent intent = new Intent(mContext, AdminQuizTakingActivity.class);
                     intent.putExtra("quiz_id", quiz_id);
+                    intent.putExtra("quiz_title", title);
                     mContext.startActivity(intent);
                     mActivity.finish();
                 }

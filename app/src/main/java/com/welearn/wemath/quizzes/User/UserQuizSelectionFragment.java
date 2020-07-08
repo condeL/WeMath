@@ -119,10 +119,12 @@ public class UserQuizSelectionFragment extends Fragment {
 
            holder.itemView.setOnClickListener(v -> {
                String quiz_id = mUserQuizzes.get(position).second;
+               String title = mUserQuizzes.get(position).first.getTitle();
                Toast.makeText(mContext,"Setting up quiz...", Toast.LENGTH_LONG).show();
 
                Intent intent = new Intent(mContext, UserQuizTakingActivity.class);
                intent.putExtra("quiz_id", quiz_id);
+               intent.putExtra("quiz_title", title);
                mContext.startActivity(intent);
                mActivity.finish();
            });
