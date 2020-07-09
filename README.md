@@ -36,6 +36,6 @@ Created by the users in the app and stored online in Firebase Firestore.
 
 Lessons taken from the CORE MATHEMATICS FOR SHS & JHS AKRONG SERIES textbooks.
 
-Icons made by [Freepik](www.flaticon.com)
+Icons made by [Freepik](https://www.flaticon.com/)
 
-Logo made by [Freelogodesign](www.freelogodesign.org)
+Logo made by [Freelogodesign](https://www.freelogodesign.org/)
