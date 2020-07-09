@@ -25,6 +25,7 @@ Created by the users in the app and stored online in Firebase Firestore.
 
 ## Screenshots
 
+![Sign-in](./media/sign-in.jpg?raw=true)
 ![Topic](./media/topic.jpg?raw=true)
 ![Lessons](./media/lessons.jpg?raw=true)
 ![Lesson](./media/lesson.jpg?raw=true)
@@ -36,3 +37,5 @@ Created by the users in the app and stored online in Firebase Firestore.
 Lessons taken from the CORE MATHEMATICS FOR SHS & JHS AKRONG SERIES textbooks.
 
 Icons made by [Freepik](www.flaticon.com)
+
+Logo made by [Freelogodesign](www.freelogodesign.org)

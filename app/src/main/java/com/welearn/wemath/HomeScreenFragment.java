@@ -24,7 +24,7 @@ public class HomeScreenFragment extends Fragment {
 
     private FirebaseUser mUser;
     private TextView mWelcomeTextView, mProfileImage;
-    private Button mProfileButton;
+    private Button mLogoutButton;
 
     public HomeScreenFragment() {
     }
@@ -49,8 +49,8 @@ public class HomeScreenFragment extends Fragment {
 
         mProfileImage.getBackground().setColorFilter(paint.getColor(), PorterDuff.Mode.ADD);
 
-        mProfileButton = root.findViewById(R.id.profile_button_main);
-        mProfileButton.setOnClickListener(v -> {
+        mLogoutButton = root.findViewById(R.id.profile_button_main);
+        mLogoutButton.setOnClickListener(v -> {
 
             Intent intent = new Intent(getContext(), LogoutActivity.class);
             startActivity(intent);

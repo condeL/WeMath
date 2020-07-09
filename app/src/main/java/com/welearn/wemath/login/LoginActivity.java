@@ -5,7 +5,14 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.Layout;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.TextWatcher;
+import android.text.style.AlignmentSpan;
 import android.util.Log;
+import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -20,12 +27,17 @@ import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.FirebaseNetworkException;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.EmailAuthProvider;
 import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
+import com.google.firebase.auth.FirebaseAuthInvalidUserException;
+import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserInfo;
 import com.google.firebase.auth.UserProfileChangeRequest;
@@ -76,12 +88,70 @@ public class LoginActivity extends AppCompatActivity {
             }
         }
 
+        //display sign-in button as disabled
+        mSignInButton.getBackground().setAlpha(85);
+
+
+        mEmail.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if(!isEmailValid(mEmail.getText().toString())){
+                    mEmail.setError("Invalid email");
+                    mRegisterButton.setEnabled(false);
+                    mSignInButton.setEnabled(false);
+                    mSignInButton.getBackground().setAlpha(85);
+                }
+                else if(isPasswordValid(mPassword.getText().toString())){
+                    mRegisterButton.setEnabled(true);
+                    mSignInButton.setEnabled(true);
+                    mSignInButton.getBackground().setAlpha(255);
+
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+        mPassword.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if(!isPasswordValid(mPassword.getText().toString())){
+                    mPassword.setError("Password needs >6 characters\nand >1 uppercase character");
+                    mRegisterButton.setEnabled(false);
+                    mSignInButton.setEnabled(false);
+                    mSignInButton.getBackground().setAlpha(85);
+
+                } else if(isEmailValid(mEmail.getText().toString())){
+                    mRegisterButton.setEnabled(true);
+                    mSignInButton.setEnabled(true);
+                    mSignInButton.getBackground().setAlpha(255);
+
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+
         mRegisterButton.setOnClickListener(v -> {
             if (mEmail.getText().toString().trim().length() != 0 && mPassword.getText().toString().trim().length() != 0 ) {
                 Toast.makeText(LoginActivity.this, "Creating new account...", Toast.LENGTH_SHORT).show();
                 createUser(mEmail.getText().toString(), mPassword.getText().toString());
-                mEmail.setText("");
-                mPassword.setText("");
             } else{
                 Toast.makeText(LoginActivity.this, "Please enter a valid email and password", Toast.LENGTH_SHORT).show();
             }
@@ -92,8 +162,6 @@ public class LoginActivity extends AppCompatActivity {
             if (mEmail.getText().toString().trim().length() != 0 && mPassword.getText().toString().trim().length() != 0 ) {
                 Toast.makeText(LoginActivity.this, "Signing in...", Toast.LENGTH_SHORT).show();
                 signInUser(mEmail.getText().toString(), mPassword.getText().toString());
-                mEmail.setText("");
-                mPassword.setText("");
             } else{
                 Toast.makeText(LoginActivity.this, "Please enter a valid email and password", Toast.LENGTH_SHORT).show();
             }
@@ -143,6 +211,40 @@ public class LoginActivity extends AppCompatActivity {
     }
 
 
+    // Email validation check
+    private boolean isEmailValid(String email) {
+        if (email == null) {
+            return false;
+        }
+
+        if (email.contains("@")) {
+            return Patterns.EMAIL_ADDRESS.matcher(email).matches();
+        } else {
+            return false;
+        }
+    }
+
+    // Password validation check
+    private boolean isPasswordValid(String password) {
+        if(!(password != null && password.trim().length() > 6)){
+            return false;
+        }
+        for(int i = 0; i<password.length(); i++){
+            if(Character.isUpperCase(password.charAt(i))){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private Spannable centeredToastMsg(String text){
+        Spannable centeredText = new SpannableString(text);
+        centeredText.setSpan(new AlignmentSpan.Standard(Layout.Alignment.ALIGN_CENTER),
+                0, text.length() - 1,
+                Spannable.SPAN_INCLUSIVE_INCLUSIVE);
+        return centeredText;
+    }
+
     public void createUser(String email, String password){
             mAuth.createUserWithEmailAndPassword(email, password)
                     .addOnCompleteListener(this, task -> {
@@ -159,12 +261,25 @@ public class LoginActivity extends AppCompatActivity {
                             startActivity(intent);
                             finish();
                         } else {
-                            // If sign in fails, display a message to the user.
                             Log.w(TAG, "createUserWithEmail:failure", task.getException());
-                            Toast.makeText(LoginActivity.this, "Invalid email or password",
-                                    Toast.LENGTH_SHORT).show();
                         }
-                    });
+                    }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    // If registration in fails, display a message to the user.
+                    if( e instanceof FirebaseAuthUserCollisionException){
+                        Toast.makeText(LoginActivity.this, centeredToastMsg("This email address is already in use by another account"), Toast.LENGTH_LONG).show();
+                        mEmail.setText("");
+                    }
+
+                    else if(e instanceof FirebaseNetworkException){
+                        Toast.makeText(LoginActivity.this, centeredToastMsg("Network error\nPlease check your connection"), Toast.LENGTH_LONG).show();
+                    }
+                    else{
+                        Toast.makeText(LoginActivity.this, centeredToastMsg("Error\nPlease try again"), Toast.LENGTH_LONG).show();
+                    }
+                }
+            });
     }
 
     public void createPlaceholderName(){
@@ -191,12 +306,29 @@ public class LoginActivity extends AppCompatActivity {
                                         Toast.LENGTH_SHORT).show();
                                 redirect();
                             } else {
-                                // If sign in fails, display a message to the user.
                                 Log.w(TAG, "signInWithEmail:failure", task.getException());
-                                Toast.makeText(LoginActivity.this, "Sign-in failed.", Toast.LENGTH_SHORT).show();
                             }
                         }
-                    });
+                    }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    // If sign in fails, display a message to the user.
+                    if( e instanceof FirebaseAuthInvalidUserException){
+                        Toast.makeText(LoginActivity.this, centeredToastMsg("User not found\nPlease create a new account"), Toast.LENGTH_LONG).show();
+                        mEmail.setText("");
+                    }
+                    else if( e instanceof FirebaseAuthInvalidCredentialsException){
+                        Toast.makeText(LoginActivity.this, centeredToastMsg("Invalid password\nPlease try again"), Toast.LENGTH_LONG).show();
+                        mPassword.setText("");
+                    }
+                    else if(e instanceof FirebaseNetworkException){
+                        Toast.makeText(LoginActivity.this, centeredToastMsg("Network error\nPlease check your connection"), Toast.LENGTH_LONG).show();
+                    }
+                    else{
+                        Toast.makeText(LoginActivity.this, centeredToastMsg("Sign-in failed\nPlease try again"), Toast.LENGTH_LONG).show();
+                    }
+                }
+            });
 
 
     }
@@ -210,13 +342,21 @@ public class LoginActivity extends AppCompatActivity {
                             Log.d(TAG, "signInAnonymously:success");
                             createAnonUser();
                         } else {
-                            // If sign in fails, display a message to the user.
                             Log.w(TAG, "signInAnonymously:failure", task.getException());
-                            Toast.makeText(LoginActivity.this, "Please check your internet connection",
-                                    Toast.LENGTH_SHORT).show();
                         }
                     }
-                });
+                }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                // If sign in fails, display a message to the user.
+                if(e instanceof FirebaseNetworkException){
+                    Toast.makeText(LoginActivity.this, centeredToastMsg("Network error\nPlease check your connection"), Toast.LENGTH_LONG).show();
+                }
+                else{
+                    Toast.makeText(LoginActivity.this, centeredToastMsg("Error\nPlease try again"), Toast.LENGTH_LONG).show();
+                }
+            }
+        });
 
     }
 
@@ -253,12 +393,21 @@ public class LoginActivity extends AppCompatActivity {
                                 redirect();
                             } else {
                                 Log.w(TAG, "signInWithCredential:failure", task.getException());
-                                Toast.makeText(LoginActivity.this, "Authentication failed.",
-                                        Toast.LENGTH_SHORT).show();
                             }
 
                         }
-                    });
+                    }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    // If sign-in in fails, display a message to the user.
+                    if(e instanceof FirebaseNetworkException){
+                        Toast.makeText(LoginActivity.this, centeredToastMsg("Network error\nPlease check your connection"), Toast.LENGTH_LONG).show();
+                    }
+                    else{
+                        Toast.makeText(LoginActivity.this, centeredToastMsg("Error\nPlease try again"), Toast.LENGTH_LONG).show();
+                    }
+                }
+            });
     }
 
     public void redirect(){
@@ -268,6 +417,8 @@ public class LoginActivity extends AppCompatActivity {
         else {
             Intent intent = new Intent(getApplicationContext(), MainActivity.class);
             startActivity(intent);
+            //restore button color
+            mSignInButton.getBackground().setAlpha(255);
             finish();
         }
     }

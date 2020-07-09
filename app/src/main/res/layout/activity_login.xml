@@ -63,7 +63,7 @@
             android:layout_marginStart="48dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="24dp"
-            android:enabled="true"
+            android:enabled="false"
             android:text="Register" />
 
         <Button
@@ -75,7 +75,7 @@
             android:layout_marginTop="8dp"
             android:layout_marginEnd="48dp"
             android:background="@color/colorAccent"
-            android:enabled="true"
+            android:enabled="false"
             android:text="Sign in"
             android:textColor="#FFFFFF" />
     </LinearLayout>
