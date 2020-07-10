@@ -2,6 +2,8 @@
 
 WeMath is an Android application for teaching mathematics to Ghanaian Junior and Senior High School students.
 
+It was developed under the context of Lancaster University Ghana's 2nd year Group Project module.
+
 ## Features
 
 ### Lessons
@@ -36,6 +38,6 @@ Created by the users in the app and stored online in Firebase Firestore.
 
 Lessons taken from the CORE MATHEMATICS FOR SHS & JHS AKRONG SERIES textbooks.
 
-Icons made by [Freepik](https://www.flaticon.com/)
+Icons made by [Freepik.com](https://www.flaticon.com/)
 
-Logo made by [Freelogodesign](https://www.freelogodesign.org/)
+Logo made by [Freelogodesign.org](https://www.freelogodesign.org/)
