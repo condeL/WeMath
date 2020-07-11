@@ -4,6 +4,7 @@ package com.welearn.wemath.quizzes.User;
 * Makes use of a viewpager of QuizCreationCards*/
 
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
@@ -79,6 +80,14 @@ public class UserQuizCreationQuestionFragment extends Fragment {
             FirebaseFirestore db = FirebaseFirestore.getInstance();
 
             if(pagerAdapter.submit()) {
+                //block user until quiz is sent
+                ProgressDialog progressDialog = new ProgressDialog(getContext());
+                progressDialog.setMessage("Loading...");
+                progressDialog.setTitle("Sending quiz");
+                progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+                progressDialog.setCancelable(false);
+                progressDialog.show();
+
                 List<QuizQuestion> quizQuestion = pagerAdapter.mQuizQuestions;
                 UserQuiz quiz = new UserQuiz(user.getUid(), user.getDisplayName(), mTitle, mSection, mYear, Arrays.asList(mTopics), getDifficulty(), quizQuestion);
 
@@ -86,12 +95,14 @@ public class UserQuizCreationQuestionFragment extends Fragment {
                         .set(quiz)
                         .addOnSuccessListener(aVoid -> {
                             Log.d("success", "DocumentSnapshot successfully written!");
+                            progressDialog.dismiss();
                             Toast.makeText(getContext(), "Quiz sent!", Toast.LENGTH_LONG).show();
                             NavDirections action = UserQuizCreationQuestionFragmentDirections.actionUserQuizCreationQuestionFragmentToNavigationQuizMain();
                             Navigation.findNavController(v).navigate(action);
                         })
                         .addOnFailureListener(e -> {
                             Log.w("failure", "Error writing document", e);
+                            progressDialog.dismiss();
                             Toast.makeText(getContext(), "Error sending quiz.\nPlease check your connection and try again", Toast.LENGTH_LONG).show();
                         });
             }

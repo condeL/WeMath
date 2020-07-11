@@ -3,6 +3,7 @@ package com.welearn.wemath.login;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
@@ -54,6 +55,7 @@ public class LoginActivity extends AppCompatActivity {
     private TextView mAnonymousButton;
     private EditText mEmail, mPassword;
     private CallbackManager mCallbackManager;
+    private ProgressDialog mProgressDialog;
     private LoginButton mFacebookloginButton;
     private FirebaseUser mCurrentUser;
 
@@ -64,14 +66,14 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-
-
         mRegisterButton = findViewById(R.id.login_activity_register_button);
         mSignInButton = findViewById(R.id.login_activity_signin_button);
         mAnonymousButton = findViewById(R.id.login_activity_anonymous);
         mEmail = findViewById(R.id.login_activity_email);
         mPassword = findViewById(R.id.login_activity_password);
         mFacebookloginButton = findViewById(R.id.login_activity_facebook_button);
+
+        mProgressDialog = new ProgressDialog(LoginActivity.this);
 
 
         // Check if user is anonymous and update UI accordingly.
@@ -149,29 +151,19 @@ public class LoginActivity extends AppCompatActivity {
 
 
         mRegisterButton.setOnClickListener(v -> {
-            if (mEmail.getText().toString().trim().length() != 0 && mPassword.getText().toString().trim().length() != 0 ) {
-                Toast.makeText(LoginActivity.this, "Creating new account...", Toast.LENGTH_SHORT).show();
-                createUser(mEmail.getText().toString(), mPassword.getText().toString());
-            } else{
-                Toast.makeText(LoginActivity.this, "Please enter a valid email and password", Toast.LENGTH_SHORT).show();
-            }
-
+            startProgressDialog("Creating account");
+            createUser(mEmail.getText().toString(), mPassword.getText().toString());
         });
 
         mSignInButton.setOnClickListener(v -> {
-            if (mEmail.getText().toString().trim().length() != 0 && mPassword.getText().toString().trim().length() != 0 ) {
-                Toast.makeText(LoginActivity.this, "Signing in...", Toast.LENGTH_SHORT).show();
-                signInUser(mEmail.getText().toString(), mPassword.getText().toString());
-            } else{
-                Toast.makeText(LoginActivity.this, "Please enter a valid email and password", Toast.LENGTH_SHORT).show();
-            }
+            startProgressDialog("Signing-in");
+            signInUser(mEmail.getText().toString(), mPassword.getText().toString());
         });
 
 
         mAnonymousButton.setOnClickListener(v -> {
-            Toast.makeText(LoginActivity.this, "Logging in...", Toast.LENGTH_SHORT).show();
+            startProgressDialog("Signing-in");
             signInAnon();
-
         });
 
         mCallbackManager = CallbackManager.Factory.create();
@@ -237,6 +229,15 @@ public class LoginActivity extends AppCompatActivity {
         return false;
     }
 
+
+    private void startProgressDialog(String title){
+        mProgressDialog.setMessage("Loading...");
+        mProgressDialog.setTitle(title);
+        mProgressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        mProgressDialog.setCancelable(false);
+        mProgressDialog.show();
+    }
+
     private Spannable centeredToastMsg(String text){
         Spannable centeredText = new SpannableString(text);
         centeredText.setSpan(new AlignmentSpan.Standard(Layout.Alignment.ALIGN_CENTER),
@@ -266,6 +267,7 @@ public class LoginActivity extends AppCompatActivity {
                     }).addOnFailureListener(new OnFailureListener() {
                 @Override
                 public void onFailure(@NonNull Exception e) {
+                    mProgressDialog.dismiss();
                     // If registration in fails, display a message to the user.
                     if( e instanceof FirebaseAuthUserCollisionException){
                         Toast.makeText(LoginActivity.this, centeredToastMsg("This email address is already in use by another account"), Toast.LENGTH_LONG).show();
@@ -312,6 +314,7 @@ public class LoginActivity extends AppCompatActivity {
                     }).addOnFailureListener(new OnFailureListener() {
                 @Override
                 public void onFailure(@NonNull Exception e) {
+                    mProgressDialog.dismiss();
                     // If sign in fails, display a message to the user.
                     if( e instanceof FirebaseAuthInvalidUserException){
                         Toast.makeText(LoginActivity.this, centeredToastMsg("User not found\nPlease create a new account"), Toast.LENGTH_LONG).show();
@@ -348,6 +351,7 @@ public class LoginActivity extends AppCompatActivity {
                 }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
+                mProgressDialog.dismiss();
                 // If sign in fails, display a message to the user.
                 if(e instanceof FirebaseNetworkException){
                     Toast.makeText(LoginActivity.this, centeredToastMsg("Network error\nPlease check your connection"), Toast.LENGTH_LONG).show();
@@ -371,7 +375,7 @@ public class LoginActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<Void> task) {
                         if (task.isSuccessful()) {
                             Log.d("Profile update", "User profile updated.");
-                            Toast.makeText(getBaseContext(), "Logged-in as Guest", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getBaseContext(), "Signed-in as Guest", Toast.LENGTH_SHORT).show();
                             redirect();
                         }
                     }
@@ -382,7 +386,8 @@ public class LoginActivity extends AppCompatActivity {
         Log.d(TAG, "handleFacebookAccessToken:" + token);
 
         AuthCredential credential = FacebookAuthProvider.getCredential(token.getToken());
-            mAuth.signInWithCredential(credential)
+        startProgressDialog("Signing-in with Facebook");
+        mAuth.signInWithCredential(credential)
                     .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
@@ -399,6 +404,7 @@ public class LoginActivity extends AppCompatActivity {
                     }).addOnFailureListener(new OnFailureListener() {
                 @Override
                 public void onFailure(@NonNull Exception e) {
+                    mProgressDialog.dismiss();
                     // If sign-in in fails, display a message to the user.
                     if(e instanceof FirebaseNetworkException){
                         Toast.makeText(LoginActivity.this, centeredToastMsg("Network error\nPlease check your connection"), Toast.LENGTH_LONG).show();
@@ -411,6 +417,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void redirect(){
+        mProgressDialog.dismiss();
         if(mAnonymous){ //close the activity and return to normal if entered as anonymous
             finish();
         }

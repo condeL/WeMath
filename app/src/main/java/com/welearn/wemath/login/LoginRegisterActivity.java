@@ -3,6 +3,7 @@ package com.welearn.wemath.login;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -40,7 +41,13 @@ public class LoginRegisterActivity extends AppCompatActivity {
 
         mRegisterButton.setOnClickListener(v -> {
                 if (mNameEditText.getText().toString().trim().length() != 0){
-                    Toast.makeText(LoginRegisterActivity.this, "Registering...", Toast.LENGTH_LONG).show();
+                    ProgressDialog progressDialog = new ProgressDialog(LoginRegisterActivity.this);
+                    progressDialog.setMessage("Loading...");
+                    progressDialog.setTitle("Registering");
+                    progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+                    progressDialog.setCancelable(false);
+                    progressDialog.show();
+
                     UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
                             .setDisplayName(mNameEditText.getText().toString())
                             .build();
@@ -51,6 +58,7 @@ public class LoginRegisterActivity extends AppCompatActivity {
                             public void onComplete(@NonNull Task<Void> task) {
                                 if (task.isSuccessful()) {
                                     Log.d("Profile update", "User profile updated.");
+                                    progressDialog.dismiss();
                                     Toast.makeText(LoginRegisterActivity.this, "Registration successful!", Toast.LENGTH_LONG).show();
                                     if(mAnonymous){
                                         finish();
@@ -60,12 +68,15 @@ public class LoginRegisterActivity extends AppCompatActivity {
                                         startActivity(intent);
                                         finish();
                                     }
+                                } else{
+                                    progressDialog.dismiss();
+                                    Toast.makeText(LoginRegisterActivity.this, "Please check your connection", Toast.LENGTH_LONG).show();
                                 }
                             }
                         });
 
             } else{
-                    Toast.makeText(LoginRegisterActivity.this, "Please enter a valid username", Toast.LENGTH_LONG).show();
+                    Toast.makeText(LoginRegisterActivity.this, "Please enter a username", Toast.LENGTH_LONG).show();
                 }
         });
     }
