@@ -7,6 +7,10 @@ package com.welearn.wemath.quizzes.User;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.Bundle;
+import android.text.Layout;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.style.AlignmentSpan;
 import android.util.Log;
 import android.util.Pair;
 import android.view.LayoutInflater;
@@ -64,6 +68,7 @@ public class UserQuizCreationQuestionFragment extends Fragment {
 
         viewPager = root.findViewById(R.id.user_quiz_creation_question_pager);
         pagerAdapter = new ScreenSlidePagerAdapter(this, getContext());
+        viewPager.setOffscreenPageLimit(10);
         viewPager.setAdapter(pagerAdapter);
 
 
@@ -75,7 +80,7 @@ public class UserQuizCreationQuestionFragment extends Fragment {
         mSubmitButton = root.findViewById(R.id.user_quiz_creation_question_submit_button);
 
         mSubmitButton.setOnClickListener(v -> {
-            Toast.makeText(getContext(),"Sending quiz...!", Toast.LENGTH_LONG).show();
+            Toast.makeText(getContext(),"Sending quiz...", Toast.LENGTH_LONG).show();
             FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
             FirebaseFirestore db = FirebaseFirestore.getInstance();
 
@@ -103,7 +108,7 @@ public class UserQuizCreationQuestionFragment extends Fragment {
                         .addOnFailureListener(e -> {
                             Log.w("failure", "Error writing document", e);
                             progressDialog.dismiss();
-                            Toast.makeText(getContext(), "Error sending quiz.\nPlease check your connection and try again", Toast.LENGTH_LONG).show();
+                            Toast.makeText(getContext(), centeredToastMsg("Error sending quiz.\nPlease check your connection and try again"), Toast.LENGTH_LONG).show();
                         });
             }
         });
@@ -115,6 +120,14 @@ public class UserQuizCreationQuestionFragment extends Fragment {
         int selectedID = mDifficultyGroup.getCheckedRadioButtonId();
         RadioButton selectedSectionRadio = (mDifficultyGroup.findViewById(selectedID));
         return selectedSectionRadio.getText().toString();
+    }
+
+    private Spannable centeredToastMsg(String text){
+        Spannable centeredText = new SpannableString(text);
+        centeredText.setSpan(new AlignmentSpan.Standard(Layout.Alignment.ALIGN_CENTER),
+                0, text.length() - 1,
+                Spannable.SPAN_INCLUSIVE_INCLUSIVE);
+        return centeredText;
     }
 
     private class ScreenSlidePagerAdapter extends FragmentStateAdapter {
@@ -152,7 +165,8 @@ public class UserQuizCreationQuestionFragment extends Fragment {
                     if (getCard(i).mProblem.getText().toString().trim().length() !=0) { //no empty problem statements
                         problem = getCard(i).mProblem.getText().toString();
                     } else {
-                        Toast.makeText(getContext(),"Question statements must be provided for each questions", Toast.LENGTH_LONG).show();
+                        Toast.makeText(getContext(),centeredToastMsg("Question statements must be provided for each questions"), Toast.LENGTH_LONG).show();
+                        mQuizQuestions.clear();
                         return false;
                     }
 
@@ -166,7 +180,8 @@ public class UserQuizCreationQuestionFragment extends Fragment {
                                 answers.add(new Pair<>(getCard(i).mAnswer[y].getText().toString(), getCard(i).mTruthCheckboxes[y].isChecked()));
                             } else {
                                 if (y < 2) { //at least 2 answers are needed
-                                    Toast.makeText(getContext(),"At least 2 answers must be provided for each questions", Toast.LENGTH_LONG).show();
+                                    Toast.makeText(getContext(),centeredToastMsg("At least 2 answers must be provided for each questions"), Toast.LENGTH_LONG).show();
+                                    mQuizQuestions.clear();
                                     return false;
                                 }
                             }
@@ -177,7 +192,8 @@ public class UserQuizCreationQuestionFragment extends Fragment {
                                 answers.add(new Pair<>(getCard(i).mAnswer[y].getText().toString(), getCard(i).mTruthRadios[y].isChecked()));
                             }else {
                                 if (y < 2) { //at least 2 answers are needed
-                                    Toast.makeText(getContext(),"At least 2 answers must be provided for each questions", Toast.LENGTH_LONG).show();
+                                    Toast.makeText(getContext(),centeredToastMsg("At least 2 answers must be provided for each questions"), Toast.LENGTH_LONG).show();
+                                    mQuizQuestions.clear();
                                     return false;
                                 }
                             }
@@ -189,7 +205,8 @@ public class UserQuizCreationQuestionFragment extends Fragment {
                             break;
                         } else{
                             if(z ==0){
-                                Toast.makeText(getContext(),"At least 1 correct answer must be provided for each questions", Toast.LENGTH_LONG).show();
+                                Toast.makeText(getContext(),centeredToastMsg("At least 1 correct answer must be provided for each questions"), Toast.LENGTH_LONG).show();
+                                mQuizQuestions.clear();
                                 return false;
                             }
                         }
@@ -204,9 +221,11 @@ public class UserQuizCreationQuestionFragment extends Fragment {
 
             }catch (IndexOutOfBoundsException e){
                 Toast.makeText(getContext(),"Please create 10 questions", Toast.LENGTH_LONG).show();
+                mQuizQuestions.clear();
                 return false;
             }catch (Exception e){
-                Toast.makeText(getContext(),"Error sending quiz.\nPlease review and try again", Toast.LENGTH_LONG).show();
+                Toast.makeText(getContext(),centeredToastMsg("Error sending quiz.\nPlease review and try again"), Toast.LENGTH_LONG).show();
+                mQuizQuestions.clear();
                 return false;
             }
            return true;
