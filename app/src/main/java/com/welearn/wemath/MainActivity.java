@@ -82,7 +82,7 @@ public class MainActivity extends AppCompatActivity {
                 drawerLayout.getWindowVisibleDisplayFrame(r);
                 int heightDiff = drawerLayout.getRootView().getHeight() - (r.bottom - r.top);
 
-                if (heightDiff > 200) { // if more than 100 pixels we know it's the keyboard
+                if (heightDiff > 300) { // if more than 100 pixels we know it's the keyboard
                     navView.setVisibility(View.GONE);
 
                 }else{

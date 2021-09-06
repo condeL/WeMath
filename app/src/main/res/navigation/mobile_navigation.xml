@@ -13,7 +13,7 @@
         <action
             android:id="@+id/action_navigation_lesson_section_to_lessonYearFragment"
             app:destination="@id/lessonYearFragment"
-            app:enterAnim="@anim/fragment_open_enter" />
+            app:enterAnim="@anim/nav_default_pop_enter_anim" />
     </fragment>
     <fragment
         android:id="@+id/navigation_home"
@@ -28,11 +28,11 @@
         <action
             android:id="@+id/action_navigation_quiz_main_to_quizTakingMenuFragment"
             app:destination="@id/quizTakingMenuFragment"
-            app:enterAnim="@anim/fragment_open_enter" />
+            app:enterAnim="@anim/nav_default_pop_enter_anim" />
         <action
             android:id="@+id/action_navigation_quiz_main_to_userQuizCreationFragment"
             app:destination="@id/userQuizCreationFragment"
-            app:enterAnim="@anim/fragment_open_enter" />
+            app:enterAnim="@anim/nav_default_pop_enter_anim" />
         <action
             android:id="@+id/action_navigation_quiz_main_to_loginActivity"
             app:destination="@id/loginActivity" />
@@ -45,7 +45,7 @@
         <action
             android:id="@+id/action_lessonYearFragment_to_lessonTopicFragment"
             app:destination="@id/lessonTopicFragment"
-            app:enterAnim="@anim/fragment_open_enter" />
+            app:enterAnim="@anim/nav_default_pop_enter_anim" />
         <argument
             android:name="section"
             app:argType="string" />
@@ -58,7 +58,7 @@
         <action
             android:id="@+id/action_lessonTopicFragment_to_lessonSelectionFragment"
             app:destination="@id/lessonSelectionFragment"
-            app:enterAnim="@anim/fragment_open_enter" />
+            app:enterAnim="@anim/nav_default_pop_enter_anim" />
         <argument
             android:name="year"
             app:argType="string" />
@@ -121,11 +121,11 @@
         <action
             android:id="@+id/action_quizTakingMenuFragment_to_adminQuizSelection"
             app:destination="@id/adminQuizSelection"
-            app:enterAnim="@anim/fragment_open_enter" />
+            app:enterAnim="@anim/nav_default_pop_enter_anim" />
         <action
             android:id="@+id/action_quizTakingMenuFragment_to_userQuizSelection"
             app:destination="@id/userQuizSelection"
-            app:enterAnim="@anim/fragment_open_enter" />
+            app:enterAnim="@anim/nav_default_pop_enter_anim" />
     </fragment>
     <fragment
         android:id="@+id/userQuizSelection"
@@ -140,7 +140,7 @@
         <action
             android:id="@+id/action_userQuizCreationFragment_to_userQuizCreationQuestionFragment"
             app:destination="@id/userQuizCreationQuestionFragment"
-            app:enterAnim="@anim/fragment_open_enter" />
+            app:enterAnim="@anim/nav_default_pop_enter_anim" />
     </fragment>
     <fragment
         android:id="@+id/userQuizCreationQuestionFragment"
